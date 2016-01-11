@@ -62,10 +62,13 @@
 
   platforms :jruby do
     gem 'jruby-openssl'
+#    gem 'activerecord-jdbcsqlite3-adapter'
+#    gem 'jdbc-sqlite3'
     gem 'therubyrhino'
   end
 
   platforms :ruby do
+#    gem 'sqlite3'
     gem 'execjs'
     gem 'therubyracer', '>= 0.12.0'
   end
