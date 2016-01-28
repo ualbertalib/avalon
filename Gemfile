@@ -98,6 +98,7 @@
   gem 'net-ldap'
 
   gem 'api-pagination'
+  gem 'avalon-wowza'
 
   group :assets, :production do
     gem 'coffee-rails'
