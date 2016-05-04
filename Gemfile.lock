@@ -552,6 +552,8 @@ GEM
     omniauth-identity (1.1.1)
       bcrypt-ruby (~> 3.0)
       omniauth (~> 1.0)
+    omniauth-shibboleth (1.2.1)
+      omniauth (>= 1.0.0)
     orm_adapter (0.5.0)
     os (0.9.6)
     parser (2.3.3.1)
@@ -873,6 +875,7 @@ DEPENDENCIES
   om (~> 3.1.0)
   omniauth-identity
   omniauth-lti!
+  omniauth-shibboleth
   pry
   pry-byebug
   pry-debugger
