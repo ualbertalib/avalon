@@ -157,6 +157,8 @@
     gem 'mime-types', ">=1.1"
     gem "headless"
     gem 'simplecov'
+    gem "rspec_junit_formatter"
+    gem 'rspec-its'
     gem 'email_spec'
     gem 'capybara'
     gem 'shoulda-matchers'
