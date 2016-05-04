@@ -250,10 +250,11 @@ Devise.setup do |config|
     :info_fields => {
       :name => 'givenName', 
       :last_name => 'sn', 
-      :email => 'mail'}
-  }
+      :email => ->(request) {request.call('mail')}
+    }
     #    ,
     #    :debug => true
+  }
 
 # unless Rails.env.development?
 #  config.omniauth :shibboleth, {
