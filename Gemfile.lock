@@ -717,6 +717,8 @@ GEM
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
     scrub_rb (1.0.1)
+    shoulda-matchers (3.1.1)
+      activesupport (>= 4.0.0)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -727,7 +729,7 @@ GEM
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
     simplecov-html (0.10.0)
-    skydrive (1.1.0)
+    skydrive (1.2.0)
       activesupport
       httmultiparty
       httparty (>= 0.11.0)
@@ -902,6 +904,7 @@ DEPENDENCIES
   rugged
   rvm-capistrano
   sass-rails (= 4.0.3)
+  shoulda-matchers
   simplecov
   solrizer (~> 3.3.0)
   sprockets (~> 2.11.0)
