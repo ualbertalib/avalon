@@ -161,7 +161,7 @@
     gem 'rspec-its'
     gem 'email_spec'
     gem 'capybara'
-    gem 'shoulda-matchers'
+#    gem 'shoulda-matchers'
     gem 'faker'
     gem 'fakefs', require: "fakefs/safe"
     gem 'fakeweb'
