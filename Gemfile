@@ -4,7 +4,6 @@
   gem 'active_annotations', git: 'https://github.com/avalonmediasystem/active_annotations.git', tag: 'avalon-r5'
 
   gem 'mysql2', '~>0.3.20'
-
   gem 'iconv'
   gem 'rails', '~>4.1'
   gem 'sprockets', '~>2.11.3'
@@ -163,7 +162,7 @@
     gem 'rspec-its'
     gem 'email_spec'
     gem 'capybara'
-#    gem 'shoulda-matchers'
+    gem 'shoulda-matchers'
     gem 'faker'
     gem 'fakefs', require: "fakefs/safe"
     gem 'fakeweb'
