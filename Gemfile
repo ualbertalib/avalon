@@ -3,7 +3,9 @@
   gem 'mysql2', '~>0.3.20'
   gem 'iconv'
   gem 'rails', '~>4.0.3'
-  gem 'sprockets', '~>2.11.0'
+#  gem 'sprockets', '~>2.11.3'
+  gem 'sprockets', '~>2.8'
+
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
 
@@ -60,7 +62,7 @@
   gem 'about_page', git: "https://github.com/avalonmediasystem/about_page.git", tag: 'avalon-r4'
 
   # You are free to implement your own User/Authentication solution in its place.
-  gem 'devise', '~>3.2.4'
+  gem 'devise', '~>3.5.4'
   #gem 'devise-guests'
   gem 'haml'
 
@@ -86,7 +88,7 @@
   group :assets, :production do
     gem 'coffee-rails'
     gem 'uglifier', '>= 1.0.3'
-    gem 'jquery-rails', '3.1.1'
+    gem 'jquery-rails', '~> 3.1.3'
     gem 'jquery-ui-rails', '5.0.0'
     gem 'compass-rails'
     gem 'compass-susy-plugin', '~> 0.9.0', require: 'susy'
@@ -94,7 +96,8 @@
     # For overriding the default interface with Twitter Bootstrap
     # This is now inherited from Blacklight
     gem 'bootstrap-sass', '=3.3.3'
-    gem 'sass-rails', '=4.0.3'
+#    gem 'sass-rails', '=4.0.3'
+    gem 'sass-rails', '~> 4.0.3'
     gem 'font-awesome-rails', '~> 4.3'
     gem 'bootstrap_form'
     gem 'handlebars_assets'
