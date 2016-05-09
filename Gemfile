@@ -5,7 +5,7 @@
 #  gem 'rails', '~>4.0.3'
   gem 'rails', '~>4.1.14.2'
 
-  gem 'sprockets', '~>2.11.3'
+#  gem 'sprockets', '~>2.11.3'
 #  gem 'sprockets', '~>2.8'
 
 #  gem 'compass', '1.0.3'
@@ -103,8 +103,8 @@
     # For overriding the default interface with Twitter Bootstrap
     # This is now inherited from Blacklight
     gem 'bootstrap-sass', '=3.3.3'
-#    gem 'sass-rails', '=4.0.3'
-    gem 'sass-rails', '~> 5.0.0'
+    gem 'sass-rails', '=4.0.3'
+#    gem 'sass-rails', '~> 5.0.0'
     gem 'font-awesome-rails', '~> 4.3'
     gem 'bootstrap_form'
     gem 'handlebars_assets'

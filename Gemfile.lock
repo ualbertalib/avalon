@@ -833,7 +833,6 @@ DEPENDENCIES
   sass-rails (= 4.0.3)
   shoulda-matchers
   simplecov
-  sprockets (~> 2.8)
   therubyracer (>= 0.12.0)
   therubyrhino
   twitter-typeahead-rails (= 0.10.5)
