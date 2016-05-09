@@ -8,6 +8,8 @@
   gem 'sprockets', '~>2.11.3'
 #  gem 'sprockets', '~>2.8'
 
+  gem 'rugged', '0.21.3'
+
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
 
