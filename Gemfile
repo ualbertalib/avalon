@@ -88,7 +88,8 @@
 
   group :assets, :production do
     gem 'coffee-rails'
-    gem 'uglifier', '>= 1.0.3'
+#    gem 'uglifier', '>= 1.0.3'
+    gem 'uglifier', '~> 2.7.2'
     gem 'jquery-rails', '~> 3.1.3'
     gem 'jquery-ui-rails', '5.0.0'
     gem 'compass-rails'
