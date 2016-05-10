@@ -5,7 +5,7 @@
 
   gem 'mysql2', '~>0.3.20'
   gem 'iconv'
-  gem 'rails', '~>4.0.3'
+  gem 'rails', '~>4.1'
   gem 'sprockets', '~>2.11.3'
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
@@ -36,7 +36,7 @@
   gem 'media-element-logo-plugin'
   #gem 'media_element_add_to_playlist', git: 'https://github.com/avalonmediasystem/media-element-add-to-playlist.git', tag: 'avalon-r5'
   gem 'media_element_add_to_playlist', git: 'https://github.com/avalonmediasystem/media-element-add-to-playlist.git', branch: 'master'
-  gem 'mediaelement-track-scrubber', git: 'https://github.com/avalonmediasystem/mediaelement-track-scrubber.git', branch: 'master'
+  gem 'mediaelement-track-scrubber', git: 'https://github.com/avalonmediasystem/mediaelement-track-scrubber.git', branch: 'update-rails'
 
   gem 'browse-everything', '0.6.3'
 
