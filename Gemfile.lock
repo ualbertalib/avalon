@@ -186,6 +186,15 @@ GIT
     active_encode (0.0.2)
       activesupport
 
+GIT
+  remote: https://github.com/ualbertalib/modal_logic.git
+  revision: 1a64e24e353e5cfcbde4a285a34ba45e071704ea
+  branch: master
+  specs:
+    modal_logic (0.0.7)
+      handlebars_assets (= 0.14.1)
+      rails (>= 4)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -513,9 +522,6 @@ GEM
     mimemagic (0.3.2)
     mini_portile2 (2.1.0)
     minitest (5.10.1)
-    modal_logic (0.0.8)
-      handlebars_assets (= 0.14.1)
-      rails (>= 4)
     multi_json (1.12.1)
     multi_xml (0.6.0)
     multipart-post (2.0.0)
@@ -880,7 +886,7 @@ DEPENDENCIES
   mediainfo
   meta_request
   mime-types (>= 1.1)
-  modal_logic
+  modal_logic!
   multipart-post
   mysql2 (~> 0.3.20)
   net-ldap
