@@ -105,7 +105,7 @@ en:
       <strong>Required field.</strong>Language describes the languages used in the item. Typing two or more
       letters within the field will bring up permitted matches. Only terms or
       codes from the <a href="http://www.loc.gov/marc/languages/"
-      target="_blank">MARC Code List for Languages</a> may be used. Hint: for English materials, simply type "English".
+      target="_blank">MARC Code List for Languages</a> may be used. Hint: for English language materials, type "English".
     terms_of_use: |
       Terms of Use describes the conditions under which content may be used. This is an optional field.
     physical_description: |
