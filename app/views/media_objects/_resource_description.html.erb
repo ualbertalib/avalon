@@ -23,7 +23,7 @@ Unless required by applicable law or agreed to in writing, software distributed
                       options: {display_label: 'Bibliographic ID',
                                 dropdown_field: :bibliographic_id_label, 
                                 dropdown_options: ModsDocument::IDENTIFIER_TYPES,
-                                extra_classes: Avalon::BibRetriever.configured? ? 'import-button' : nil}} %>
+                                extra_classes: Avalon::BibRetriever.configured? ? 'import-button' : nil}} #%>
 
   <%= render partial: 'text_field', 
              locals: {form: form, field: :title, 
