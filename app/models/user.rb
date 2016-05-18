@@ -72,7 +72,7 @@ class User < ActiveRecord::Base
     result = 
       User.find_by_username(auth_hash.uid) ||
       User.find_by_email(auth_hash.info.email) ||
-      User.create(:username => auth_hash.uid, :email => auth_hash.info.email)
+      User.create(:username => auth_hash.info.email, :email => auth_hash.info.email)
 
   end
 
