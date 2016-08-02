@@ -18,7 +18,7 @@
   gem 'solrizer', '~> 3.3.0'
   gem 'rsolr', '~> 1.1.2'
   gem 'blacklight', '~> 5.10'
-  gem 'nokogiri', '~> 1.6.5'
+  gem 'nokogiri', '~> 1.6.8'
   gem 'rubydora', '~> 1.8.1'
   gem 'nom-xml', '~> 0.5.2'
 
@@ -122,8 +122,10 @@
 
   group :development do
     gem 'xray-rails'
-    gem 'better_errors',   platforms: [:mri_20, :mri_21]
-    gem 'binding_of_caller',   platforms: [:mri_20, :mri_21]
+#    gem 'better_errors',   platforms: [:mri_20, :mri_21]
+    gem 'better_errors'
+#    gem 'binding_of_caller',   platforms: [:mri_20, :mri_21]
+    gem 'binding_of_caller'
     gem 'license_header'
     gem 'meta_request'
     gem 'capistrano', '~>2.12.0'
