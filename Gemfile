@@ -10,6 +10,7 @@
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
   gem 'rake', '~>10.4'
+#  gem 'rest-client', '~>1.8.0'
 
 #  gem 'hydra', '~>8.0'
   gem 'hydra-head', git: 'https://github.com/avalonmediasystem/hydra-head.git', branch: '8-1-stable'
@@ -18,7 +19,7 @@
   gem 'solrizer', '~> 3.3.0'
   gem 'rsolr', '~> 1.1.2'
   gem 'blacklight', '~> 5.10'
-  gem 'nokogiri', '~> 1.6.8'
+  gem 'nokogiri', '~> 1.6.5'
   gem 'rubydora', '~> 1.8.1'
   gem 'nom-xml', '~> 0.5.2'
 
