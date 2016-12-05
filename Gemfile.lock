@@ -736,8 +736,8 @@ GEM
       sprockets (~> 2.8, < 3.0)
       sprockets-rails (~> 2.0)
     scrub_rb (1.0.1)
-    shoulda-matchers (3.1.1)
-      activesupport (>= 4.0.0)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     signet (0.7.3)
       addressable (~> 2.3)
       faraday (~> 0.9)
@@ -924,7 +924,7 @@ DEPENDENCIES
   rugged
   rvm-capistrano
   sass-rails (~> 4.0.5)
-  shoulda-matchers
+  shoulda-matchers (~> 2.8)
   simplecov
   solrizer (~> 3.3.0)
   sprockets (~> 2.11.3)
