@@ -158,7 +158,7 @@
     gem 'simplecov'
     gem 'email_spec'
     gem 'capybara'
-    gem 'shoulda-matchers'
+    gem 'shoulda-matchers', '~> 2.8'
     gem 'faker'
     gem 'fakefs', require: "fakefs/safe"
     gem 'fakeweb'
