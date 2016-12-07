@@ -40,7 +40,8 @@ describe Users::OmniauthCallbacksController do
     it 'should create the user if necessary' do
       expect { post '/users/auth/lti/callback', foo_hash }.to change { User.all.count }
       new_user = User.last
-      expect(new_user.username).to eq(user_uid)
+      # U of A Avalon encodes an email address as the username.
+      expect(new_user.username).to eq(user_email)
       expect(new_user.email).to eq(user_email)
     end
 
