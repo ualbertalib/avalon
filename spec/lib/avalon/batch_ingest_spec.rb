@@ -275,7 +275,8 @@ describe Avalon::Batch::Ingest do
       batch = Avalon::Batch::Package.new('spec/fixtures/dropbox/example_batch_ingest/badColumnName_nonRequired.xlsx', collection)
       allow_any_instance_of(Avalon::Dropbox).to receive(:find_new_packages).and_return [batch]
       mailer = double('mailer').as_null_object
-      expect(IngestBatchMailer).to receive(:batch_ingest_validation_error).with(batch ,['RuntimeError: Foo']).and_return(mailer)
+      expect(IngestBatchMailer).to receive(:batch_ingest_validation_error).
+        with(batch, [/^RuntimeError: Foo: /]).and_return(mailer)
       expect(mailer).to receive(:deliver)
       expect(batch_ingest).to receive(:ingest_package) { raise "Foo" }
       expect { batch_ingest.ingest }.to_not raise_error
