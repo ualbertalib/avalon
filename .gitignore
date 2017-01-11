@@ -37,6 +37,7 @@ coverage
 rdoc
 pkg
 /.bundle
+vendor/bundle
 /.rvmrc
 db/*.sqlite3
 **/*.log
