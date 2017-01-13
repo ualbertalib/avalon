@@ -50,10 +50,14 @@ describe Permalink do
 
     context 'creating permalink' do
       let(:media_object) { master_file.mediaobject }
+      let(:media_object_path) { "media_objects/#{media_object.pid}" }
+      let(:master_file_path) { "media_objects/#{media_object.pid}/section/#{master_file.pid}" }
       
       it 'should get the absolute path to the object' do
-        expect(Permalink.url_for(media_object)).to eq("http://test.host/media_objects/#{media_object.pid}")
-        expect(Permalink.url_for(master_file)).to eq("http://test.host/media_objects/#{media_object.pid}/section/#{master_file.pid}")
+        expect(["http://test.host/#{media_object_path}",
+                "https://test.host/#{media_object_path}"]).to include(Permalink.url_for(media_object))
+        expect(["http://test.host/#{master_file_path}",
+                "https://test.host/#{master_file_path}"]).to include(Permalink.url_for(master_file))
       end
       
       it 'permalink_for raises ArgumentError if not passed mediaobject or masterfile' do

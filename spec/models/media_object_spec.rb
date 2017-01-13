@@ -529,7 +529,8 @@ describe MediaObject do
           'http://www.example.com/perma-url'
         }
         media_object.ensure_permalink!
-        expect(t).to eq("http://test.host/media_objects/#{media_object.pid}")
+        expect(["http://test.host/media_objects/#{media_object.pid}",
+                "https://test.host/media_objects/#{media_object.pid}"]).to include(t)
         expect(media_object.permalink).to eq('http://www.example.com/perma-url')
       end
 
