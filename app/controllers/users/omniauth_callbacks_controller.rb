@@ -68,7 +68,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     end
 
     if request['target_id']
-      redirect_to object_path(request['target_id'])
+      url_options = {}
+      if params[:custom_embed_section]
+        redirect_to embed_master_file_path(request['target_id'])
+      else
+        redirect_to object_path(request['target_id'])
+      end
     elsif params[:url]
       redirect_to params[:url]
     elsif session[:previous_url] 
