@@ -65,8 +65,7 @@ class MediaObject < ActiveFedora::Base
   validate  :validate_dates
   validate  :validate_note_type
   validates  :topical_subject, presence: true
-#  validate  :validate_access_restrictions_license, :presence => true
-  validate  :validate_access_restrictions_license, :presence => true
+  validate  :validate_access_restrictions_license
   validate  :validate_access_restrictions_rights
 
   def validate_access_restrictions_rights

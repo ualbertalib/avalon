@@ -5,11 +5,13 @@
 
   gem 'mysql2', '~>0.3.20'
   gem 'iconv'
-  gem 'rails', '~>4.1'
+  gem 'rails', '~>4.2'
   gem 'sprockets', '~>2.11.3'
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
   gem 'rake', '~>10.4'
+
+  
 
 #  gem 'hydra', '~>8.0'
   gem 'hydra-head', git: 'https://github.com/avalonmediasystem/hydra-head.git', branch: '8-1-stable'
@@ -77,7 +79,7 @@
   gem 'about_page', git: "https://github.com/avalonmediasystem/about_page.git"
 
   # You are free to implement your own User/Authentication solution in its place.
-  gem 'devise', '~>3.5.9'
+  gem 'devise', '~>3.5'
   #gem 'devise-guests'
   gem 'haml'
 
@@ -90,7 +92,7 @@
   gem 'omniauth-shibboleth'
 
   gem 'mediainfo'
-  gem 'delayed_job', '=4.0.4'
+  gem 'delayed_job', '~>4.0'
   gem 'delayed_job_active_record'
   gem 'whenever', require: false
   gem 'with_locking'
@@ -132,6 +134,7 @@
     gem 'rvm-capistrano', require: false
     gem 'rubocop', '~> 0.40.0', require: false
     gem 'rugged'
+    gem 'web-console', '~> 2.0' 
   end
 
   # For testing.  You will probably want to use these to run the tests you write for your hydra head
