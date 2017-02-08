@@ -13,15 +13,15 @@ Unless required by applicable law or agreed to in writing, software distributed
 <div id="masthead" class="container">
   <div class="row visible-xs">
     <div class="lib-logo col-xs-8">
-      <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
-      </div>
+      <%= ualib_logo_link %>
+    </div>
   </div>
   <div class="row">
     <div class="lib-logo col-sm-3 hidden-xs">
-      <%= link_to "", "https://library.ualberta.ca", :class => 'logo' %>
+      <%= ualib_logo_link %>
     </div>
     <div class="mast-branding col-sm-5">
-          <%= image_tag "ERA-A+V-beta-logo.png", alt: "University of Alberta ERA Audio and Video - #{t(:release_label)} #{Avalon::VERSION}" %>
+      <%= era_av_logo_link %>
     </div>
     <div class="col-sm-4">
       <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline hidden-xs mast-sm-search">
