@@ -211,3 +211,7 @@ en:
 
   ualberta:
     era_av_full: "University of Alberta ERA Audio and Video"
+
+  metadata:
+    labels:
+      access_restriction_rights: "User-defined License"
