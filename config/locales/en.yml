@@ -208,3 +208,6 @@ en:
       playlist:
         title: "Name"
         comment: "Description"
+
+  ualberta:
+    era_av_full: "University of Alberta ERA Audio and Video"
