@@ -107,6 +107,8 @@ Unless required by applicable law or agreed to in writing, software distributed
       customError: '<%= t("media_objects.player.customError").html_safe %>',
       playlistItemDefaultTitle: '<%= escape_javascript @currentStream.embed_title %>',
       displayTrackScrubber: true,
+      // Default auto-hide behavior is quirky, we'll manage it ourselves below
+      alwaysShowControls: true,
       autostart: <%= params[:autostart] == 'true' ? 'true' : 'false' %>,
       success: function(mediaElement, domObject, player) {
 	player.media.addEventListener('ended', function(e) {
@@ -115,6 +117,63 @@ Unless required by applicable law or agreed to in writing, software distributed
       }
     });
     currentPlayer = avalonPlayer.player;
+
+    var $video = currentPlayer.container;
+    var $controls = $video.find('.mejs-controls');
+    var controls_hidden = false;
+    setup_controls_autohide()
+
+    function setup_controls_autohide() {
+      setup_controls_autohide_by_mouse_position();
+      setup_controls_autohide_by_mouse_movement();
+    }
+
+    function setup_controls_autohide_by_mouse_position() {
+      // Mouse enters video region: controls appear
+      // Mouse leaves video region: controls hide
+      $video.mouseleave(function() {
+        controls_hide();
+      });
+      $video.mouseenter(function() {
+        controls_show();
+      });
+    }
+
+    function setup_controls_autohide_by_mouse_movement() {
+      // Handle auto-hide contorls for full screen video
+      // Mouse moves: controls appear
+      // Mouse doesn't move for 2 seconds: controls hide
+      var delay = 2000;
+      var t;
+      $video.mousemove(function(){
+        clearTimeout(t);
+        if (controls_hidden) {
+          controls_show();
+        }
+
+        t = setTimeout(function() {
+          // Mouse has not been moved
+          controls_hide();
+        }, delay);
+      });
+    }
+
+    function controls_hide() {
+      // Stop any currently running animations
+      $controls.stop();
+      // Why slideUp? Not intuitive, but works ...
+      $controls.slideUp();
+      controls_hidden = true;
+    }
+
+    function controls_show() {
+      $controls.stop();
+      $controls.slideDown();
+      // Sometimes the controls render in the wrong place, so we do:
+      currentPlayer.setControlsSize();
+      controls_hidden = false;
+    }
+
   </script>
   <% end %>
 <% end %>
