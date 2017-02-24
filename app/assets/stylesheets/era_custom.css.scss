@@ -1,4 +1,9 @@
 @import "avalon";
+
+$link1: #b5fd99;
+$link1Hover: #efefef;
+$link1Visited: #3a8489;
+
 * {
 margin: 0;
 }
@@ -243,7 +248,7 @@ body.home h4{
 	font-size: 90%;
 }
 .more-info>h4 a{
-	color: #b5fd99;
+	color: $link1;
 
 }
 .more-info>h4 a:hover{
@@ -325,7 +330,7 @@ body.home h4{
 	line-height: 1.8;
 }
 .technical-info>p>a{
-	color: #b5fd99;
+	color: $link1;
 	text-decoration: none;
 }
 .technical-info>p>a:hover{
@@ -382,14 +387,14 @@ body.home h4{
 	background-color: #fff;
 	padding: 5px 10px;
 	background-color: #000;
-	border: 3px solid #b5fd99;
+	border: 3px solid $link1;
 	color: #fff;
 	display: inline-block;
 	margin-top: 10px;
 	font-size: 110%;
 }
 .show-info a:hover{
-	color: #b5fd99;
+	color: $link1;
 	text-decoration: none;
 	background-color: rgba(0, 0, 0, 0.5);
 }
@@ -459,7 +464,7 @@ body.home h4{
 	padding: 0;
 }
 .footer ul>li>a{
-	color: #b5fd99;
+	color: $link1;
 	font-size: 110%;
 	padding-bottom: 10px;
 }
@@ -471,8 +476,18 @@ body.home h4{
 	font-size: 90%;
 }
 .copyright>a{
-	color: #b5fd99;
+	color: $link1;
 }
+.copyright>a:visited{
+	color: $link1Visited;
+}
+.copyright>a:hover{
+	color: $link1Hover;
+}
+.copyright>a:visited:hover{
+	color: $link1Hover;
+}
+
 #masthead{
 	background-color: #fff;
 	min-height: 0px;
@@ -1780,7 +1795,7 @@ body.home h4{
 	font-size: 90%;
 }
 .more-info>h4 a{
-	color: #b5fd99;
+	color: $link1;
 
 }
 .more-info>h4 a:hover{
@@ -1862,7 +1877,7 @@ body.home h4{
 	line-height: 1.8;
 }
 .technical-info>p>a{
-	color: #b5fd99;
+	color: $link1;
 	text-decoration: none;
 }
 .technical-info>p>a:hover{
@@ -1919,14 +1934,14 @@ body.home h4{
 	background-color: #fff;
 	padding: 5px 10px;
 	background-color: #000;
-	border: 3px solid #b5fd99;
+	border: 3px solid $link1;
 	color: #fff;
 	display: inline-block;
 	margin-top: 10px;
 	font-size: 110%;
 }
 .show-info a:hover{
-	color: #b5fd99;
+	color: $link1;
 	text-decoration: none;
 	background-color: rgba(0, 0, 0, 0.5);
 }
@@ -1939,7 +1954,7 @@ body.home h4{
 	font-size: 1.8vw;
 }
 .show-info h4{
-	color: #b5fd99;
+	color: $link1;
 	letter-spacing: 1px;
 	font-size: 1vw;
 	padding-bottom: 10px;
@@ -1995,19 +2010,25 @@ body.home h4{
 	padding: 0;
 }
 .footer ul>li>a{
-	color: #b5fd99;
+	color: $link1;
 	font-size: 110%;
 	padding-bottom: 10px;
 }
 .footer ul>li>a:hover{
-	color: #efefef;
+	color: $link1Hover;
+}
+.footer ul>li>a:visited{
+	color: $link1Visited;
+}
+.footer ul>li>a:hover:visited{
+	color: $link1Hover;
 }
 .copyright{
 	padding: 40px 20px 0 20px;
 	font-size: 90%;
 }
 .copyright>a{
-	color: #b5fd99;
+	color: $link1;
 }
 #masthead{
 	background-color: #fff;
@@ -2181,7 +2202,7 @@ body.home h4{
 	font-size: 18px;
 }
 .alert-success{
-	background-color: #b5fd99;
+	background-color: $link1;
 }
 .alert-warning{
 	background-color: #fbf8ae;
