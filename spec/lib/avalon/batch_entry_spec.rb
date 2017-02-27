@@ -43,8 +43,17 @@ describe Avalon::Batch::Entry do
     allow(manifest).to receive_message_chain(:package, :collection).and_return(collection)
     manifest
   end
+  let(:entry_fields) do
+    { title: Faker::Lorem.sentence,
+      topical_subject: 'This and that',
+      language: 'eng',
+      date_issued: "#{Time.now.to_date}",
+    }
+  end
   let(:entry) do
-    Avalon::Batch::Entry.new({ title: Faker::Lorem.sentence, date_issued: "#{Time.now}", collection: collection, governing_policy: collection }, [{file: filename, skip_transcoding: false}], {}, nil, manifest)
+    Avalon::Batch::Entry.
+      new(entry_fields, [{file: filename, skip_transcoding: false}], {},
+          nil, manifest)
   end
 
   before(:each) do
@@ -131,7 +140,9 @@ describe Avalon::Batch::Entry do
 
     describe '#process' do
       let(:entry) do
-        Avalon::Batch::Entry.new({ title: Faker::Lorem.sentence, date_issued: "#{Time.now}", collection: collection, governing_policy: collection }, [{file: filename, skip_transcoding: true}], {}, nil, manifest)
+        Avalon::Batch::Entry.
+          new(entry_fields, [{file: filename, skip_transcoding: true}], {},
+              nil, manifest)
       end
 
       before(:each) do
