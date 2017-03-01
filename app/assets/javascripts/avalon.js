@@ -25,7 +25,8 @@ $(document).ready(function() {
       var longest = $(this).find('.facet-count span').sort(longer).first();
       var clone = longest.clone().css('visibility','hidden');
       $('body').append(clone);
-      $(this).find('.facet-count').first().width(clone.width());
+      // U of A: add 2 pixel fudge factor to avoid bad number wrapping
+      $(this).find('.facet-count').first().width(clone.width()+2);
       clone.remove();
   });
 
