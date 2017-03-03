@@ -22,11 +22,13 @@ $(document).ready(function() {
   // adjust width of facet columns to fit their contents
   function longer (a,b){ return b.textContent.length - a.textContent.length; }
   $('ul.facet-values, ul.pivot-facet').map(function(){
+      // U of A: add 2 pixel fudge factor to avoid bad number wrapping
+      var UOFA_FUDGE_PIXELS = 2;
+
       var longest = $(this).find('.facet-count span').sort(longer).first();
       var clone = longest.clone().css('visibility','hidden');
       $('body').append(clone);
-      // U of A: add 2 pixel fudge factor to avoid bad number wrapping
-      $(this).find('.facet-count').first().width(clone.width()+2);
+      $(this).find('.facet-count').first().width(clone.width()+UOFA_FUDGE_PIXELS);
       clone.remove();
   });
 
