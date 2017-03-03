@@ -745,7 +745,7 @@ GEM
       mime-types
       nokogiri
       rest-client
-    rubyzip (0.9.9)
+    rubyzip (1.2.1)
     rugged (0.25.1)
     rvm-capistrano (1.4.1)
       capistrano (>= 2.0.0)
@@ -945,7 +945,7 @@ DEPENDENCIES
   ruby-duration
   rubydora (~> 1.8.1)
   rubyhorn!
-  rubyzip (= 0.9.9)
+  rubyzip (>= 1.2.1)
   rugged
   rvm-capistrano
   sass-rails (~> 4.0.5)

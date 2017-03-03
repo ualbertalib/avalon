@@ -47,7 +47,7 @@
   gem 'multipart-post'
   gem 'modal_logic', git: 'https://github.com/ualbertalib/modal_logic.git', branch: 'master'
   
-  gem 'rubyzip', '0.9.9'
+  gem 'rubyzip', '>=1.2.1'
   gem 'hooks'
   gem 'addressable'
   gem 'acts_as_list'
