@@ -7,6 +7,11 @@ en:
     sign_out: "Sign out"
     embedded_video: <p>This video content is restricted</p><p>You must be logged in and authorized to view it</p>
     embedded_audio: This audio content is restricted
+  bib_import_warning:
+    "Warning, this import will overwrite the metadata stored on the remote server
+    for this item.\n\n
+    THERE IS NO UNDO FOR THIS ACTION.\n\n
+    Are you sure you would like to continue?"
   release_label: "Release"
   errors:
     lti_auth_error: |

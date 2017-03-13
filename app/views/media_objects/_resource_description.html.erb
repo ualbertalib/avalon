@@ -152,4 +152,9 @@ Unless required by applicable law or agreed to in writing, software distributed
   <%= javascript_include_tag 'xyz' %>
 
   <%= javascript_include_tag 'license_entry' %>
+  <script>
+    $(function() {
+      set_bib_import_warning_message("<%= j I18n.t(:bib_import_warning) %>");
+    });
+  </script>
 <% end %>

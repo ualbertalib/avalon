@@ -16,3 +16,14 @@
 $ ->
   import_button_html = '<div class="input-group-btn"><button type="submit" name="media_object[import_bib_record]" class="btn btn-success" value="yes">Import</button></div>'
   $('div.import-button').append(import_button_html)
+
+  bib_import_warning_message =
+    'Warning, this import will overwrite the metadata stored on the remote server ' +
+    'for this item.\n\nTHERE IS NO UNDO FOR THIS ACTION.\n\n' +
+    'Are you sure you would like to continue?'
+
+  window.set_bib_import_warning_message = (msg) ->
+    bib_import_warning_message = msg
+
+  $('div.import-button button').click ->
+    return confirm(bib_import_warning_message);
