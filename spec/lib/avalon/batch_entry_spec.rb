@@ -153,29 +153,90 @@ describe Avalon::Batch::Entry do
       end
 
       it 'should call MasterFile.setContent with a hash or derivatives' do
-	allow_any_instance_of(MasterFile).to receive(:file_format).and_return('Moving image')
-	expect_any_instance_of(MasterFile).to receive(:setContent).with(hash_match(derivative_hash))
-	expect_any_instance_of(MasterFile).to receive(:process).with(hash_match(derivative_hash))
-	entry.process!
+        allow_any_instance_of(MasterFile).to receive(:file_format).and_return('Moving image')
+        expect_any_instance_of(MasterFile).to receive(:setContent).
+          with(hash_match(derivative_hash))
+        expect_any_instance_of(MasterFile).to receive(:process).
+          with(hash_match(derivative_hash))
+        entry.process!
       end
     end
 
     describe '#gatherFiles' do
       it 'should return a hash of files keyed with their quality' do
-	expect(Avalon::Batch::Entry.gatherFiles(filename)).to hash_match derivative_hash
+        expect(Avalon::Batch::Entry.gatherFiles(filename)).to hash_match derivative_hash
       end
     end
 
     describe '#derivativePaths' do
       it 'should return the paths to all derivative files that exist' do
-	expect(Avalon::Batch::Entry.derivativePaths(filename)).to eq derivative_paths
+        expect(Avalon::Batch::Entry.derivativePaths(filename)).to eq derivative_paths
       end
     end
 
     describe '#derivativePath' do
       it 'should insert supplied quality into filename' do
-	expect(Avalon::Batch::Entry.derivativePath(filename, 'low')).to eq filename_low
+        expect(Avalon::Batch::Entry.derivativePath(filename, 'low')).to eq filename_low
       end
     end
+
+    describe 'required fields' do
+      let(:entry) do
+        Avalon::Batch::Entry.
+          new(entry_fields, [{file: filename, skip_transcoding: true}], {},
+              nil, manifest)
+      end
+      let(:entry_fields_no_language) do
+        { title: Faker::Lorem.sentence,
+          topical_subject: 'This and that',
+          date_issued: "#{Time.now.to_date}",
+        }
+      end
+      let(:entry_fields_no_topical_subject) do
+        { title: Faker::Lorem.sentence,
+          language: 'eng',
+          date_issued: "#{Time.now.to_date}",
+        }
+      end
+      let(:entry_no_language) do
+        Avalon::Batch::Entry.
+          new(entry_fields_no_language, [{file: filename, skip_transcoding: true}], {},
+              nil, manifest)
+      end
+      let(:entry_no_topical_subject) do
+        Avalon::Batch::Entry.
+          new(entry_fields_no_topical_subject, [{file: filename, skip_transcoding: true}], {},
+              nil, manifest)
+      end
+      before(:each) do
+        derivative_paths.each {|path| FileUtils.touch(File.join(testdir,path))}
+      end
+      after(:each) do
+        derivative_paths.each {|path| FileUtils.rm(File.join(testdir,path))}
+      end
+
+      it 'should pass when required fields present' do
+        entry.valid?
+        expect(entry_no_language.errors.empty?).
+          to be_truthy
+      end
+
+      it 'should fail when no language' do
+        entry_no_language.valid?
+        expect(entry_no_language.errors.messages.keys).
+          to eq([:language])
+        expect(entry_no_language.errors.messages[:language]).
+          to eq(["field is required."])
+      end
+      
+      it 'should fail when no topical subject' do
+        entry_no_topical_subject.valid?
+        expect(entry_no_topical_subject.errors.messages.keys).
+          to eq([:topical_subject])
+        expect(entry_no_topical_subject.errors.messages[:topical_subject]).
+          to eq(["field is required."])
+      end
+    end
+
   end
 end
