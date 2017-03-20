@@ -118,10 +118,14 @@ Unless required by applicable law or agreed to in writing, software distributed
     });
     currentPlayer = avalonPlayer.player;
 
-    var $video = currentPlayer.container;
-    var $controls = $video.find('.mejs-controls');
-    var controls_hidden = false;
-    setup_controls_autohide()
+    // Only autohide for video
+    if (currentPlayer.isVideo) {
+      var $video = currentPlayer.container;
+      var $controls = $video.find('.mejs-controls');
+      var controls_hidden = false;
+
+      setup_controls_autohide()
+    }
 
     function setup_controls_autohide() {
       setup_controls_autohide_by_mouse_position();
