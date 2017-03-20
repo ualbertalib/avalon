@@ -214,7 +214,9 @@ describe MediaObjectsController, type: :controller do
         it "should create a new mediaobject with successful bib import" do
           Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: sru_response
-          fields = { bibliographic_id: bib_id }
+          # The genre returned by bib import doesn't match our controlled
+          # vocabulary, so we override it.
+          fields = { bibliographic_id: bib_id, genre: 'Aviation' }
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [masterfile], collection_id: collection.pid
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -257,7 +259,12 @@ describe MediaObjectsController, type: :controller do
         it "should merge supplied other identifiers after bib import" do
           Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: sru_response
-          fields = { bibliographic_id: bib_id, other_identifier_type: ['other'], other_identifier: ['12345'] }
+          # The genre returned by bib import doesn't match our controlled
+          # vocabulary, so we override it.
+          fields = { bibliographic_id: bib_id,
+            other_identifier_type: ['other'],
+            other_identifier: ['12345'],
+            genre: 'Travel' }
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [masterfile], collection_id: collection.pid
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])

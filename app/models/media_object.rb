@@ -67,6 +67,18 @@ class MediaObject < ActiveFedora::Base
   validates  :topical_subject, presence: true
   validate  :validate_access_restrictions_license
   validate  :validate_access_restrictions_rights
+  validate  :validate_genre
+
+  def validate_genre
+    genre_list = Array(genre)
+    if genre_list.empty?
+      errors.add(:genre, "At least one genre must be specified")
+    end
+
+    genre_list.each do |i|
+      errors.add(:genre, "Genre not recognized (#{i})") unless GenreTerm::has_term?(i)
+    end
+  end
 
   def validate_access_restrictions_rights
     if access_restrictions_license == 'User_Defined_Rights_Statement'
@@ -745,6 +757,13 @@ class MediaObject < ActiveFedora::Base
 
   def remove_bookmarks
     self._remove_bookmarks
+  end
+
+  # Setters that should go through update_datastream
+  [ :genre ].each do |setter|
+    define_method("#{setter}=".to_sym) do |val|
+      update_datastream(:descMetadata, { genre: val})
+    end
   end
 
   private

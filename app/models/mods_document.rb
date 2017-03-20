@@ -23,7 +23,7 @@ class ModsDocument < ActiveFedora::OmDatastream
   NOTE_TYPES = Avalon::ControlledVocabulary.find_by_name(:note_types) || {"local" => "Local Note"}
   LICENSE_TYPES = Avalon::ControlledVocabulary.find_by_name(:license_types) || {"local" => "Local License"}
   LICENSE_DESCRIPTIONS = Avalon::ControlledVocabulary.find_by_name(:license_descriptions) || {"other" => "Local"}
-  
+
   set_terminology do |t|
     t.root(:path=>'mods',
       :xmlns => 'http://www.loc.gov/mods/v3', 
@@ -69,7 +69,7 @@ class ModsDocument < ActiveFedora::OmDatastream
 
     # Type and Genre
     t.resource_type(:path => 'typeOfResource')
-    # TODO: Add authority info to genre
+
     t.genre
 
     # Publishing Info
@@ -227,7 +227,7 @@ class ModsDocument < ActiveFedora::OmDatastream
         old_media_type = self.media_type.dup
         old_other_identifier = self.other_identifier.type.zip(self.other_identifier)
         self.ng_xml = Nokogiri::XML(new_record)
-        [:genre, :topical_subject, :geographic_subject, :temporal_subject, 
+        [:topical_subject, :geographic_subject, :temporal_subject, 
          :occupation_subject, :person_subject, :corporate_subject, :family_subject, 
          :title_subject].each do |field|
            self.send("#{field}=".to_sym, self.send(field).uniq)
@@ -235,10 +235,19 @@ class ModsDocument < ActiveFedora::OmDatastream
         old_media_type.each do |val|
           self.add_child_node(self.ng_xml.root, :media_type, val)
         end
+
         self.send("resource_type=", old_resource_type)
         languages = self.language.collect &:strip
         self.language = nil
         languages.each { |lang| self.add_language(lang) }
+
+        # Want genre from our controlled vocabulary -- ignore it if it isn't
+        genre_terms = self.genre.collect(&:strip).uniq
+        self.genre = nil
+        genre_terms.each do |genre|
+          self.add_genre(genre) if GenreTerm.has_term?(genre)
+        end
+        
         new_other_identifier = self.other_identifier.type.zip(self.other_identifier)
         self.other_identifier = nil
         (old_other_identifier | new_other_identifier).each do |id_pair|

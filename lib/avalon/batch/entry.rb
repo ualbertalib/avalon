@@ -42,6 +42,12 @@ module Avalon
               rescue Exception => e
                 @errors.add(:bibliographic_id, e.message)
               end
+              # Sometimes we want to override the bib import data for some of the
+              # required fields (particularly if import data doesn't pass validations)
+              mo.update_datastream(:descMetadata,
+                                   fields.slice(:language,
+                                                :topical_subject,
+                                                :genre))
             else
               mo.update_datastream(:descMetadata, fields.dup)
             end

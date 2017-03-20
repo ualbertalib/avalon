@@ -105,7 +105,12 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :genre,
-                      options: {display_label: 'Genre(s)', multivalued: true}} %>
+                      options: {display_label: 'Genre(s)',
+                                multivalued: true,
+                                autocomplete_model: 'genreTerm',
+                                autocomplete_validate: false,
+                                required: true}} %>
+
   <%= render partial: 'text_field',
              locals: {form: form, field: :temporal_subject,
                       options: {display_label: 'Time period(s)', multivalued: true}} %>

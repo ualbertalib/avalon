@@ -47,6 +47,7 @@ describe Avalon::Batch::Entry do
     { title: Faker::Lorem.sentence,
       topical_subject: 'This and that',
       language: 'eng',
+      genre: 'Aviation',
       date_issued: "#{Time.now.to_date}",
     }
   end
@@ -186,26 +187,21 @@ describe Avalon::Batch::Entry do
           new(entry_fields, [{file: filename, skip_transcoding: true}], {},
               nil, manifest)
       end
-      let(:entry_fields_no_language) do
-        { title: Faker::Lorem.sentence,
-          topical_subject: 'This and that',
-          date_issued: "#{Time.now.to_date}",
-        }
-      end
-      let(:entry_fields_no_topical_subject) do
-        { title: Faker::Lorem.sentence,
-          language: 'eng',
-          date_issued: "#{Time.now.to_date}",
-        }
-      end
       let(:entry_no_language) do
         Avalon::Batch::Entry.
-          new(entry_fields_no_language, [{file: filename, skip_transcoding: true}], {},
+          new(entry_fields.except(:language), [{file: filename, skip_transcoding: true}], {},
               nil, manifest)
       end
       let(:entry_no_topical_subject) do
         Avalon::Batch::Entry.
-          new(entry_fields_no_topical_subject, [{file: filename, skip_transcoding: true}], {},
+          new(entry_fields.except(:topical_subject),
+              [{file: filename, skip_transcoding: true}], {},
+              nil, manifest)
+      end
+      let(:entry_no_genre) do
+        Avalon::Batch::Entry.
+          new(entry_fields.except(:genre),
+              [{file: filename, skip_transcoding: true}], {},
               nil, manifest)
       end
       before(:each) do
@@ -235,6 +231,13 @@ describe Avalon::Batch::Entry do
           to eq([:topical_subject])
         expect(entry_no_topical_subject.errors.messages[:topical_subject]).
           to eq(["field is required."])
+      end
+      it 'should fail when no genre' do
+        entry_no_genre.valid?
+        expect(entry_no_genre.errors.messages.keys).
+          to eq([:genre])
+        expect(entry_no_genre.errors.messages[:genre]).
+          to eq(["At least one genre must be specified"])
       end
     end
 

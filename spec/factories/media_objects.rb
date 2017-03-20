@@ -19,6 +19,7 @@ FactoryGirl.define do
     date_issued {"#{Date.today.edtf}"}
     collection {FactoryGirl.create(:collection)}
     topical_subject {[Faker::Lorem.word]}
+    genre {[ 'Aviation' ]}
     after(:build) do |mo|
       mo.update_datastream(:descMetadata, {
         language: ['eng']
@@ -34,7 +35,7 @@ FactoryGirl.define do
         contributor {[Faker::Name.name]}
         date_created {"#{Date.today.edtf}"}
         publisher {[Faker::Lorem.word]}
-        genre {[Faker::Lorem.word]}
+        genre {[ 'Aviation' ]}
         temporal_subject {[Faker::Lorem.word]}
         geographic_subject {[Faker::Address.country]}
         physical_description {[Faker::Lorem.word]}
@@ -96,6 +97,7 @@ FactoryGirl.define do
     contributor ['Chris Colvard', 'Nathan Rogers', 'Phuong Dinh']
     publisher ['Mark Notess', 'Jon Dunn', 'Stu Baker']
     subject ['Programming', 'Ruby on Rails']
+    genre ['Travel']
 
     after(:build) do |mo|
       mo.update_datastream(:descMetadata, {
