@@ -46,7 +46,6 @@ class GenreTerm
     def autocomplete(query)
       map = query.present? ?
         self.map.select{ |k,v| /#{query}/i.match(v[:text]) if v } : self.map
-      puts map.inspect
       map.map{ |k, e| {id: k, uri: e[:uri], display: e[:text] }}.
         sort{ |x,y| levenshtein(x[:display], query) <=> levenshtein(y[:display],query) }
     end
