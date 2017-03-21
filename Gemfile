@@ -10,7 +10,7 @@
   #gem 'protected_attributes'
   gem 'builder', '~>3.1.0'
   gem 'rake', '~>10.4'
-
+  gem 'levenshtein'
   
 
 #  gem 'hydra', '~>8.0'

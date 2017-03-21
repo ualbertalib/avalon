@@ -12,24 +12,24 @@
 #   specific language governing permissions and limitations under the License.
 # ---  END LICENSE_HEADER BLOCK  ---
 
-class GenreTerm
-  require 'avalon/levenshtein'
-  extend Avalon::Levenshtein
-
+class GenreTerm < Struct.new(:id, :text, :uri)
   class LookupError < Exception; end
   class DuplicateKeyError < Exception; end
 
   STORE = File.join(Rails.root, 'config/pbcore_genre.csv')
 
+  @@map = nil
+
   class << self
+
     def map
       @@map ||= self.load!
     end
     
     def find(value)
-      result = self.map[normalize_text(value)]
+      result = self.map[normalize_text(value).to_sym]
       raise LookupError, "Unknown genre: `#{value}'" if result.nil?
-      self.new(result)
+      return result
     end
     alias_method :[], :find
 
@@ -44,17 +44,22 @@ class GenreTerm
     end
  
     def autocomplete(query)
-      map = query.present? ?
-        self.map.select{ |k,v| /#{query}/i.match(v[:text]) if v } : self.map
-      map.map{ |k, e| {id: k, uri: e[:uri], display: e[:text] }}.
-        sort{ |x,y| levenshtein(x[:display], query) <=> levenshtein(y[:display],query) }
+      results = query.present? ?
+        self.map.select{ |k,v| /#{query}/i.match(v.text) if v } : self.map
+
+      # Sort by Levenshtein (normalized) first, alphabetical second
+      # (this way, for query="ar", "Art" comes before "War")
+      nquery = normalize_text(query)
+      results.map{ |k, e| {id: k.to_s, uri: e.uri, display: e.text }}.
+        sort_by { |x| [ Levenshtein.distance(x[:id], nquery), x[:display] ] }
     end
 
     def normalize_text(text)
-      text.downcase.gsub(/[^a-zA-Z0-9_]+/, '_').to_sym
+      text.downcase.gsub(/[^a-zA-Z0-9_]+/, '_')
     end
 
     def load!
+      # The format of the CSV file is "label, uri" (header on first line)
       data_map = {}
       if File.exists?(STORE)
         csv_contents = CSV.read(STORE)
@@ -63,31 +68,14 @@ class GenreTerm
         csv_contents.each do |row|
           text = row[0]
           uri = row[1]
-          key = normalize_text(text)
-          if data_map.has_key?(key)
-            raise DuplicateKeyError
-          end
-          data_map[key] = { text: text, uri: uri }
+          key = normalize_text(text).to_sym
+          raise DuplicateKeyError if data_map.has_key?(key)
+          data_map[key] = GenreTerm.new(key, text, uri)
         end
       end
       return data_map
     end
 
   end
-  
-  def initialize(term)
-    @term = term
-  end
-  
-  def id
-    self.class.normalize_text(@term[:text])
-  end
 
-  def uri
-    @term[:uri]
-  end
-  
-  def text
-    @term[:text]
-  end
 end

@@ -486,6 +486,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.4.1)
       launchy (~> 2.2)
+    levenshtein (0.2.2)
     libv8 (3.16.14.17)
     license_header (0.0.4)
       highline
@@ -902,6 +903,7 @@ DEPENDENCIES
   jruby-openssl
   kaminari (~> 0.15.0)
   letter_opener
+  levenshtein
   license_header
   loofah
   marc
