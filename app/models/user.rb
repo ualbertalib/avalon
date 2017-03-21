@@ -68,6 +68,7 @@ class User < ActiveRecord::Base
     if auth_hash.uid.blank?
       raise Avalon::MissingUserId 
     end
+    email = auth_hash.info.email || auth_hash.uid + "@ualberta.ca"
     
     result = 
       User.find_by_username(auth_hash.uid) ||
