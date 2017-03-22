@@ -25,5 +25,5 @@ $ ->
   window.set_bib_import_warning_message = (msg) ->
     bib_import_warning_message = msg
 
-  $('div.import-button button').click ->
+  $('div.import-button button:submit').click ->
     return confirm(bib_import_warning_message);
