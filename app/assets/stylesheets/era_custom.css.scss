@@ -488,6 +488,19 @@ body.home h4{
 	color: $link1Hover;
 }
 
+.avalon>a{
+	color: $link1;
+}
+.avalon>a:visited{
+	color: $link1Visited;
+}
+.avalon>a:hover{
+	color: $link1Hover;
+}
+.avalon>a:visited:hover{
+	color: $link1Hover;
+}
+
 #masthead{
 	background-color: #fff;
 	min-height: 0px;

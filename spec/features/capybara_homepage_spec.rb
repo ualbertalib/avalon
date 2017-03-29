@@ -16,15 +16,18 @@ require 'spec_helper'
 describe 'homepage' do
   after { Warden.test_reset! }
   it 'validates presence of header and footer on homepage' do
+    # The theme at U of A doesn't match the upstream theme
+
     visit 'http://0.0.0.0:3000'
-    page.should have_content('Sample Content')
+    # Not relevant: page.should have_content('Sample Content')
     page.should have_link('Browse')
     page.should have_content('Featured Collection')
-    page.should have_content('Featured Video')
-    page.should have_content('Featured Audio')
-    page.should have_link('Avalon Media System Project Website')
+    # Not relevant: page.should have_content('Featured Video')
+    # Not relevant: page.should have_content('Featured Audio')
+    page.should have_link('Powered by Avalon')
     page.should have_link('Contact Us')
-    page.should have_content('Avalon Media System Release 5.1.5')
+    # U of A puts the following in an HTML comment, so we check "source"
+    page.source.should include('Avalon Media System Release 5.1.5')
     page.should have_content('Search')
   end
   it 'validates absence of features when not logged in' do
@@ -48,21 +51,17 @@ end
 describe 'checks navigation to external links' do
   it 'checks navigation to Avalon Website' do
     visit '/'
-    click_link('Avalon Media System Project Website')
-    expect(page.status_code).to eq(200)
-    expect(page.current_url).to eq('http://www.avalonmediasystem.org/')
+    page.should have_link('Powered by Avalon',
+                          href: 'http://www.avalonmediasystem.org')
   end
   it 'checks navigation to Contact us page' do
     visit '/'
     click_link('Contact Us')
-    expect(page.current_url).to eq('http://www.example.com/comments')
-    page.should have_content('Contact us')
-    page.should have_content('Name')
-    page.should have_content('Email address')
-    page.should have_content('Confirm email address')
-    page.should have_content('Subject')
-    page.should have_content('Comment')
-    page.should have_button('Submit comments')
+    expect(page.current_url).to eq('http://www.example.com/contact')
+    page.should have_content('ERA HelpDesk')
+    page.should have_link('erahelp@ualberta.ca',
+                          href: 'mailto:erahelp@ualberta.ca')
+    page.should have_content('780.492.4359')
   end
   it 'verifies presence of features after login' do
     user = FactoryGirl.create(:administrator)
@@ -85,7 +84,10 @@ describe 'Sign in page' do
     page.should have_content('Password:')
     page.should have_link('Create an Identity')
     page.should have_button('Connect')
-    click_button 'Connect'
+
+    # This test is broken for U of A (and why should a successful login happen
+    # when the login form isn't filled in?)
+    # click_button 'Connect'
     # page.should have_content('Successfully logged into the system')
   end
   it 'validates presence of items on register page' do
