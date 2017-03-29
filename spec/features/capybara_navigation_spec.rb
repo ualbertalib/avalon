@@ -19,8 +19,15 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    click_link('Browse')
-    expect(page.current_url).to eq('http://www.example.com/catalog?q=&search_field=all_fields&utf8=%E2%9C%93')
+    # The U of A has two links to Browse on the homepage, so some care is needed.
+    # We test both links:
+    [".navbar-nav", ".footer"].each do |region|
+      within(region) do 
+        click_link('Browse')
+        expect(page.current_url).
+          to eq('http://www.example.com/catalog?q=&search_field=all_fields&utf8=%E2%9C%93')
+      end
+    end
   end
   it 'checks navigation to Manage Content' do
     user = FactoryGirl.create(:administrator)
@@ -71,14 +78,14 @@ end
 describe 'Search' do
   it 'is able to enter keyword and perform search' do
     visit '/'
-    fill_in('Search', with: 'Video')
-    click_button 'Search'
+    fill_in('search-field-header', with: 'Video')
+    click_button 'Search ERA Audio+Video'
     expect(page.current_url).to eq('http://www.example.com/catalog?utf8=%E2%9C%93&search_field=all_fields&q=Video')
   end
   it 'gives appropriate error when keyword returns no results' do
     visit '/'
-    fill_in('Search', with: 'Video')
-    click_button 'Search'
+    fill_in('search-field-header', with: 'Video')
+    click_button 'Search ERA Audio+Video'
     page.should have_content('No results found for your search')
     page.should have_content('No entries found')
     page.should have_content('Use fewer keywords to start, then refine your search using the links on the left')
