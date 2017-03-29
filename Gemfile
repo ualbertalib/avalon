@@ -20,7 +20,7 @@
   gem 'solrizer', '~> 3.3.0'
   gem 'rsolr', '~> 1.1.2'
   gem 'blacklight', '~> 5.10'
-  gem 'nokogiri', '~> 1.6'
+  gem 'nokogiri', '~> 1.7.1'
   gem 'rubydora', '~> 1.8.1'
   gem 'nom-xml', '~> 0.5.2'
 
