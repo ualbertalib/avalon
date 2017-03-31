@@ -17,13 +17,9 @@ describe 'homepage' do
   after { Warden.test_reset! }
   it 'validates presence of header and footer on homepage' do
     # The theme at U of A doesn't match the upstream theme
-
     visit 'http://0.0.0.0:3000'
-    # Not relevant: page.should have_content('Sample Content')
     page.should have_link('Browse')
     page.should have_content('Featured Collection')
-    # Not relevant: page.should have_content('Featured Video')
-    # Not relevant: page.should have_content('Featured Audio')
     page.should have_link('Powered by Avalon')
     page.should have_link('Contact Us')
     # U of A puts the following in an HTML comment, so we check "source"
