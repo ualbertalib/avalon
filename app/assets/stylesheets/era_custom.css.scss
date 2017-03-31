@@ -475,30 +475,15 @@ body.home h4{
 	padding: 40px 20px 0 20px;
 	font-size: 90%;
 }
-.copyright>a{
-	color: $link1;
-}
-.copyright>a:visited{
-	color: $link1Visited;
-}
-.copyright>a:hover{
-	color: $link1Hover;
-}
-.copyright>a:visited:hover{
-	color: $link1Hover;
-}
 
-.avalon>a{
-	color: $link1;
-}
-.avalon>a:visited{
-	color: $link1Visited;
-}
-.avalon>a:hover{
-	color: $link1Hover;
-}
-.avalon>a:visited:hover{
-	color: $link1Hover;
+.footer a {
+  color: $link1;
+  &:visited {
+    color: $link1Visited;
+  }
+  &:hover, &:visited:hover {
+    color: $link1Hover;
+  }
 }
 
 #masthead{
