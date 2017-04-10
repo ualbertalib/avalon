@@ -181,7 +181,7 @@ describe MediaObjectsController, type: :controller do
         end
         it "should create a new mediaobject" do
           media_object = FactoryGirl.create(:multiple_entries)
-          fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
+          fields = media_object.export_attributes(attribute_list: descMetadata_fields)
           post 'create', format: 'json', fields: fields, files: [masterfile], collection_id: collection.pid
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -204,7 +204,7 @@ describe MediaObjectsController, type: :controller do
        end
         it "should create a new published mediaobject" do
           media_object = FactoryGirl.create(:multiple_entries)
-          fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
+          fields = media_object.export_attributes(attribute_list: descMetadata_fields)
           post 'create', format: 'json', fields: fields, files: [masterfile], collection_id: collection.pid, publish: true
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -227,7 +227,7 @@ describe MediaObjectsController, type: :controller do
           Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: nil
           media_object = FactoryGirl.create(:media_object)
-          fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
+          fields = media_object.export_attributes(attribute_list: descMetadata_fields)
           fields = fields.merge({ bibliographic_id: bib_id })
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [masterfile], collection_id: collection.pid
           expect(response.status).to eq(200)
@@ -239,8 +239,7 @@ describe MediaObjectsController, type: :controller do
         end
         it "should create a new mediaobject, removing invalid data for non-required fields" do
           media_object = FactoryGirl.create(:multiple_entries)
-          fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
-          fields[:language] = ['???']
+          fields = media_object.export_attributes(attribute_list: descMetadata_fields)
           fields[:related_item_url] = ['???']
           fields[:note] = ['note']
           fields[:note_type] = ['???']
@@ -250,7 +249,6 @@ describe MediaObjectsController, type: :controller do
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
           expect(new_media_object.title).to eq media_object.title
-          expect(new_media_object.language).to eq []
           expect(new_media_object.related_item_url).to eq []
           expect(new_media_object.note).to eq nil
           expect(new_media_object.date_created).to eq nil

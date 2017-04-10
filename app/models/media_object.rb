@@ -316,6 +316,21 @@ class MediaObject < ActiveFedora::Base
     metadata_attribute
   end
 
+  # This method primarily helps the test suite, but may have utility elsewhere
+  def export_attributes(attribute_list: nil)
+    if attribute_list
+      export_list = attribute_list
+    else
+      export_list = klass_attribute_to_metadata_attribute_map.keys
+    end
+    fields = self.attributes.select {|k,v| export_list.include? k.to_sym }
+    # Language field fetched from attributes is a mess, grab it from the metadata instead
+    if fields.has_key?('language')
+      fields["language"] = descMetadata.language.code
+    end
+    return fields
+  end
+
   def update_datastream(datastream = :descMetadata, values = {})
     missing_attributes.clear
     # Special case the identifiers and their types
