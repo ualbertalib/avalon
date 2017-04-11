@@ -1,16 +1,24 @@
 ---
 git:
   submodules: false
-bundler_args: --without development debug
+bundler_args: --with mysql --without development debug
+services:
+  - mysql2
 before_install:
   - sudo apt-get update
   - sudo apt-get install mediainfo
   - sudo ln -s /usr/bin/lsof /usr/sbin/lsof
   - cp spec/config/*.yml config
+  - cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
+  - cp config/avalon.yml.example config/avalon.yml
+  - cp config/secrets.travis.yml config/secrets.yml
   - git submodule init
   - git submodule update --depth=10 -- red5
   - bundle config without development:production
 before_script:
+  - rm config/database.yml
+  - cp config/database.travis.yml config/database.yml
+  - mysql -e 'create database avalon_test;'
   - bundle exec rake jetty:unzip jetty:config jetty:start delayed_job:start
   - bundle exec rake db:migrate
   - bundle exec rake avalon:db_migrate

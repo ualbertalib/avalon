@@ -56,10 +56,6 @@
   gem 'ruby-duration'
   gem 'edtf'
 
-# Uncomment the following line to include z39.59/zoom support in Avalon::BibRetriever
-# NOTE: Requires the yaz library to be installed
-  gem 'zoom', :git => 'https://github.com/bricestacey/ruby-zoom.git'
-
   gem 'marc'
 
   platforms :jruby do
@@ -155,6 +151,12 @@
   group :debug do
     gem 'pry-debugger', platforms: [:mri_19]
     gem 'pry-byebug',   platforms: [:mri_20, :mri_21]
+  end
+
+  group :development, :production do
+    # Uncomment the following line to include z39.59/zoom support in Avalon::BibRetriever
+    #   NOTE: Requires the yaz library to be installed
+    gem 'zoom', :git => 'https://github.com/bricestacey/ruby-zoom.git'
   end
 
   group :test do

@@ -1,4 +1,4 @@
-development: 
+development:
   name: 'Avalon' # used in page titles
   fedora:
     namespace: avalon
@@ -41,6 +41,8 @@ development:
 test:
   fedora:
     namespace: avalon
+  domain:
+    host: test.host
   dropbox:
     path: '/srv/avalon/dropbox/'
     upload_uri: 'sftp://localhost/srv/avalon/dropbox'
