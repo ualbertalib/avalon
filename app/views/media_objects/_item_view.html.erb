@@ -52,12 +52,12 @@ Unless required by applicable law or agreed to in writing, software distributed
           <% end %>
         <% end %>
       <% end %>
+      <%= render 'share' if will_partial_list_render? :share %>
     </section>
 
     <%= render file: '_track_scrubber.html.erb' %>
     <%= render file: '_add_to_playlist.html.erb' if current_user.present? %>
     <%= render 'workflow_progress' %>
-    <%= render 'share' if will_partial_list_render? :share %>
     <%= render partial: 'sections',
         locals: {mediaobject: @mediaobject,
                  sections: @masterFiles,
