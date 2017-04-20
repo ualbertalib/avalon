@@ -33,12 +33,31 @@ module Avalon
       end
 
       def media_object
-        @media_object ||= MediaObject.new(avalon_uploader: @manifest.package.user.user_key, 
-                                          collection: @manifest.package.collection).tap do |mo|
+        return @media_object if @media_object
+        @media_object = nil
+        if fields[:media_object].present?
+          begin
+            @media_object = MediaObject.find(fields[:media_object].first)
+          rescue ActiveFedora::ObjectNotFoundError => e
+            @errors.add(:media_object, e.message)
+            return nil
+          end
+        else
+          @media_object = MediaObject.new(avalon_uploader: @manifest.package.user.user_key, 
+                                          collection: @manifest.package.collection)
+        end
+        update_media_object
+        return @media_object
+      end
+
+      def update_media_object
+        @media_object.tap do |mo|
           mo.workflow.origin = 'batch'
           if Avalon::BibRetriever.configured? and fields[:bibliographic_id].present?
             begin
-              mo.descMetadata.populate_from_catalog!(fields[:bibliographic_id].first, Array(fields[:bibliographic_id_label]).first)
+              mo.descMetadata.
+                populate_from_catalog!(fields[:bibliographic_id].first,
+                                       Array(fields[:bibliographic_id_label]).first)
             rescue Exception => e
               @errors.add(:bibliographic_id, e.message)
             end
@@ -49,10 +68,9 @@ module Avalon
                                               :topical_subject,
                                               :genre))
           else
-            mo.update_datastream(:descMetadata, fields.dup)
+            mo.update_datastream(:descMetadata, fields.except(:media_object))
           end
         end
-        @media_object
       end
 
       def valid?
@@ -62,8 +80,14 @@ module Avalon
           errs.each { |err| @errors.add(field, err) }
         }
         files = @files.select {|file_spec| file_valid?(file_spec)}
-        # Ensure files are listed
-        @errors.add(:content, "No files listed") if files.empty?
+        if fields[:media_object].present?
+          # Ensure files are NOT listed
+          @errors.add(:content, "Both a metadata update, and files listed for processing! "\
+                      "(Must be one or the other)") unless files.empty?
+        else
+          # Ensure files are listed
+          @errors.add(:content, "No files listed") if files.empty?
+        end
         # Replace collection error if collection not found
         if media_object.collection.nil?
           @errors.messages[:collection] = ["Collection not found: #{@fields[:collection].first}"]

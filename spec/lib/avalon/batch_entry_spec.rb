@@ -57,6 +57,45 @@ describe Avalon::Batch::Entry do
           nil, manifest)
   end
 
+  describe "update" do
+    let(:media_object) { FactoryGirl.create(:media_object,
+                                            title: 'Before update') }
+    let(:update_fields) do
+      { title: 'After update', media_object: [media_object.pid] }
+    end
+
+    let(:entry) { Avalon::Batch::Entry.new(update_fields, [], {}, nil, manifest) }
+
+    it "should update the object" do
+      expect(media_object.title).to eq('Before update')
+      entry.process!
+      media_object.reload
+      expect(media_object.title).to eq('After update')
+    end
+
+    it "should only update fields it's told to update" do
+      media_object.update_datastream(:descMetadata, {topical_subject: ["Won't Change"] })
+      media_object.save
+      expect(media_object.title).to eq('Before update')
+      expect(media_object.topical_subject).to eq(["Won't Change"])
+      entry.process!
+      media_object.reload
+      expect(media_object.title).to eq('After update')
+      puts media_object.inspect
+      expect(media_object.topical_subject).to eq(["Won't Change"])
+    end
+
+    let(:bad_entry) do
+      Avalon::Batch::Entry.
+        new(entry_fields, [{file: filename, skip_transcoding: false}], {},
+            nil, manifest)
+    end
+
+    it "should be invalid when both media object and files present" do
+      expect(bad_entry.valid?).to be_falsy
+    end
+  end
+
   before(:each) do
     #FakeFS.activate!
     #FakeFS::FileSystem.clone(File.join(Rails.root, "config"))
@@ -165,6 +204,34 @@ describe Avalon::Batch::Entry do
       expect(entry.errors.messages[:content]).
         to eq(["Derivative files found but skip transcoding not selected",
                "No files listed"])
+    end
+
+    let(:media_object) { FactoryGirl.create(:media_object,
+                                            title: 'Before update') }
+    let(:update_entry) do
+      Avalon::Batch::Entry.
+        new({ title: 'New title', media_object: [media_object.pid] }, [], {},
+            nil, manifest)
+    end
+    it "update entry should be valid under the right conditions" do
+      expect(update_entry.valid?).to be_truthy
+      expect(update_entry.errors.messages.keys).to eq([])
+    end
+
+    let(:bad_update_entry) do
+      Avalon::Batch::Entry.
+        new({ title: 'New title', media_object: [media_object.pid] }, 
+            [{file: filename, skip_transcoding: true}], {}, nil, manifest)
+    end
+
+    it "it should not be valid when both a media object and a file are present" do
+      allow(Avalon::Batch::Entry).to receive(:derivativePaths).
+        and_return(['video.low.mp4', 'video.medium.mp4', 'video.high.mp4'])
+      expect(bad_update_entry.valid?).to be_falsey
+      expect(bad_update_entry.errors.messages.keys).to eq([:content])
+      expect(bad_update_entry.errors.messages[:content]).
+        to eq(["Both a metadata update, and files listed for processing! "\
+               "(Must be one or the other)"])
     end
   end
 
