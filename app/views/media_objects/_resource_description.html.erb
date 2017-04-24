@@ -14,7 +14,7 @@ Unless required by applicable law or agreed to in writing, software distributed
 ---  END LICENSE_HEADER BLOCK  ---
 %>
 <div id="resource_description_content">
-<p>Fields followed by an asterisk (*) are required.</p>
+<p><%= t(:required_field_html) %></p>
 <%= form_for @mediaobject, html: { class: 'form-vertical' } do |form| %>
   <%= hidden_field_tag :step, @active_step %>
   
@@ -27,11 +27,13 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field', 
              locals: {form: form, field: :title, 
-                      options: {required: true}} %>
+                      options: {label_parenthesis: t('metadata_parenthesis.title'),
+                                required: true}} %>
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :creator,
-                      options: {display_label: 'Main contributor(s)',
+                      options: {display_label: t('metadata_label.creator'),
+                                label_parenthesis: t('metadata_parenthesis.creator'),
                                 required: true,
                                 multivalued: true}} %>
 
@@ -41,7 +43,8 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :topical_subject,
-                      options: {display_label: 'Subject(s)',
+                      options: {display_label: t('metadata_label.topical_subject'),
+                                label_parenthesis: t('metadata_parenthesis.topical_subject'),
                                 required: true,
                                 multivalued: true}} %>
 
@@ -56,7 +59,9 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field', 
              locals: {form: form, field: :date_issued,
-                      options: {display_label: 'Publication date', required: true}} %>
+                      options: {display_label: t('metadata_label.date_issued'),
+                                label_parenthesis: t('metadata_parenthesis.date_issued'),
+                                required: true}} %>
 
   <%= render partial: 'text_area_license',
              locals: {form: form, field: :access_restrictions_license,
@@ -74,7 +79,8 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field', 
              locals: {form: form, field: :date_created,
-                      options: {display_label: 'Creation date'}} %>
+                      options: {display_label: t('metadata_label.date_created'),
+                                label_parenthesis: t('metadata_parenthesis.date_created')}} %>
 
   <%= render partial: 'text_area', 
              locals: {form: form, field: :abstract,
@@ -82,30 +88,39 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :contributor,
-                      options: {multivalued: true}} %>
+                      options: {multivalued: true,
+                                display_label: t('metadata_label.contributor'),
+                                label_parenthesis: t('metadata_parenthesis.contributor')}} %>
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :publisher,
-                      options: {multivalued: true}} %>
+                      options: {multivalued: true,
+                                display_label: t('metadata_label.publisher'),
+                                label_parenthesis: t('metadata_parenthesis.publisher')}} %>
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :physical_description,
-                      options: {display_label: "Physical Description",
-                                multivalued: true}} %>
+                      options: {multivalued: true,
+                                display_label: t('metadata_label.physical_description'),
+                                label_parenthesis:
+                                  t('metadata_parenthesis.physical_description')}} %>
   
   <%= render partial: 'text_field',
              locals: {form: form, field: :related_item_url,
-                      options: {display_label: 'Related Item(s)',
+                      options: {display_label: t('metadata_label.related_item_url'),
+                                label_parenthesis:
+                                  t('metadata_parenthesis.related_item_url'),
                                 multivalued: true,
-                                primary_label: 'URL',
+                                primary_label: t('metadata_label.related_item_url_url'),
                                 primary_key: :url,
-                                secondary_label: 'Label',
+                                secondary_label: t('metadata_label.related_item_url_label'),
                                 secondary_key: :label,
                                 secondary_field: :related_item_label}} %>
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :genre,
-                      options: {display_label: 'Genre(s)',
+                      options: {display_label: t('metadata_label.genre'),
+                                label_parenthesis: t('metadata_parenthesis.genre'),
                                 multivalued: true,
                                 autocomplete_model: 'genreTerm',
                                 autocomplete_validate: false,
@@ -132,7 +147,9 @@ Unless required by applicable law or agreed to in writing, software distributed
   <%= render partial: 'text_area', 
              locals: {form: form, field: :table_of_contents,
                       options: {multivalued: true,
-                                display_label: 'Table of Contents'}} %>
+                                display_label: t('metadata_label.table_of_contents'),
+                                label_parenthesis:
+                                  t('metadata_parenthesis.table_of_contents') }} %>
   <%= render partial: 'text_area',
              locals: {form: form, field: :note,
                       options: {multivalued: true,
