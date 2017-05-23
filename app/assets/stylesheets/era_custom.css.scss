@@ -8,12 +8,12 @@ $link1Visited: #3a8489;
 margin: 0;
 }
 html{
-	height: 100%;
+	  position: relative;
+    min-height: 100%;
 }
 body{
 	font-family: 'Open Sans', sans-serif;
-	height: 100%;
-	margin: 0;
+	margin: 0 0 100px; /* bottom = footer height */
 	font-size: 15px;
 }
 body.home{
@@ -87,10 +87,7 @@ body.home h4{
 	height: 100%;
 	margin: 0 auto -260px;
 }
-.footer, .push {
-	height: 260px;
-	clear:both;
-}
+
 .branding{
 	text-align: center;
 	background-color: #2d353d;
@@ -446,10 +443,13 @@ body.home h4{
 	float: right;
 	margin:10px 0 10px 10px;
 }
-.footer{
-        margin-top: 20px;
-	padding-top: 30px;
-	text-align: center;
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+    text-align:center;
 }
 .footer h2{
 	font-size: 150%;
@@ -1558,7 +1558,7 @@ html{
 body{
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;
-	margin: 0;
+	margin: 0 0 300px; /* bottom = footer height */
 	font-size: 15px;
 }
 body.home{
@@ -1632,10 +1632,8 @@ body.home h4{
 	height: 100%;
 	margin: 0 auto -260px;
 }
-.footer, .push {
-	height: 260px;
-	clear:both;
-}
+
+
 .branding{
 	text-align: center;
 	background-color: #2d353d;
@@ -1991,9 +1989,13 @@ body.home h4{
 	float: right;
 	margin:10px 0 10px 10px;
 }
-.footer{
-	padding-top: 30px;
-	text-align: center;
+.footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 300px;
+    width: 100%;
+    text-align:center;
 }
 .footer h2{
 	font-size: 150%;
@@ -2850,6 +2852,21 @@ ul.radio li.embargo{
 	float: right;
 	color: red;
 }
+
+/* ERA-AV custom styles by Natasha Nunn */
+
+.grey{
+	background-color:#ebe8e5;
+}
+
+.mast-branding{
+	padding-top:15px;
+}
+
+
+
+
+
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 768px){
 	.branding>h1:hover{

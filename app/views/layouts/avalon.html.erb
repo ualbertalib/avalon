@@ -32,10 +32,12 @@ Unless required by applicable law or agreed to in writing, software distributed
     <a id="skip-to-content" class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <%= render partial: 'shared/ajax_modal' %>
     <%= render 'modules/header' %>
-    <div class="container-fluid">
+    <div class="row-fluid">
+    <div class="container">
       <%= render :partial => 'modules/global_navigation' %>
       <%= render 'modules/flash_messages' %>
       <%= yield %>
+    </div>
     </div>
     <%= render 'modules/footer' %>
 
