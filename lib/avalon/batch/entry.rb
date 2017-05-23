@@ -18,126 +18,150 @@ require 'active_model'
 module Avalon
   module Batch
     class Entry
-    	extend ActiveModel::Translation
+      extend ActiveModel::Translation
 
-    	attr_reader :fields, :files, :opts, :row, :errors, :manifest, :collection
+      attr_reader :fields, :files, :opts, :row, :errors, :manifest, :collection
 
-    	def initialize(fields, files, opts, row, manifest)
-	  @fields = fields
-	  @files  = files
-	  @opts   = opts
-	  @row    = row
-	  @manifest = manifest
-	  @errors = ActiveModel::Errors.new(self)
-	  @files.each { |file| file[:file] = File.join(@manifest.package.dir, file[:file]) }
-        end
+      def initialize(fields, files, opts, row, manifest)
+        @fields = fields
+        @files  = files
+        @opts   = opts
+        @row    = row
+        @manifest = manifest
+        @errors = ActiveModel::Errors.new(self)
+        @files.each { |file| file[:file] = File.join(@manifest.package.dir, file[:file]) }
+      end
 
-        def media_object
-          @media_object ||= MediaObject.new(avalon_uploader: @manifest.package.user.user_key, 
-                                            collection: @manifest.package.collection).tap do |mo|
-            mo.workflow.origin = 'batch'
-            if Avalon::BibRetriever.configured? and fields[:bibliographic_id].present?
-              begin
-                mo.descMetadata.populate_from_catalog!(fields[:bibliographic_id].first, Array(fields[:bibliographic_id_label]).first)
-              rescue Exception => e
-                @errors.add(:bibliographic_id, e.message)
-              end
-              # Sometimes we want to override the bib import data for some of the
-              # required fields (particularly if import data doesn't pass validations)
-              mo.update_datastream(:descMetadata,
-                                   fields.slice(:language,
-                                                :topical_subject,
-                                                :genre))
-            else
-              mo.update_datastream(:descMetadata, fields.dup)
-            end
+      def media_object
+        return @media_object if @media_object
+        @media_object = nil
+        if fields[:media_object].present?
+          begin
+            @media_object = MediaObject.find(fields[:media_object].first)
+          rescue ActiveFedora::ObjectNotFoundError => e
+            @errors.add(:media_object, e.message)
+            return nil
           end
-          @media_object
+        else
+          @media_object = MediaObject.new(avalon_uploader: @manifest.package.user.user_key, 
+                                          collection: @manifest.package.collection)
         end
+        update_media_object
+        return @media_object
+      end
 
-        def valid?
-          # Set errors if does not validate against media_object model
-          media_object.valid?
-          media_object.errors.messages.each_pair { |field,errs|
-            errs.each { |err| @errors.add(field, err) }
-          }
-          files = @files.select {|file_spec| file_valid?(file_spec)}
+      def update_media_object
+        @media_object.tap do |mo|
+          mo.workflow.origin = 'batch'
+          if Avalon::BibRetriever.configured? and fields[:bibliographic_id].present?
+            begin
+              mo.descMetadata.
+                populate_from_catalog!(fields[:bibliographic_id].first,
+                                       Array(fields[:bibliographic_id_label]).first)
+            rescue Exception => e
+              @errors.add(:bibliographic_id, e.message)
+            end
+            # Sometimes we want to override the bib import data for some of the
+            # required fields (particularly if import data doesn't pass validations)
+            mo.update_datastream(:descMetadata,
+                                 fields.slice(:language,
+                                              :topical_subject,
+                                              :genre))
+          else
+            mo.update_datastream(:descMetadata, fields.except(:media_object))
+          end
+        end
+      end
+
+      def valid?
+        # Set errors if does not validate against media_object model
+        media_object.valid?
+        media_object.errors.messages.each_pair { |field,errs|
+          errs.each { |err| @errors.add(field, err) }
+        }
+        files = @files.select {|file_spec| file_valid?(file_spec)}
+        if fields[:media_object].present?
+          # Ensure files are NOT listed
+          @errors.add(:content, "Both a metadata update, and files listed for processing! "\
+                      "(Must be one or the other)") unless files.empty?
+        else
           # Ensure files are listed
           @errors.add(:content, "No files listed") if files.empty?
-          # Replace collection error if collection not found
-          if media_object.collection.nil?
-            @errors.messages[:collection] = ["Collection not found: #{@fields[:collection].first}"]
-            @errors.messages.delete(:governing_policy)
-          end
-
-          return @errors.messages.empty?
+        end
+        # Replace collection error if collection not found
+        if media_object.collection.nil?
+          @errors.messages[:collection] = ["Collection not found: #{@fields[:collection].first}"]
+          @errors.messages.delete(:governing_policy)
         end
 
-        def file_valid?(file_spec)
-          valid = true
-          # Check date_digitized for valid format
-          if file_spec[:date_digitized].present?
-            begin
-              DateTime.parse(file_spec[:date_digitized])
-            rescue ArgumentError
-              @errors.add(:date_digitized, "Invalid date_digitized: #{file_spec[:date_digitized]}. Recommended format: yyyy-mm-dd.")
-              valid = false
-            end
-          end
-          # Check file offsets for valid format
-          if file_spec[:offset].present? && !Avalon::Batch::Entry.offset_valid?(file_spec[:offset])
-            @errors.add(:offset, "Invalid offset: #{file_spec[:offset]}")
+        return @errors.messages.empty?
+      end
+
+      def file_valid?(file_spec)
+        valid = true
+        # Check date_digitized for valid format
+        if file_spec[:date_digitized].present?
+          begin
+            DateTime.parse(file_spec[:date_digitized])
+          rescue ArgumentError
+            @errors.add(:date_digitized, "Invalid date_digitized: #{file_spec[:date_digitized]}. Recommended format: yyyy-mm-dd.")
             valid = false
           end
-          # Ensure listed files exist
-          if File.file?(file_spec[:file]) && self.class.derivativePaths(file_spec[:file]).present?
-            @errors.add(:content, "Both original and derivative files found")
-            valid = false
-          elsif File.file?(file_spec[:file])
+        end
+        # Check file offsets for valid format
+        if file_spec[:offset].present? && !Avalon::Batch::Entry.offset_valid?(file_spec[:offset])
+          @errors.add(:offset, "Invalid offset: #{file_spec[:offset]}")
+          valid = false
+        end
+        # Ensure listed files exist
+        if File.file?(file_spec[:file]) && self.class.derivativePaths(file_spec[:file]).present?
+          @errors.add(:content, "Both original and derivative files found")
+          valid = false
+        elsif File.file?(file_spec[:file])
+          #Do nothing.
+        else
+          if self.class.derivativePaths(file_spec[:file]).present? && file_spec[:skip_transcoding]
             #Do nothing.
+          elsif self.class.derivativePaths(file_spec[:file]).present? && !file_spec[:skip_transcoding]
+            @errors.add(:content, "Derivative files found but skip transcoding not selected")
+            valid = false
           else
-            if self.class.derivativePaths(file_spec[:file]).present? && file_spec[:skip_transcoding]
-              #Do nothing.
-            elsif self.class.derivativePaths(file_spec[:file]).present? && !file_spec[:skip_transcoding]
-              @errors.add(:content, "Derivative files found but skip transcoding not selected")
-              valid = false
-            else
-              @errors.add(:content, "File not found: #{file_spec[:file]}")
-              valid = false
-            end
+            @errors.add(:content, "File not found: #{file_spec[:file]}")
+            valid = false
           end
-          valid
         end
+        valid
+      end
 
-        def self.offset_valid?( offset )
-          tokens = offset.split(':')
-          return false unless (1...4).include? tokens.size
-          seconds = tokens.pop
-          return false unless /^\d{1,2}([.]\d*)?$/ =~ seconds
-          return false unless seconds.to_f < 60
+      def self.offset_valid?( offset )
+        tokens = offset.split(':')
+        return false unless (1...4).include? tokens.size
+        seconds = tokens.pop
+        return false unless /^\d{1,2}([.]\d*)?$/ =~ seconds
+        return false unless seconds.to_f < 60
+        unless tokens.empty?
+          minutes = tokens.pop
+          return false unless /^\d{1,2}$/ =~ minutes
+          return false unless minutes.to_i < 60
           unless tokens.empty?
-            minutes = tokens.pop
-            return false unless /^\d{1,2}$/ =~ minutes
-            return false unless minutes.to_i < 60
-            unless tokens.empty?
-              hours = tokens.pop
-              return false unless /^\d{1,}$/ =~ hours
-            end
+            hours = tokens.pop
+            return false unless /^\d{1,}$/ =~ hours
           end
-          true
         end
+        true
+      end
 
       def self.attach_datastreams_to_master_file( master_file, filename )
-          structural_file = "#{filename}.structure.xml"
-          if File.exists? structural_file
-            master_file.structuralMetadata.content=File.open(structural_file)
-          end
-          captions_file = "#{filename}.vtt"
-          if File.exists? captions_file
-            master_file.captions.content=File.open(captions_file)
-            master_file.captions.mimeType='text/vtt'
-            master_file.captions.dsLabel=captions_file
-          end
+        structural_file = "#{filename}.structure.xml"
+        if File.exists? structural_file
+          master_file.structuralMetadata.content=File.open(structural_file)
+        end
+        captions_file = "#{filename}.vtt"
+        if File.exists? captions_file
+          master_file.captions.content=File.open(captions_file)
+          master_file.captions.mimeType='text/vtt'
+          master_file.captions.dsLabel=captions_file
+        end
       end
 
       def process!

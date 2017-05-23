@@ -107,6 +107,43 @@ describe Avalon::Batch::Ingest do
       expect{batch_ingest.ingest}.to change{IngestBatch.count}.by(1)
     end
 
+    it 'should update objects' do
+      update_batch_path =
+        File.join('spec/fixtures/dropbox/example_batch_ingest',
+                  'batch_update_manifest.xlsx')
+      update_batch = Avalon::Batch::Package.new(update_batch_path, collection)
+      allow_any_instance_of(Avalon::Dropbox).to receive(:find_new_packages).and_return [update_batch]
+      media_objects = 
+        [ FactoryGirl.create(:media_object,
+                             title: "Title 1 before",
+                             creator: ['Before, John']),
+          FactoryGirl.create(:media_object,
+                             title: "Title 2 before",
+                             creator: ['Before, Jane']),
+          FactoryGirl.create(:media_object,
+                             title: "Title 3",
+                             creator: ['Before, Jim']) ]
+      allow(MediaObject).to receive(:find).and_call_original
+      allow(MediaObject).to receive(:find).with("avalon:21").
+        and_return(media_objects[0])
+      allow(MediaObject).to receive(:find).with("avalon:22").
+        and_return(media_objects[1])
+      allow(MediaObject).to receive(:find).with("avalon:23").
+        and_return(media_objects[2])
+
+      batch_ingest.ingest
+
+      expect(media_objects[0].creator).to eq(['After, Jane'])
+      expect(media_objects[0].title).to eq('Title 1 before')
+
+      expect(media_objects[1].creator).to eq(['Update, Jimmy'])
+      expect(media_objects[1].title).to eq('The Title After')
+
+      expect(media_objects[2].bibliographic_id).to eq(['local', bib_id])
+      expect(media_objects[2].creator).to eq(['111 A C D E F G K L N P Q T'])
+      expect(media_objects[2].title).to eq('245 A : B F G K N P S')
+    end
+ 
     it 'should retrieve bib data' do
       batch_ingest.ingest
       ingest_batch = IngestBatch.first
