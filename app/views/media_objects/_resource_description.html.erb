@@ -49,6 +49,15 @@ Unless required by applicable law or agreed to in writing, software distributed
                                 multivalued: true}} %>
 
   <%= render partial: 'text_field',
+             locals: {form: form, field: :genre,
+                      options: {display_label: t('metadata_label.genre'),
+                                label_parenthesis: t('metadata_parenthesis.genre'),
+                                multivalued: true,
+                                autocomplete_model: 'genreTerm',
+                                autocomplete_validate: false,
+                                required: true}} %>
+
+  <%= render partial: 'text_field',
              locals: {form: form, field: :language,
                       options: {multivalued: true,
                                 autocomplete_model: 'languageTerm',
@@ -116,15 +125,6 @@ Unless required by applicable law or agreed to in writing, software distributed
                                 secondary_label: t('metadata_label.related_item_url_label'),
                                 secondary_key: :label,
                                 secondary_field: :related_item_label}} %>
-
-  <%= render partial: 'text_field',
-             locals: {form: form, field: :genre,
-                      options: {display_label: t('metadata_label.genre'),
-                                label_parenthesis: t('metadata_parenthesis.genre'),
-                                multivalued: true,
-                                autocomplete_model: 'genreTerm',
-                                autocomplete_validate: false,
-                                required: true}} %>
 
   <%= render partial: 'text_field',
              locals: {form: form, field: :temporal_subject,
