@@ -12,6 +12,10 @@
   gem 'rake', '~>10.4'
   gem 'levenshtein'
   
+  # Some package upgrades related to Gemnasium alerts
+  gem 'mail', '~> 2.6.6.rc1'
+  gem 'nokogiri', '~> 1.7.2'
+
 
 #  gem 'hydra', '~>8.0'
   gem 'hydra-head', git: 'https://github.com/avalonmediasystem/hydra-head.git', branch: '8-1-stable'
@@ -20,7 +24,6 @@
   gem 'solrizer', '~> 3.3.0'
   gem 'rsolr', '~> 1.1.2'
   gem 'blacklight', '~> 5.10'
-  gem 'nokogiri', '~> 1.7.1'
   gem 'rubydora', '~> 1.8.1'
   gem 'nom-xml', '~> 0.5.2'
 

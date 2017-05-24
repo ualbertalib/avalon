@@ -519,7 +519,7 @@ GEM
       multi_json (~> 1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    mail (2.6.4)
+    mail (2.6.6.rc1)
       mime-types (>= 1.16, < 4)
     marc (1.0.0)
       scrub_rb (>= 1.0.1, < 2)
@@ -555,7 +555,7 @@ GEM
     net-ssh-gateway (1.2.0)
       net-ssh (>= 2.6.5)
     netrc (0.11.0)
-    nokogiri (1.7.1)
+    nokogiri (1.7.2)
       mini_portile2 (~> 2.1.0)
     nom-xml (0.5.4)
       activesupport (>= 3.2.18)
@@ -906,6 +906,7 @@ DEPENDENCIES
   levenshtein
   license_header
   loofah
+  mail (~> 2.6.6.rc1)
   marc
   media-element-logo-plugin
   media_element_add_to_playlist!
@@ -923,7 +924,7 @@ DEPENDENCIES
   multipart-post
   mysql2 (~> 0.3.20)
   net-ldap
-  nokogiri (~> 1.7.1)
+  nokogiri (~> 1.7.2)
   nom-xml (~> 0.5.2)
   om (~> 3.1.0)
   omniauth-identity
