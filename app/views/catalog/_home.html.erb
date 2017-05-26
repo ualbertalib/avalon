@@ -1,0 +1,78 @@
+<%#
+Copyright 2011-2015, The Trustees of Indiana University and Northwestern
+  University.  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations under the License.
+---  END LICENSE_HEADER BLOCK  ---
+%>
+<div class="container-fluid">
+<div class="row">
+<div class="container">
+  <div class="row visible-xs">
+    <div class="lib-logo col-xs-8">
+      <%= ualib_logo_link %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="lib-logo col-sm-10 hidden-xs">
+      <%= ualib_logo_link %>
+    </div>
+    <div class="col-sm-2">
+   
+        <%= render partial: "modules/user_util_dropdowns"%>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+      <div class="container">
+      <div class="row">
+      <div class="col-sm-12">
+
+      <div class="branding">
+       <h2>education &amp; research archive</h2>
+      <h1>ERA</h1>
+     <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> AUDIO + VIDEO</h3>
+    
+       <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline hidden-xs mast-sm-search">
+        <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+        <input id="search_field" name="search_field" type="hidden" value="all_fields">
+        <div class="form-group">
+          <input type="text" class="form-control q" id="search-field-header" name="q" placeholder="enter search terms">
+        </div>
+        <button type="submit" class="btn btn-default sm-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search ERA A+V</button>
+      </form>
+        </div>
+        <object class="embed-responsive embed-responsive-16by9">
+       <%= video_tag("/assets/welcome.mp4", :class => "embed-responsive-item", :autoplay => true, :loop => true) %>
+        </object>
+    </div>
+</div>
+
+<div class="row">
+<div class="col-md-12 intro">
+
+ <p>Welcome to ERA Audio + Video (ERA A+V) the University of Alberta's media streaming repository. ERA A+V is developed and supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>. For more on the technology behind ERA A+V see <%= link_to 'Technology and Partnerships', technology_path %>.</p>
+<p>
+ERA A+V, a new feature of ERA, preserves and makes accessible audiovisual materials related to the teaching, learning and research activities at the University of Alberta.</p>
+</div>
+  <div class="col-md-4">
+   
+  
+  </div>
+  <div class="col-md-4">
+
+  </div>
+
+</div>
+

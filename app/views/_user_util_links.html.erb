@@ -13,12 +13,14 @@ Unless required by applicable law or agreed to in writing, software distributed
   specific language governing permissions and limitations under the License.
 ---  END LICENSE_HEADER BLOCK  ---
 %>
-<div class="navbar-left">
-  <ul class="nav navbar-nav">
+<div class="mast-branding">
+  <ul>
+     <li><%= link_to 'ERA Home', "https://era.library.ualberta.ca" %></li>
     <% unless current_page?(root_url) %>
-    <li><%= link_to 'Home', root_path %></li>
+ 
+    <li><%= link_to 'ERA A+V Home', root_path %></li>
     <% end %>
-    <li><%= link_to 'Browse', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
+    <li><%= link_to 'Browse ERA A+V', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
     <% if can? :read, Admin::Collection %>
     <li class=<%= active_for_controller('admin/collections') %>><%= link_to 'Manage Content', admin_collections_path %></li>
     <% end %>
@@ -47,5 +49,6 @@ Unless required by applicable law or agreed to in writing, software distributed
     <%# Fallback if the test above fails %>
     <%= link_to 'Sign in', new_user_session_path %>
     <% end %>
+     <li><%= link_to 'Contact', contact_path %></li>
   </ul>
 </div>

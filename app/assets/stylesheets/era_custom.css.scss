@@ -2,7 +2,7 @@
 
 $link1: #b5fd99;
 $link1Hover: #efefef;
-$link1Visited: #3a8489;
+$link1Visited: #b5fd99;
 
 * {
 margin: 0;
@@ -13,7 +13,7 @@ html{
 }
 body{
 	font-family: 'Open Sans', sans-serif;
-	margin: 0 0 100px; /* bottom = footer height */
+	margin: 0 0 250px; /* bottom = footer height */
 	font-size: 15px;
 }
 body.home{
@@ -80,12 +80,6 @@ h2 span{
 
 body.home h4{
 	font-family: 'Abel', sans-serif;
-}
-.wrap {
-	min-height: 100%;
-	height: auto !important;
-	height: 100%;
-	margin: 0 auto -260px;
 }
 
 .branding{
@@ -447,7 +441,7 @@ body.home h4{
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100px;
+    height: 250px;
     width: 100%;
     text-align:center;
 }
@@ -1441,9 +1435,7 @@ ul.radio li.embargo{
 	.branding{
 		top:80px;
 	}
-	.mast-branding ul>li>a{
-		font-size: 19px;
-	}
+	
 	.chart h3{
   		font-size: 24px;
 	}
@@ -1552,13 +1544,11 @@ ul.radio li.embargo{
 * {
 margin: 0;
 }
-html{
-	height: 100%;
-}
+
 body{
 	font-family: 'Open Sans', sans-serif;
 	height: 100%;
-	margin: 0 0 300px; /* bottom = footer height */
+	margin: 0 0 250px; /* bottom = footer height */
 	font-size: 15px;
 }
 body.home{
@@ -1993,7 +1983,7 @@ body.home h4{
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 300px;
+    height: 250px;
     width: 100%;
     text-align:center;
 }
@@ -2862,8 +2852,21 @@ ul.radio li.embargo{
 .mast-branding{
 	padding-top:15px;
 }
-
-
+.navbar{
+	margin: 0 0 10px 0;
+}
+.intro p{
+	font-size:18px;
+}
+.eraav-content{
+	margin-top:50px;
+}
+video{
+	opacity: 0.4;
+}
+video:hover{
+	opacity:0.5;
+}
 
 
 
@@ -2888,7 +2891,7 @@ ul.radio li.embargo{
 	}
 	#masthead{
 		background-color: #ebe8e5;
-		padding-bottom: 10px;
+		padding-bottom: 0px;
 		margin-bottom: 0px;
 	}
 	.mast-branding{
@@ -3001,7 +3004,8 @@ ul.radio li.embargo{
 		top:80px;
 	}
 	.mast-branding ul>li>a{
-		font-size: 19px;
+		font-size: 17px;
+		color:#222;
 	}
 	.chart h3{
   		font-size: 24px;

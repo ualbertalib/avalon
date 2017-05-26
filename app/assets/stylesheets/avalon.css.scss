@@ -39,12 +39,7 @@
   }
 }
 
-a:not(.btn) {
-  color: $linkColor;
-  &:hover { color: $linkColor; }
-  &:active { color: $linkColor; }
-  &:visited { color: $linkColor; }
-}
+
 @mixin hidden-disabled-link  {
   text-decoration: none !important;
   color: $black !important;

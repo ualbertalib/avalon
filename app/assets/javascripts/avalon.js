@@ -114,3 +114,5 @@ function timeCodeToSeconds(hh_mm_ss){
       tc_in_seconds = ( tc_hh * 3600 ) + ( tc_mm * 60 ) + tc_ss;
   return tc_in_seconds;
 }
+
+
