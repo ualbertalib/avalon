@@ -106,7 +106,7 @@ body.home h4{
 	font-size: 15px;
 	text-align: center;
 	padding: 0;
-	margin: -5px 0 0 20px;
+	margin: -50px 0 0 13px;
 }
 .more-info{
 	background-color: rgba(0, 0, 0, 0.8);
@@ -405,7 +405,7 @@ body.home h4{
 	border-bottom: 1px solid #fff;
 }
 .info-pane{
-	padding-bottom:50px;
+	
 }
 .info-pane h2{
 	text-align: center;
@@ -569,7 +569,7 @@ body.home h4{
 
 /*login styles*/
 .login_button {
-  margin: 0 0 0 0;
+  margin: 10px 0 0 0;
 }
 .login-instruct{
 	margin-right: 300px;
@@ -1339,7 +1339,7 @@ ul.radio li.embargo{
 		padding: 20px 0 40px 0;
 	}
 	.lib-logo a.logo{
-		margin-top: 20px;
+		margin-top: 10px;
 	}
 	.front-images{
 		margin: 0px 7%;
@@ -1355,7 +1355,8 @@ ul.radio li.embargo{
 	}
 	.info-pane h2{
 	font-size: 3vw;
-	padding: 35px 0 0px 0;
+	
+		padding:10px 0px;
 }
 	.branding>h1{
 		font-size: 110px;
@@ -1374,7 +1375,7 @@ ul.radio li.embargo{
 			padding: 4px 8px;
 	}
 	.lib-logo a.logo{
-		margin-top: 20px;
+		margin-top: 10px;
 		padding-bottom: 6px;
 		padding-top: 8px;
 		background-image: asset_url('lib-logo.png');
@@ -1405,8 +1406,9 @@ ul.radio li.embargo{
 		font-size: 95%;
 	}
 	.info-pane p{
-		margin: 0 5% 0 5%;
-		padding-bottom: 10px;
+
+		
+		padding:20px 0px;
 		text-indent: 4%;
 		font-size: 160%;
 		font-size: 2vw;
@@ -1456,7 +1458,7 @@ ul.radio li.embargo{
 		letter-spacing: 1px;
 	}
 	.lib-logo a.logo{
-		margin-top: 20px;
+		margin-top: 10px;
 		padding-bottom: 6px;
 		padding-top: 8px;
 		background-image: asset_url('lib-logo.png');
@@ -1492,7 +1494,7 @@ ul.radio li.embargo{
   		padding: 3px 0px;
 	}
 	.info-pane p{
-		margin: 0 10% 0 10%;
+
 		font-size: 140%;
 		font-size: 1.5vw;
 		line-height: 1.8;
@@ -1530,12 +1532,12 @@ ul.radio li.embargo{
 		font-size: 120%;
 	}
 	.info-pane p{
-		margin: 0 10% 0 10%;
 		padding-bottom: 15px;
 		text-indent: 5%;
 		font-size: 130%;
 		font-size: 1.5vw;
 		line-height: 2.1;
+		margin-right:20px;
 	}
 		#tweets ul li:nth-child(2){
 		display: block;
@@ -1648,7 +1650,7 @@ body.home h4{
 	font-size: 15px;
 	text-align: center;
 	padding: 0;
-	margin: -5px 0 0 20px;
+	margin: -50px 0 0 13px;
 }
 .more-info{
 	background-color: rgba(0, 0, 0, 0.8);
@@ -2109,7 +2111,7 @@ body.home h4{
 
 /*login styles*/
 .login_button {
-  margin: 0 0 0 0;
+  margin: 10px 0 0 0;
 }
 .login-instruct{
 	margin-right: 300px;
@@ -2865,7 +2867,27 @@ video{
 	opacity: 0.4;
 }
 video:hover{
-	opacity:0.5;
+	opacity:0.6;
+}
+
+.branding h3{
+	font-family: 'Open Sans', sans-serif;
+	margin-top:-12px;
+	font-size:36px;
+	font-weight:semi-bold;
+	margin-left:10px;
+}
+.branding h3 .glyphicon-triangle-right{
+	font-size:28px;
+}
+.other-grey{
+	background-color:#ebe8e5;
+}
+.feat{
+	font-family: 'Open Sans', sans-serif;
+	font-weight:bold;
+	font-size:22px;
+	margin-top:30px;
 }
 
 
@@ -2942,7 +2964,7 @@ video:hover{
 			padding: 4px 8px;
 	}
 	.lib-logo a.logo{
-		margin-top: 20px;
+		margin-top: 10px;
 		padding-bottom: 6px;
 		padding-top: 8px;
 		background-image: asset_url('lib-logo.png');
@@ -2973,8 +2995,9 @@ video:hover{
 		font-size: 95%;
 	}
 	.info-pane p{
-		margin: 0 5% 0 5%;
-		padding-bottom: 10px;
+		
+
+		padding:20px 0px;
 		text-indent: 4%;
 		font-size: 160%;
 		font-size: 2vw;
@@ -3015,7 +3038,7 @@ video:hover{
 		margin-top: -15px;
 	}
 	.branding>h2{
-		font-size: 22px;
+		font-size: 21px;
 	}
 	.branding>span{
 		font-size: 22px;
@@ -3027,7 +3050,7 @@ video:hover{
 		letter-spacing: 1px;
 	}
 	.lib-logo a.logo{
-		margin-top: 20px;
+		margin-top: 10px;
 		padding-bottom: 6px;
 		padding-top: 8px;
 		background-image: asset_url('lib-logo.png');
@@ -3063,7 +3086,6 @@ video:hover{
   		padding: 3px 0px;
 	}
 	.info-pane p{
-		margin: 0 10% 0 10%;
 		font-size: 140%;
 		font-size: 1.5vw;
 		line-height: 1.8;
@@ -3101,8 +3123,8 @@ video:hover{
 		font-size: 120%;
 	}
 	.info-pane p{
-		margin: 0 10% 0 10%;
-		padding-bottom: 15px;
+		
+		padding:20px 0px;
 		text-indent: 5%;
 		font-size: 130%;
 		font-size: 1.5vw;

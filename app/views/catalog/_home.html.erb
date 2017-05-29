@@ -42,37 +42,39 @@ Unless required by applicable law or agreed to in writing, software distributed
       <div class="branding">
        <h2>education &amp; research archive</h2>
       <h1>ERA</h1>
-     <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span> AUDIO + VIDEO</h3>
+     <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <strong>+</strong> VIDEO</h3>
     
        <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline hidden-xs mast-sm-search">
         <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
         <input id="search_field" name="search_field" type="hidden" value="all_fields">
         <div class="form-group">
-          <input type="text" class="form-control q" id="search-field-header" name="q" placeholder="enter search terms">
+          <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" placeholder="enter search terms">
         </div>
-        <button type="submit" class="btn btn-default sm-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search ERA A+V</button>
+
+        <button type="submit" class="call-to-action">Search ERA A+V</button>
       </form>
         </div>
         <object class="embed-responsive embed-responsive-16by9">
-       <%= video_tag("/assets/welcome.mp4", :class => "embed-responsive-item", :autoplay => true, :loop => true) %>
+       <%= video_tag("/assets/welcome2.mp4", :class => "embed-responsive-item", :autoplay => true, :loop => true) %>
         </object>
     </div>
 </div>
 
+
+
+
 <div class="row">
-<div class="col-md-12 intro">
+<div class="container">
+<div class="col-md-8 info-pane">
 
- <p>Welcome to ERA Audio + Video (ERA A+V) the University of Alberta's media streaming repository. ERA A+V is developed and supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>. For more on the technology behind ERA A+V see <%= link_to 'Technology and Partnerships', technology_path %>.</p>
-<p>
-ERA A+V, a new feature of ERA, preserves and makes accessible audiovisual materials related to the teaching, learning and research activities at the University of Alberta.</p>
+ <p>Welcome to ERA Audio + Video (ERA A+V) the University of Alberta's media streaming repository. 
+
+ERA A+V is a new feature of The University of Alberta's <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. ERA+AV seeks to preserves and make accessible audiovisual materials related to the teaching, learning and research activities at the University of Alberta. ERA A+V is developed and supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>. </p>
 </div>
-  <div class="col-md-4">
-   
-  
-  </div>
-  <div class="col-md-4">
-
-  </div>
-
+   <div class="col-sm-4">
+          <h3 class="feat">Featured Collection</h3>
+          <%= image_tag("feature.jpg", :class => "img-responsive") %>
+        </div>
+ 
 </div>
 
