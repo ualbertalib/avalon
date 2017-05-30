@@ -31,21 +31,21 @@ Unless required by applicable law or agreed to in writing, software distributed
   <body data-mountpoint="<%=root_path%>">
     <a id="skip-to-content" class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <%= render partial: 'shared/ajax_modal' %>
-    <% unless has_search_parameters? %>
-    <% else %>
-    <%= render 'modules/header' %>
-     <div class="row-fluid grey">
-    <div class="container">
-      <%= render :partial => 'modules/global_navigation' %>
-      </div></div>
+    
+    <% if !current_page?(root_path) %>
+        <%= render 'modules/header' %>
+        <div class="row-fluid grey">
+        <div class="container">
+        <%= render :partial => 'modules/global_navigation' %>
+        </div></div>
+        <div class="container"><div class="row">
     <% end %>
+    
    
-       <div class="row-fluid">
-    <div class="container">
+       
       <%= render 'modules/flash_messages' %>
       <%= yield %>
-    </div>
-    </div>
+  
     <%= render 'modules/footer' %>
 
     <!-- With this many Javascript files performance will be much better
