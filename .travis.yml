@@ -1,4 +1,6 @@
 ---
+dist: trusty
+sudo: required
 git:
   submodules: false
 bundler_args: --with mysql --without development debug
