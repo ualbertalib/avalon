@@ -3,7 +3,7 @@ dist: trusty
 sudo: required
 git:
   submodules: false
-bundler_args: --with mysql --without development debug
+bundler_args: --full-index --with mysql --without development debug
 services:
   - mysql2
 before_install:
