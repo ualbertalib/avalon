@@ -16,7 +16,7 @@ before_install:
   - cp config/secrets.travis.yml config/secrets.yml
   - git submodule init
   - git submodule update --depth=10 -- red5
-  - gem uninstall bundler -v 1.15
+  - gem uninstall bundler -v 1.15.0
   - gem install bundler -v 1.14.6
   - bundle config without development:production
 before_script:
