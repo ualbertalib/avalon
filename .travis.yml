@@ -16,8 +16,7 @@ before_install:
   - cp config/secrets.travis.yml config/secrets.yml
   - git submodule init
   - git submodule update --depth=10 -- red5
-  - rvm gemset create bundle-fixerup
-  - rvm gemset use bundle-fixerup
+  - gem uninstall bundler -v 1.15
   - gem install bundler -v 1.14.6
   - bundle config without development:production
 before_script:
