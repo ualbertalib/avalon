@@ -1,14 +1,14 @@
 <% if section=='tab-content' %>
 
     <div class="tab-pane" id="lti-tab">
-      <p class="muted">Copy the link below to share this resource via LTI</p>
+      <p class="muted"><%= t('share.lti.copy_link') %></p>
       <form role="form">
         <div class="form-group">
-          <label for="ltilink-object">Item</label>
+          <label for="ltilink-object"><%= t('share.item') %></label>
           <input type="text" class="col-md-5 form-control" id="ltilink-object" value="<%= user_omniauth_callback_url(action: 'lti', target_id: @mediaobject) %>" onClick="this.select();" readonly="readonly">
         </div>
         <div class="form-group">
-          <label for="ltilink-section">Section</label>
+          <label for="ltilink-section"><%= t('share.section') %></label>
           <% if @currentStream.present? %>
           <input type="text" class="col-md-5 form-control" id="ltilink-section" value="<%= user_omniauth_callback_url(action: 'lti', target_id: @currentStream) %>" onClick="this.select();" readonly="readonly">
           <% else %>
@@ -20,6 +20,6 @@
 
 <% elsif section=='share-tabs' %>
 
-    <li><a href="#lti-tab" data-toggle="tab">LTI URL</a></li>
+    <li><a href="#lti-tab" data-toggle="tab"><%= t('share.lti.tab') %></a></li>
 
 <% end %>
