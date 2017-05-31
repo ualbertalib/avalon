@@ -24,7 +24,7 @@ before_script:
   - rm config/database.yml
   - cp config/database.travis.yml config/database.yml
   - mysql -e 'create database avalon_test;'
-  - mysql -e 'grant all privileges on *.* to \'travis\'@\'%\'';
+  - mysql -e 'grant all privileges on *.* to \'travis\'@\'%\';'
   - bundle exec rake jetty:unzip jetty:config jetty:start delayed_job:start
   - bundle exec rake db:migrate
   - bundle exec rake avalon:db_migrate
