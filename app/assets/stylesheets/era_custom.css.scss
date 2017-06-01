@@ -549,7 +549,7 @@ body.home h4{
 }
 .mast-sm-search{
 	text-align: right;
-	margin-top: 20px;
+	margin-top: 10px;
 	font-family: 'Abel', sans-serif;
 }
 .main{
@@ -2090,7 +2090,7 @@ body.home h4{
 }
 .mast-sm-search{
 	text-align: right;
-	margin-top: 20px;
+	margin-top: 10px;
 	font-family: 'Abel', sans-serif;
 }
 .main{
@@ -2105,6 +2105,13 @@ body.home h4{
 }
 .sm-search{
 	font-size: 14px;
+}
+.page ul, .page p{
+	font-size:16px;
+	line-height:30px;
+}
+.secondary{
+	padding:30px 0;
 }
 
 
@@ -2849,9 +2856,11 @@ ul.radio li.embargo{
 .grey{
 	background-color:#ebe8e5;
 }
-
 .mast-branding{
-	padding-top:15px;
+	padding-top:5px;
+}
+.mast-branding img{
+	margin-left:80px;
 }
 .navbar{
 	margin: 0 0 10px 0;
@@ -2860,13 +2869,10 @@ ul.radio li.embargo{
 	font-size:18px;
 }
 .eraav-content{
-	margin-top:50px;
+	margin-top:20px;
 }
 video{
 	opacity: 0.3;
-}
-video:hover{
-	opacity:0.4;
 }
 .glyphicon-plus{
 	font-size:12px;
@@ -2893,14 +2899,23 @@ video:hover{
 }
 .featured{
 	background-image:url("feature.jpg");
+	background-repeat:no-repeat;
 	margin-top:30px;
-	height:400px;
+	height:379px;
 	text-align:center;
-
+	width:100%;
+	padding-top:5px;
+	display:block;
+	text-decoration:none;
+}
+.featured:hover{
+	opacity:0.85;
+	text-decoration:none;
+	color:#999;
 }
 .featured h3{
-font-size:19px;
-color:#efefef;
+	font-size:19px;
+	color:#efefef;
 }
 .featured h2{
 	font-family: 'Open Sans', sans-serif;
@@ -2913,6 +2928,10 @@ color:#efefef;
 }
 .mb{
 	margin-bottom:40px;
+}
+legend{
+	font-size:28px;
+	font-family: 'Playfair', serif;
 }
 
 /* Small devices (tablets, 768px and up) */
@@ -3051,7 +3070,7 @@ color:#efefef;
 		top:80px;
 	}
 	.mast-branding ul>li>a{
-		font-size: 17px;
+		font-size: 19px;
 		color:#222;
 	}
 	.chart h3{
