@@ -43,10 +43,23 @@ Unless required by applicable law or agreed to in writing, software distributed
         </form>
       </div>
       <object class="embed-responsive embed-responsive-16by9">
-        <%= video_tag("/assets/welcome2.mp4", :class => "embed-responsive-item", :autoplay => true, :loop => true) %>
+
+      <script>
+var videos = [
+    'welcome',
+    'welcome2',
+    'welcome3',
+    'welcome4'
+];
+
+var index=Math.floor(Math.random() * videos.length);
+var html="<video src='/assets/"+videos[index]+".mp4' autoplay='true'  loop='loop'>";
+document.write(html);
+</script>
+        
       </object>
       <div class="col-sm-12 more-info">
-        <h4>You can also <%= link_to 'Browse ERA A+V', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %>, learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
+        <h4>You can also <%= link_to 'browse ERA A+V', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %>, learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
       </div>
     </div>
   </div>
@@ -61,4 +74,6 @@ Unless required by applicable law or agreed to in writing, software distributed
     </a>
   </div>
 </div>
+
+
 
