@@ -217,4 +217,28 @@ class Admin::CollectionsController < ApplicationController
       redirect_to admin_collection_path(@source_collection)
     end
   end
+
+  # POST /collections/1/batch_ingest
+  def batch_ingest
+    if @collection.dropbox.manifest_state == :processable
+      # Spawn off background job
+      AvalonJobs.collection_batch_ingest(@collection.id)
+      flash[:notice] = @collection.dropbox.manifest_status_message
+    else
+      flash[:error] = @collection.dropbox.manifest_status_message
+    end
+    redirect_to admin_collection_path(@collection)
+  end
+
+  # GET /collections/1/batch_log
+  def batch_log
+    # View most recent batch log
+    @log_text_output =
+      Avalon::Batch::Manifest.concatenate_log_files(@collection.dropbox.base_directory)
+
+    unless @log_text_output.present?
+      flash[:error] = t('batch_ingest.log_not_found', name: @collection.name)
+      redirect_to admin_collection_path(@collection)
+    end
+  end
 end

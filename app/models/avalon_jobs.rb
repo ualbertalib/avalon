@@ -49,10 +49,16 @@ class AvalonJobs
       logger.warn "MasterFile #{oldpath} does not exist"
     end
   end
+
+  def self.collection_batch_ingest(collection_id)
+    collection = Admin::Collection.find(collection_id)
+    Avalon::Batch::Ingest.new(collection).ingest
+  end
+
 class << self
   handle_asynchronously :delete_masterfile
   handle_asynchronously :move_masterfile
-  
+  handle_asynchronously :collection_batch_ingest
 end
 
 end

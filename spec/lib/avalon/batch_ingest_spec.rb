@@ -18,6 +18,7 @@ require 'avalon/batch/ingest'
 require 'fileutils'
 
 describe Avalon::Batch::Ingest do
+
   before :each do
     @saved_dropbox_path = Avalon::Configuration.lookup('dropbox.path')
     Avalon::Configuration['dropbox']['path'] = 'spec/fixtures/dropbox'
@@ -27,17 +28,23 @@ describe Avalon::Batch::Ingest do
     # place
     # this file is created to signify that the file has been processed
     # we need to remove it so can re-run the tests
-    Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error'].each { |file| File.delete(file) }
+    Dir['spec/fixtures/**/*.xlsx.process*',
+        'spec/fixtures/**/*.xlsx.error',
+        'spec/fixtures/**/*.xlsx.log'].each { |file| File.delete(file) }
 
     User.create(:username => 'frances.dickens@reichel.com', :email => 'frances.dickens@reichel.com')
     User.create(:username => 'jay@krajcik.org', :email => 'jay@krajcik.org')
     RoleControls.add_user_role('frances.dickens@reichel.com','manager')
     RoleControls.add_user_role('jay@krajcik.org','manager')
+    allow_any_instance_of(Avalon::Batch::Manifest).to receive_message_chain(:manifest_logger, :info)
+    allow_any_instance_of(Avalon::Batch::Manifest).to receive_message_chain(:manifest_logger, :error)
   end
 
   after :each do
     Avalon::Configuration['dropbox']['path'] = @saved_dropbox_path
-    Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error'].each { |file| File.delete(file) }
+    Dir['spec/fixtures/**/*.xlsx.process*',
+        'spec/fixtures/**/*.xlsx.error',
+        'spec/fixtures/**/*.xlsx.log'].each { |file| File.delete(file) }
     RoleControls.remove_user_role('frances.dickens@reichel.com','manager')
     RoleControls.remove_user_role('jay@krajcik.org','manager')
     
@@ -86,6 +93,8 @@ describe Avalon::Batch::Ingest do
       error_file = File.join(@dropbox_dir,'example_batch_ingest','bad_manifest.xlsx.error')
       expect(File.exists?(error_file)).to be true
       expect(File.read(error_file)).to match(/^Invalid manifest/)
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with(/Invalid manifest/).once
     end
     
     it 'should ingest batch with spaces in name' do
@@ -251,6 +260,7 @@ describe Avalon::Batch::Ingest do
 
     it 'should result in an error if a file is not found' do
       batch = Avalon::Batch::Package.new( 'spec/fixtures/dropbox/example_batch_ingest/wrong_filename_manifest.xlsx', collection )
+
       allow_any_instance_of(Avalon::Dropbox).to receive(:find_new_packages).and_return [batch]
       mailer = double('mailer').as_null_object
       expect(IngestBatchMailer).to receive(:batch_ingest_validation_error).with(duck_type(:each),duck_type(:each)).and_return(mailer)
@@ -258,21 +268,36 @@ describe Avalon::Batch::Ingest do
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
       expect(batch.errors[3].messages).to have_key(:content)
       expect(batch.errors[3].messages[:content]).to eq(["File not found: spec/fixtures/dropbox/example_batch_ingest/assets/sheephead_mountain_wrong.mov"])
+
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with("Row 3:\n  Content File not found: "\
+              'spec/fixtures/dropbox/example_batch_ingest/'\
+              'assets/sheephead_mountain_wrong.mov').once
     end
 
     it 'does not create an ingest batch object when there are no files' do
       batch = Avalon::Batch::Package.new('spec/fixtures/dropbox/example_batch_ingest/no_files.xlsx', collection)
+
       allow_any_instance_of(Avalon::Dropbox).to receive(:find_new_packages).and_return [batch]
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
+
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with("Row 3:\n  Content No files listed").once
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with("Row 4:\n  Content No files listed").once
     end
 
     it 'should fail if the manifest specified a non-manager user' do
       batch = Avalon::Batch::Package.new('spec/fixtures/dropbox/example_batch_ingest/non_manager_manifest.xlsx', collection)
+
       allow_any_instance_of(Avalon::Dropbox).to receive(:find_new_packages).and_return [batch]
       mailer = double('mailer').as_null_object
       expect(IngestBatchMailer).to receive(:batch_ingest_validation_error).with(anything(), include("User jay@krajcik.org does not have permission to add items to collection: Ut minus ut accusantium odio autem odit..")).and_return(mailer)
       expect(mailer).to receive(:deliver)
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with('User jay@krajcik.org does not have permission to add items to collection: '\
+              'Ut minus ut accusantium odio autem odit..').once
     end
 
     it 'should fail if a bad offset is specified' do
@@ -284,6 +309,8 @@ describe Avalon::Batch::Ingest do
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
       expect(batch.errors[4].messages).to have_key(:offset)
       expect(batch.errors[4].messages[:offset]).to eq(['Invalid offset: 5:000'])
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with(/Row 4:\n  Offset Invalid offset: 5:000/).once
     end
 
     it 'should fail if missing required field' do
@@ -295,6 +322,10 @@ describe Avalon::Batch::Ingest do
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
       expect(batch.errors[4].messages).to have_key(:title)
       expect(batch.errors[4].messages[:title]).to eq(['field is required.'])
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with(/Row 3:\n  Date issued field is required/).once
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with(/Row 4:\n  Title field is required/).once
     end
 
     it 'should fail if field is not in accepted metadata field list' do
@@ -306,6 +337,8 @@ describe Avalon::Batch::Ingest do
       expect{batch_ingest.ingest}.to_not change{IngestBatch.count}
       expect(batch.errors[4].messages).to have_key(:contributator)
       expect(batch.errors[4].messages[:contributator]).to eq(["Metadata attribute 'contributator' not found"])
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with(/Row 3:\n  Contributator Metadata attribute 'contributator' not found/).once
     end
     
     it 'should fail if an unknown error occurs' do
@@ -317,6 +350,8 @@ describe Avalon::Batch::Ingest do
       expect(mailer).to receive(:deliver)
       expect(batch_ingest).to receive(:ingest_package) { raise "Foo" }
       expect { batch_ingest.ingest }.to_not raise_error
+      expect(batch.manifest.manifest_logger).to have_received(:error)
+        .with('Unknown error with ingest').once
     end
   end
 

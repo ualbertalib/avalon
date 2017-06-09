@@ -18,6 +18,8 @@ module Avalon
   module Batch
     class Manifest
       include Enumerable
+      include ActionView::Helpers::TranslationHelper
+
       extend Forwardable
 
       EXTENSIONS = ['csv','xls','xlsx','ods']
@@ -25,14 +27,50 @@ module Avalon
       SKIP_FIELDS = [:collection]
 
       def_delegators :@entries, :each
-      attr_reader :spreadsheet, :file, :name, :email, :entries, :package
+      attr_reader :spreadsheet, :file, :name, :email, :entries, :package, :manifest_logger
 
       class << self
         def locate(root)
+          locate_with_status(root)[:processable]
+        end
+
+        def locate_with_status(root)
+          status = {
+            processable: [],
+            processing: [],
+            processed: [],
+            error: []
+          }
           possibles = Dir[File.join(root, "**/*.{#{EXTENSIONS.join(',')}}")]
-          possibles.reject do |file|
-            File.basename(file) =~ /^~\$/ or self.error?(file) or self.processing?(file) or self.processed?(file)
+          possibles.each do |file|
+            next if File.basename(file) =~ /^~\$/
+            if self.error?(file)
+              status[:error] << file
+            elsif self.processing?(file)
+              status[:processing] << file
+            elsif self.processed?(file)
+              status[:processed] << file
+            else
+              status[:processable] << file
+            end
           end
+          status
+        end
+
+        def concatenate_log_files(root)
+          # Note: we want to return nil if no logs exist
+          output = nil
+          locate_with_status(root).each do |status, manifests|
+            manifests.each do |manifest|
+              log_file = "#{manifest}.log"
+              next unless File.exists?(log_file)
+              output ||= ''
+              file = File.open(log_file, "rb")
+              output += "** #{log_file} (#{status}) **\n#{file.read}\n\n"
+              file.close
+            end
+          end
+          output
         end
 
         def error?(file)
@@ -59,6 +97,11 @@ module Avalon
       def initialize(file, package)
         @file = file
         @package = package
+
+        # Ensure that the log file is overwritten on each ingest (default append)
+        log_file = File.open("#{file}.log", 'w')
+        @manifest_logger = Logger.new(log_file)
+
         load!
       end
 
@@ -82,19 +125,29 @@ module Avalon
 
       def start!
         File.open("#{@file}.processing",'w') { |f| f.puts Time.now.xmlschema }
+        manifest_logger.info(t('batch_ingest.logger.processing_started', file: @file))
       end
 
       def error! msg=nil
         File.open("#{@file}.error",'a') do |f| 
           if msg.nil?
+            has_logged_error = false
             entries.each do |entry|
               if entry.errors.count > 0
-                f.puts "Row #{entry.row}:"
-                entry.errors.messages.each { |k,m| f.puts %{  #{m.join("\n  ")}} }
+                msg = "#{t('batch_ingest.logger.row', row: entry.row)}\n" +
+                  entry.errors.full_messages.map { |m| "  #{m}"}.join("\n")
+                f.puts(msg)
+                manifest_logger.error(msg)
+                has_logged_error = true
               end
             end
+            manifest_logger
+              .error(t('batch_ingest.logger.unknown_error')) unless has_logged_error
           else
-            f.puts msg
+            # Let's make msg either string or array of strings
+            msg_out = Array(msg).join("\n")
+            f.puts(msg_out)
+            manifest_logger.error(msg_out)
           end
         end
         rollback! if processing?
@@ -107,6 +160,7 @@ module Avalon
       def commit!
         File.open("#{@file}.processed",'w') { |f| f.puts Time.now.xmlschema }
         rollback! if processing?
+        manifest_logger.info(t('batch_ingest.logger.finished_processing', file: @file))
       end
 
       def error?

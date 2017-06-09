@@ -19,6 +19,7 @@ module Avalon
   module Batch
     class Entry
       extend ActiveModel::Translation
+      include ActionView::Helpers::TranslationHelper
 
       attr_reader :fields, :files, :opts, :row, :errors, :manifest, :collection
 
@@ -170,11 +171,19 @@ module Avalon
           media_object.save
         rescue Exception => error
           save_tries += 1
-          logger.warn "Batch Ingest caught error on #{media_object.id}: #{error.inspect}"
+          # Report that an exception was caught for this object
+          msg = t('batch_ingest.logger.object_error',
+                       id: media_object.id, msg: error.inspect)
+          manifest.manifest_logger.
+            info(t('batch_ingest.logger.row_msg', row: row, msg: msg))
+          logger.warn(msg)
           raise error if save_tries >=3
           sleep 3
           retry
         end
+        # Report in the log what Fedora ID was assigned
+        manifest.manifest_logger.info(t('batch_ingest.logger.row_msg',
+                                             row: row, msg: "MediaObject #{media_object.pid}"))
 
         @files.each do |file_spec|
           master_file = MasterFile.new
@@ -268,6 +277,7 @@ module Avalon
       def self.derivativePath(filename, quality)
         filename.dup.insert(filename.rindex('.'), ".#{quality}")
       end
+
     end
   end
 end

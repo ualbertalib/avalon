@@ -212,6 +212,8 @@ en:
     title: 'Collections - %{application_name}'
     show:
       title: '%{collection_name} - Collections - %{application_name}'
+    batch_ingest_log:
+      title: '%{collection_name} batch ingest log - Collections - %{application_name}'
 
   media_objects:
     edit:
@@ -256,3 +258,26 @@ en:
         management systems'
       tab: 'eClass'
     section: Section
+
+  batch_ingest:
+    button: 'Batch ingest'
+    confirm: 'Are you sure you would like to run a batch ingest for collection "%{name}"?'
+    error:
+      'Batch already has an error recorded for collection "%{name}".
+      Remove the *.error file from the dropbox to reprocess'
+    log_not_found: 'Batch ingest log not found for collection "%{name}".'
+    log_output: 'Batch ingest log output'
+    logger:
+      finished_processing: "Finished processing %{file}"
+      object_error: "Batch Ingest caught error on %{id}: #{msg}"
+      processing_started: "Processing started %{file}"
+      row: "Row %{row}:"
+      row_msg: "Row %{row}: %{msg}"
+      unknown_error: 'Unknown error with ingest'
+    not_found: 'No manifests found'
+    processable: 'Batch ingest for collection "%{name}" initiated ...'
+    processed:
+      'Batch has already been processed for collection "%{name}".
+      Remove the *.processed file from the dropbox to reprocess'
+    processing: 'Batch is currently processing for collection "%{name}"'
+    view_log: 'View most recent batch ingest log'

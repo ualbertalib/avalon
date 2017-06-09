@@ -111,6 +111,8 @@ Avalon::Application.routes.draw do
         get 'edit'
         get 'remove'
         get 'items'
+        post 'batch_ingest'
+        get 'batch_log'
       end
     end
   end

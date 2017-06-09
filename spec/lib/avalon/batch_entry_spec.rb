@@ -41,6 +41,7 @@ describe Avalon::Batch::Entry do
     allow(manifest).to receive_message_chain(:package, :dir).and_return(testdir)
     allow(manifest).to receive_message_chain(:package, :user, :user_key).and_return('archivist1@example.org')
     allow(manifest).to receive_message_chain(:package, :collection).and_return(collection)
+    allow(manifest).to receive_message_chain(:manifest_logger, :info)
     manifest
   end
   let(:entry_fields) do

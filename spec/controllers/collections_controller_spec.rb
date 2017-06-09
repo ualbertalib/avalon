@@ -302,4 +302,151 @@ describe Admin::CollectionsController, type: :controller do
 
     end
   end
+
+  describe 'batch actions' do
+    before(:each) do
+      @saved_dropbox_path = Avalon::Configuration.lookup('dropbox.path')
+      Avalon::Configuration['dropbox']['path'] = 'spec/fixtures/dropbox'
+      Avalon::Configuration['email']['notification'] = 'test_archivist@example.com'
+      Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error']
+        .each { |file| File.delete(file) }
+      User.create(username: 'test_archivist@example.com',
+                  email: 'test_archivist@example.com')
+      RoleControls.add_user_role('test_archivist@example.com', 'manager')
+
+      @dropbox_dir = collection.dropbox.base_directory
+      FileUtils.mkdir_p @dropbox_dir
+
+      request.env["HTTP_REFERER"] = '/'
+      login_as(:administrator)
+
+      # Don't ever let a batch ingest job to actually run
+      allow(AvalonJobs).to receive(:collection_batch_ingest)
+    end
+
+    after :each do
+      Avalon::Configuration['dropbox']['path'] = @saved_dropbox_path
+      Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error']
+        .each { |file| File.delete(file) }
+      RoleControls.remove_user_role('test_archivist@example.com','manager')
+
+      if @dropbox_dir =~ %r{spec/fixtures/dropbox/RSpec} 
+        FileUtils.rm_rf @dropbox_dir
+      end
+    end
+
+    let!(:collection) { FactoryGirl.create(:collection, name: 'RSpec Collection',
+                                           managers: ['test_archivist@example.com']) }
+
+    describe '#batch_ingest' do
+      it 'launches a batch when a manifest exists' do
+        # No *.error, *.processed, or *.processing exists
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        expect(collection.dropbox.manifest_state).to eq(:processable)
+
+        post 'batch_ingest', id: collection.pid
+
+        expect(AvalonJobs).to have_received(:collection_batch_ingest)
+        expect(flash[:notice])
+          .to eq('Batch ingest for collection "RSpec Collection" initiated ...')
+      end
+
+      it 'doesn\'t launch a batch when no manifest exists' do
+        expect(File.exists?("#{@dropbox_dir}/manifest.xlsx")).to be_falsey
+        expect(collection.dropbox.manifest_state).to eq(:not_found)
+
+        post 'batch_ingest', id: collection.pid
+
+        expect(AvalonJobs).to_not have_received(:collection_batch_ingest)
+        expect(flash[:error]).to eq('No manifests found')
+      end
+
+      # Batch has had a previous error
+      it 'doesn\'t run when an error file exists' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx.error"
+        expect(collection.dropbox.manifest_state).to eq(:error)
+        post 'batch_ingest', id: collection.pid
+
+        expect(AvalonJobs).to_not have_received(:collection_batch_ingest)
+        expect(flash[:error])
+          .to eq('Batch already has an error recorded for collection "RSpec Collection". '\
+                 'Remove the *.error file from the dropbox to reprocess')
+      end
+
+      # Batch is currently running
+      it 'doesn\'t run when an processing file exists' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx.processing"
+        expect(collection.dropbox.manifest_state).to eq(:processing)
+
+        post 'batch_ingest', id: collection.pid
+
+        expect(AvalonJobs).to_not have_received(:collection_batch_ingest)
+        expect(flash[:error])
+          .to eq('Batch is currently processing for collection "RSpec Collection"')
+      end
+
+      # Batch has already run
+      it 'doesn\'t run when a processed file exists' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx.processed"
+        expect(collection.dropbox.manifest_state).to eq(:processed)
+
+        post 'batch_ingest', id: collection.pid
+
+        expect(response).to redirect_to(admin_collection_path(collection))
+        expect(AvalonJobs).to_not have_received(:collection_batch_ingest)
+        expect(flash[:error])
+          .to eq('Batch has already been processed for collection "RSpec Collection". '\
+                 'Remove the *.processed file from the dropbox to reprocess')
+      end
+    end
+
+    describe '#batch_log' do
+      it 'fails when no log file exists' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        expect(File.exists?("#{@dropbox_dir}/manifest.xlsx.log")).to be_falsey
+
+        get 'batch_log', id: collection.pid
+
+        expect(response).to redirect_to(admin_collection_path(collection))
+        expect(flash[:error])
+          .to eq('Batch ingest log not found for collection "RSpec Collection".')
+      end
+
+      it 'shows a log when it exists' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        File.write("#{@dropbox_dir}/manifest.xlsx.log", 'A batch log message')
+
+        expect(collection.dropbox.manifest_state).to eq(:processable)
+
+        get 'batch_log', id: collection.pid
+
+        expect(response.status).to eq(200)
+        expect(response.body)
+          .to include("** #{@dropbox_dir}/manifest.xlsx.log (processable) **\nA batch log message\n\n")
+      end
+
+      it 'concatenates two logs' do
+        FileUtils.touch "#{@dropbox_dir}/manifest.xlsx"
+        File.write("#{@dropbox_dir}/manifest.xlsx.log", 'A batch log message')
+
+        FileUtils.touch "#{@dropbox_dir}/manifest.csv"
+        File.write("#{@dropbox_dir}/manifest.csv.log", 'A second batch log message')
+
+        expect(collection.dropbox.manifest_state).to eq(:processable)
+
+        get 'batch_log', id: collection.pid
+
+        expect(response.status).to eq(200)
+        # Order of concatenation shouldn't matter
+        log1 = "** #{@dropbox_dir}/manifest.xlsx.log (processable) **\nA batch log message\n\n"
+        log2 = "** #{@dropbox_dir}/manifest.csv.log (processable) **\nA second batch log message\n\n"
+        expect(response.body).to include(log1)
+        expect(response.body).to include(log2)
+      end
+    end
+
+  end
 end

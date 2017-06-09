@@ -81,9 +81,28 @@ module Avalon
       Avalon::Batch::Package.locate(@base_directory, @collection)
     end
 
+    def manifest_state
+      # Multiple could potentially match, so the order is important
+      [:processable, :error, :processing, :processed].each do |state|
+        return state if manifest_status[state].any?
+      end
+      return :not_found
+    end
+
+    def manifest_status_message
+      I18n.t("batch_ingest.#{manifest_state}", name: collection.name)
+    end
+
   #  protected
     def find_open_files(files)
       Avalon::Batch.find_open_files(files, @base_directory)
     end
+
+    private
+
+    def manifest_status
+      @manifest_status ||= Avalon::Batch::Manifest.locate_with_status(@base_directory)
+    end
+
   end
 end

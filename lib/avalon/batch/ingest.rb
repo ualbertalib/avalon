@@ -66,6 +66,7 @@ module Avalon
         end
         if !base_errors.empty? || !package.valid?
           package.manifest.error!
+          package.manifest.error!(base_errors) if base_errors.any?
           IngestBatchMailer.batch_ingest_validation_error( package, base_errors ).deliver
           return nil
         end

@@ -51,4 +51,17 @@ describe AvalonJobs do
       FakeFS.deactivate!
     end
   end
+
+  describe "collection_batch_ingest" do
+    it "should launch a batch ingest for a collection" do
+      collection = FactoryGirl.create(:collection)
+      ingest = double('ingest').as_null_object
+      allow(Avalon::Batch::Ingest).to receive(:new).and_return(ingest)
+      allow(ingest).to receive(:ingest)
+
+      expect(ingest).to receive(:ingest)
+
+      AvalonJobs.collection_batch_ingest_without_delay collection.pid
+    end
+  end
 end
