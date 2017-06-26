@@ -5,16 +5,16 @@ $link1Hover: #efefef;
 $link1Visited: #b5fd99;
 
 * {
-margin: 0;
+	margin: 0;
 }
 html{
-	  position: relative;
+	 position: relative;
     min-height: 100%;
 }
 body{
-	font-family: 'Open Sans', sans-serif;
+	font-family: 'Abel', sans-serif;
 	height: 100%;
-	margin: 0 0 250px; /* bottom = footer height */
+	margin: 0 0 300px; /* bottom = footer height */
 	font-size: 15px;
 }
 body.home{
@@ -92,7 +92,7 @@ body.home h4{
 	text-align: center;
 	background-color: #2d353d;
 	color: #fff;
-	padding-bottom: 20px;
+	padding-bottom: 5px;
 
 }
 .branding>h1{
@@ -111,13 +111,13 @@ body.home h4{
 .branding>h2{
 	font-size: 15px;
 	text-align: center;
-	padding: 0;
-	margin: -50px 0 0 13px;
+	padding: 10px 0 0;
+	margin: 0 0 -5px 13px;
 }
 .more-info{
 	background-color: rgba(0, 0, 0, 0.8);
 	color: #fff;
-	padding: 10px 0;
+	padding: 10px;
 }
 .lib-logo a.logo{
 	margin-top: 10px;
@@ -128,8 +128,8 @@ body.home h4{
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 	display: inline-block;
-	height: 30px;
-	width: 100px;
+	height: 35px;
+	width: 200px;
 }
 .lib-logo .btn{
 	float: right;
@@ -187,7 +187,7 @@ body.home h4{
 }
 
 .call-to-action{
-	padding: 4px 8px;
+	padding: 8px;
 	border: 2px solid #fff;
 	background-color: rgba(0, 0, 0, 0.6);
 	font-size: 18px;
@@ -417,7 +417,7 @@ body.home h4{
 	border-bottom: 1px solid #fff;
 }
 .info-pane{
-	padding-bottom:50px;
+	padding-bottom:0px;
 }
 .info-pane h2{
 	text-align: center;
@@ -427,7 +427,10 @@ body.home h4{
 	margin-bottom: 1.7vw;
 	color: #2d353d;
 }
-
+.info-pane p{
+	font-size:20px;
+	margin:20px;
+}
 .info-pane p>a, .about p>a{
 	text-decoration: underline;
 	color: #337ab7;
@@ -453,9 +456,10 @@ body.home h4{
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 250px;
+    height: 300px;
     width: 100%;
     text-align:center;
+    font-size:80%;
 }
 .footer h2{
 	font-size: 150%;
@@ -1351,24 +1355,24 @@ video{
 	opacity: 0.3;
 }
 .glyphicon-plus{
-	font-size:9px;
+	font-size:8px;
 	display: inline;
-	margin-left:2px;
-	top:-3px;
+	margin-left:1px;
+	top:-2px;
 }
 .logo-plus{
-	font-size:20px;
-	top:-5px;
+	font-size:13px;
+	top:-1px;
 }
 .branding h3{
 	font-family: 'Open Sans', sans-serif;
-	margin-top:-12px;
-	font-size:36px;
+	margin-top:2px;
+	font-size:18px;
 	font-weight:semi-bold;
 	margin-left:10px;
 }
 .branding h3 .glyphicon-triangle-right{
-	font-size:28px;
+	font-size:16px;
 }
 .other-grey{
 	background-color:#ebe8e5;
@@ -1381,7 +1385,7 @@ video{
 	text-align:center;
 	width:100%;
 	padding-top:5px;
-	display:block;
+	display:none;
 	text-decoration:none;
 }
 .featured:hover{
@@ -1409,8 +1413,12 @@ legend{
 	font-size:28px;
 	font-family: 'Playfair', serif;
 }
-
-
+.banner-video{
+	display:none;
+}
+#browse-call{
+	width:100%;
+}
 
 /* BEGIN STYLES FOR LARGER DEVICES */
 /* Small devices (tablets, 768px and up) */
@@ -1420,7 +1428,6 @@ legend{
 	}
 	.branding{
 		position: absolute;
-		top:80px;
 		left:50%;
 		transform: translate(-50%);
 		z-index: 500;
@@ -1456,10 +1463,10 @@ legend{
 		margin: 0px 7%;
 	}
 	.more-info{
-		position: absolute;
-		
+		padding: 10px 0;
 		height: 60px;
-		margin-top: 0;
+		margin-top: -60px;
+		width:100%;
 	}
 	.more-info>h4{
 		margin: 0 0 0 20px;
@@ -1517,8 +1524,6 @@ legend{
 		font-size: 95%;
 	}
 	.info-pane p{
-		
-
 		padding:20px 0px;
 		text-indent: 4%;
 		font-size: 160%;
@@ -1538,10 +1543,42 @@ legend{
         overflow: visible;
     }
     
-
+    /* ERA-AV custom styles by Natasha Nunn for larger devices */
+	body{
+		margin: 0 0 250px; /* bottom = footer height */
+	}
+	.footer {
+    	height: 250px;
+    	font-size:100%;
+    }
     .banner-video{
     	display:block;
     }
+    .glyphicon-plus{
+		font-size:9px;
+		top:-3px;
+	}
+	.featured{
+		display:block;
+	}
+	.branding{
+		padding-bottom: 20px;
+		top:120px;
+	}
+	.branding h3{
+		font-size:36px;
+		margin-top:-12px;
+	}
+	.branding h3 .glyphicon-triangle-right{
+		font-size:28px;
+	}
+	.logo-plus{
+		font-size:20px;
+		top:-5px;
+	}
+	.info-pane{
+		padding-bottom:50px;
+}
 }
 @media (min-width: 992px){
 	ol.progtrckr {
@@ -1549,9 +1586,6 @@ legend{
 	}
 	.heading-tile a{
 		font-size: 20px;
-	}
-	.branding{
-		top:80px;
 	}
 	.mast-branding ul>li>a{
 		font-size: 19px;
@@ -1639,8 +1673,7 @@ legend{
 		font-family: 'Abel', sans-serif;
 	}
 	#browse-call{
-		margin-top:50px;
-		width:100%;
+		margin-top:40px;
 	}
 	#slide1 .form-group{
 		margin-top: 50%;
