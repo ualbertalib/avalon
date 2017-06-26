@@ -43,9 +43,14 @@ test: &TEST
 - group_manager:
   -
 
-production:
+staging:
 - collection_manager:
   - archivist1@example.com
 - group_manager:
   - archivist1@example.com
 
+production:
+- collection_manager:
+  - archivist1@example.com
+- group_manager:
+  - archivist1@example.com

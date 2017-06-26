@@ -4,6 +4,8 @@ development:
   url: http://localhost:8983/solr/
 test: &TEST
   url: http://127.0.0.1:8983/solr/test
+staging:
+  url: http://127.0.0.1:8983/solr/test
 production:
   url: http://127.0.0.1:8983/solr/test
 #  url: http://your.production.server:8080/bl_solr/core0 

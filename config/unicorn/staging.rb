@@ -17,8 +17,8 @@ user 'vov', 'vov'
 # Fill path to your app
 working_directory app_path
 
-# Should be 'production' by default, otherwise use other env 
-rails_env = ENV['RAILS_ENV'] || 'production'
+# Should be 'staging' by default, otherwise use other env 
+rails_env = ENV['RAILS_ENV'] || 'staging'
 
 # Log everything to one file
 stderr_path "log/unicorn.log"

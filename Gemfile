@@ -102,7 +102,7 @@
   gem 'api-pagination'
   gem 'avalon-wowza'
 
-  group :assets, :production do
+  group :assets, :production, :staging do
     gem 'coffee-rails'
     gem 'uglifier', '>=1.3.0'
     gem 'jquery-rails', '~>3.1.4'
@@ -156,7 +156,7 @@
     gem 'pry-byebug',   platforms: [:mri_20, :mri_21]
   end
 
-  group :development, :production do
+  group :development, :production, :staging do
     # Uncomment the following line to include z39.59/zoom support in Avalon::BibRetriever
     #   NOTE: Requires the yaz library to be installed
     gem 'zoom', :git => 'https://github.com/bricestacey/ruby-zoom.git'
