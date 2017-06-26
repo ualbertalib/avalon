@@ -41,8 +41,9 @@ Unless required by applicable law or agreed to in writing, software distributed
             </div>
           <button type="submit" class="call-to-action">Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V</button>
         </form>
+         <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
       </div>
-      <object class="embed-responsive embed-responsive-16by9">
+      <object class="embed-responsive embed-responsive-16by9 banner-video">
 
       <script>
 var videos = [
@@ -59,7 +60,7 @@ document.write(html);
         
       </object>
       <div class="col-sm-12 more-info">
-        <h4>You can also <%= link_to 'browse ERA A+V', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %>, learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
+        <h4><span class="hidden-xs">You can also</span> learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
       </div>
     </div>
   </div>
