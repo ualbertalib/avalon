@@ -237,9 +237,10 @@ body.home h4{
 }
 .more-info{
 	text-align: left;
-	margin-top: 20px;
+	margin: 20px 0 0 -2px;
 	width:98.8%;
 	opacity:0.9;
+
 }
 .more-info:hover{
 	opacity:1;
@@ -1514,14 +1515,15 @@ legend{
 		overflow: hidden;
 	}
 	.call-to-action{
-		margin-top: 65%;
+		margin-top: 5%;
 	}
 	#slide1 .form-group{
 		margin-top: 65%;
 	}
 	.more-info>h4{
+		padding:10px 0;
 		margin: 0 0 0 20px;
-		font-size: 95%;
+		font-size: 120%;
 	}
 	.info-pane p{
 		padding:20px 0px;
@@ -1563,7 +1565,6 @@ legend{
 	}
 	.branding{
 		padding-bottom: 20px;
-		top:120px;
 	}
 	.branding h3{
 		font-size:36px;
@@ -1578,7 +1579,7 @@ legend{
 	}
 	.info-pane{
 		padding-bottom:50px;
-}
+	}
 }
 @media (min-width: 992px){
 	ol.progtrckr {
@@ -1594,18 +1595,33 @@ legend{
 	.chart h3{
   		font-size: 24px;
 	}
+	.branding{
+		top:80px;
+	}
 	.branding>h1{
 		font-size: 120px;
-		margin-top: -15px;
+		margin-top: -20px;
 	}
 	.branding>h2{
-		font-size: 21px;
+		font-size: 16px;
 	}
 	.branding>span{
 		font-size: 22px;
 	}
+	.branding h3{
+		font-size:28px;
+		
+	}
+	.branding h3 .glyphicon-triangle-right{
+		font-size:20px;
+	}
+	.logo-plus{
+		font-size:14px;
+		top:-5px;
+	}
+
 	.call-to-action{
-		margin-top: 55%;
+		margin-top: 10%;
 		padding: 5px 11px;
 		font-size: 23px;
 		letter-spacing: 1px;
@@ -1630,7 +1646,6 @@ legend{
 	}
 
 	.more-info>h4{
-		font-size: 100%;
 		margin: 0 0 0 25px;
 	}
 	.query{
@@ -1664,12 +1679,32 @@ legend{
 }
 
 @media (min-width: 1200px) {
+	.branding{
+		top:120px;
+	}
 	.branding>h1{
 		font-size: 150px;
 		margin-top: -23px;
 	}
+	.branding>h2{
+		font-size: 20px;
+	}
+	.branding>span{
+		font-size: 22px;
+	}
+.branding h3{
+		font-size:36px;
+		margin-top:-12px;
+	}
+	.branding h3 .glyphicon-triangle-right{
+		font-size:28px;
+	}
+	.logo-plus{
+		font-size:20px;
+		top:-5px;
+	}
 	.call-to-action{
-		margin-top: 32%;
+		margin-top: 12%;
 		font-family: 'Abel', sans-serif;
 	}
 	#browse-call{
@@ -1682,7 +1717,7 @@ legend{
 		bottom:0;
 	}
 	.more-info>h4{
-		margin: 10px 0 0 40px;
+		margin: 0 0 0 40px;
 		font-size: 130%;
 	}
 	.info-pane p{
