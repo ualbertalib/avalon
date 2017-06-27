@@ -41,6 +41,7 @@ Unless required by applicable law or agreed to in writing, software distributed
          <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
       </div>
       </div>
+      <div class="video-wrap">
       <object class="embed-responsive embed-responsive-16by9 banner-video">
 
       <script>
@@ -58,14 +59,15 @@ document.write(html);
         
       </object>
       </div>
+      </div>
       <div class="row">
       <div class="col-sm-12 more-info hidden-xs">
         <h4>You can also learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
       </div>
       </div>
       
-         <div class="row">
-          <div class="col-xs-12 visible-xs mobile-search">
+         <div class="row visible-xs">
+          <div class="col-xs-12 mobile-search">
  <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline">
           <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
 <div class="form-group">
@@ -84,7 +86,7 @@ document.write(html);
       <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
       </div>
   </div>
-
+<div class="row">
     <div class="col-sm-8 info-pane">
       <p>Welcome to ERA Audio<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Video (ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V) the University of Alberta's media streaming repository. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is a new feature of The University of Alberta's <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V seeks to preserves and make accessible audiovisual materials related to teaching, learning and research activities at the University of Alberta. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is developed and supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>. </p>
   </div>
@@ -93,6 +95,7 @@ document.write(html);
       <h3><em>Featured Collection</em></h3>
       <h2>Nostros Television</h2>
     </a>
+  </div>
   </div>
 
 

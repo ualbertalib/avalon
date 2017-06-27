@@ -188,8 +188,8 @@ body.home h4{
 
 .call-to-action{
 	padding: 8px;
-	border: 2px solid #fff;
-	background-color: rgba(0, 0, 0, 0.6);
+	background-color:#2d353d;
+	border-radius:3px;
 	font-size: 18px;
 	letter-spacing: 1px;
 	color: #fff;
@@ -237,7 +237,7 @@ body.home h4{
 }
 .more-info{
 	text-align: left;
-	margin: 20px 0 0 -2px;
+	margin: 20px -1px 0 -1px;
 	width:98.8%;
 	opacity:0.9;
 
@@ -430,7 +430,7 @@ body.home h4{
 }
 .info-pane p{
 	font-size:20px;
-	margin:20px;
+	margin:10px 0px;
 }
 .info-pane p>a, .about p>a{
 	text-decoration: underline;
@@ -497,21 +497,26 @@ body.home h4{
 }
 #masthead{
 	background-color: #fff;
-	min-height: 0px;
+	min-height: 0;
+	padding:0;
 }
 .mast-branding{
 	text-align: center;
+	background-color: #2d353d;
 }
 .mast-branding h1{
 	margin: -10px 0px 0px 0px;
 	padding: 0;
 }
-.mast-branding h1>a{
+.mast-branding h1>a, .mast-branding h3{
 	color: #fff;
-	font-size: 60px;
+	font-size: 70px;
 	font-weight: bold;
 	display: block;
-	background-color: #2d353d;
+}
+.mast-branding h3{
+font-size:15px;
+font-weight: normal;
 }
 .mast-branding h1 a:hover, .mast-branding h1 a:active, .mast-branding h1 a:visited, .mast-branding h1 a:focus{
 	text-decoration: none;
@@ -522,7 +527,7 @@ body.home h4{
 .mast-branding h2{
 	font-size: 15px;
 	margin: 0;
-	margin-top: 20px;
+	margin-top: 5px;
 	padding: 0;
 }
 .mast-branding ul{
@@ -581,7 +586,7 @@ body.home h4{
 	font-size: 14px;
 }
 .page ul, .page p{
-	font-size:16px;
+	font-size:18px;
 	line-height:30px;
 }
 .secondary{
@@ -1335,10 +1340,10 @@ span.tooltip-label-required {
 /* ERA-AV custom styles by Natasha Nunn */
 
 .grey{
-	background-color:#ebe8e5;
+	background-color:transparent;
 }
 .mast-branding{
-	padding-top:5px;
+	padding:5px;
 }
 .mast-branding img{
 	margin-left:80px;
@@ -1350,7 +1355,7 @@ span.tooltip-label-required {
 	font-size:18px;
 }
 .eraav-content{
-	margin-top:20px;
+	margin: -10px 20px 0px 20px;
 }
 video{
 	opacity: 0.3;
@@ -1365,14 +1370,14 @@ video{
 	font-size:13px;
 	top:-1px;
 }
-.branding h3{
+.mast-branding h3, .branding h3{
 	font-family: 'Open Sans', sans-serif;
 	margin-top:2px;
 	font-size:18px;
 	font-weight:semi-bold;
 	margin-left:10px;
 }
-.branding h3 .glyphicon-triangle-right{
+.mast-branding h3 .glyphicon-triangle-right, .branding h3 .glyphicon-triangle-right{
 	font-size:16px;
 }
 .other-grey{
@@ -1381,8 +1386,10 @@ video{
 .featured{
 	background-image:url("feature.jpg");
 	background-repeat:no-repeat;
-	margin-top:30px;
-	height:379px;
+	background-size:cover;
+	background-position: center; 
+	margin:30px 0px;
+	max-height:400px;
 	text-align:center;
 	width:100%;
 	padding-top:5px;
@@ -1419,6 +1426,12 @@ legend{
 }
 #browse-call{
 	width:100%;
+}
+.index_title{
+	font-size:20px;
+}
+.result-thumbnail{
+	display:none;
 }
 
 /* BEGIN STYLES FOR LARGER DEVICES */
@@ -1474,17 +1487,20 @@ legend{
 		font-family: 'Abel', sans-serif;
 	}
 	.info-pane h2{
-	font-size: 3vw;
-	padding: 35px 0 0px 0;
-}
-	.branding>h1{
+		font-size: 3vw;
+		padding: 35px 0 0px 0;
+	}
+	.mast-branding>h1, .branding>h1{
 		font-size: 110px;
 		font-weight: bold;
 		letter-spacing: -9px;
 		text-align: center;
 		margin: 0;
-		margin-top: 0px;
+		margin-top:-20px;
 		padding: 0;
+	}
+	.mast-branding>h1{
+		font-size: 36px;
 	}
 	.branding>span{
 			letter-spacing: normal;
@@ -1515,6 +1531,8 @@ legend{
 		overflow: hidden;
 	}
 	.call-to-action{
+		border: 2px solid #fff;
+  		background-color: rgba(0, 0, 0, 0.6);
 		margin-top: 5%;
 	}
 	#slide1 .form-group{
@@ -1549,9 +1567,12 @@ legend{
 	body{
 		margin: 0 0 250px; /* bottom = footer height */
 	}
+	.grey{
+		background-color:#ebe8e5;
+	}
 	.footer {
     	height: 250px;
-    	font-size:100%;
+    	font-size:110%;
     }
     .banner-video{
     	display:block;
@@ -1562,23 +1583,39 @@ legend{
 	}
 	.featured{
 		display:block;
+		height:250px;
 	}
 	.branding{
 		padding-bottom: 20px;
 	}
-	.branding h3{
-		font-size:36px;
+
+	.mast-branding h3, .branding h3{
+		font-size:26px;
 		margin-top:-12px;
+		color:#000;
 	}
-	.branding h3 .glyphicon-triangle-right{
-		font-size:28px;
+	.mast-branding h3 .glyphicon-triangle-right, .branding h3 .glyphicon-triangle-right{
+		font-size:18px;
 	}
-	.logo-plus{
-		font-size:20px;
-		top:-5px;
+	.mast-branding .logo-plus, .logo-plus{
+		font-size:14px;
+		top:-3px;
 	}
 	.info-pane{
 		padding-bottom:50px;
+	}
+	.info-pane p{
+		font-size:18px;
+	}
+	.eraav-content{
+		margin:20px 0 0 0;
+	}
+	.result-thumbnail{
+		display:block;
+	}
+	.video-wrap{
+		max-height:650px;
+		overflow:hidden;
 	}
 }
 @media (min-width: 992px){
@@ -1660,9 +1697,7 @@ legend{
   		padding: 3px 0px;
 	}
 	.info-pane p{
-		font-size: 140%;
-		font-size: 1.5vw;
-		line-height: 1.8;
+		font-size:20px;
 	}
 	#tweets ul li{
 		list-style: none;
@@ -1674,6 +1709,9 @@ legend{
 	.query-actions{
 		padding-left: 0;
 		margin-top: -6px;
+	}
+	.featured{
+		height:300px;
 	}
 
 }
@@ -1692,7 +1730,7 @@ legend{
 	.branding>span{
 		font-size: 22px;
 	}
-.branding h3{
+	.branding h3{
 		font-size:36px;
 		margin-top:-12px;
 	}
@@ -1720,16 +1758,14 @@ legend{
 		margin: 0 0 0 40px;
 		font-size: 130%;
 	}
-	.info-pane p{
-		
-		padding:20px 0px;
-		text-indent: 5%;
-		font-size: 130%;
-		font-size: 1.5vw;
-		line-height: 2.1;
+	.featured{
+		height:500px;
 	}
-		#tweets ul li:nth-child(2){
-		display: block;
+	.info-pane p{
+		padding:10px 0px;
+		font-size: 23px;
+		line-height: 1.9;
+		margin-right:20px;
 	}
 }
 

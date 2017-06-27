@@ -10,34 +10,50 @@ Unless required by applicable law or agreed to in writing, software distributed
   specific language governing permissions and limitations under the License.
 ---  END LICENSE_HEADER BLOCK  ---
 %>
-<div class="container-fluid">
-<div class="row fluid grey">
+<div class="container-fluid grey">
+
 <div id="masthead" class="container">
   <div class="row visible-xs">
     <div class="lib-logo col-xs-8">
       <%= ualib_logo_link %>
     </div>
+    <div class="col-xs-4 user-util">
+        <%= render partial: "modules/user_util_dropdowns"%>
+      </div>
   </div>
   <div class="row">
     <div class="lib-logo col-sm-3 hidden-xs">
       <%= ualib_logo_link %>
     </div>
-    <div class="mast-branding col-sm-5">
-      <%= era_av_logo_link %>
-    </div>
-    <div class="col-sm-4">
-      <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline hidden-xs mast-sm-search">
-        <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
-        <input id="search_field" name="search_field" type="hidden" value="all_fields">
-        <div class="form-group">
-          <input type="text" class="form-control q" id="search-field-header" name="q" placeholder="enter search terms">
-        </div>
-        <button type="submit" class="btn btn-default sm-search"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>Search ERA A+V</button>
-      </form>
-      <div class="col-sm-12 user-util hidden-xs">
+    
+      <div class="mast-branding col-sm-5">
+        <h2 class="hidden-xs">education &amp; research archive</h2>
+        <h1><a href="/">ERA</a></h1>
+        <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO</h3>
+      </div>
+      <div class="col-sm-4 user-util hidden-xs">
         <%= render partial: "modules/user_util_dropdowns"%>
       </div>
+     
+          <div class="col-xs-12 mobile-search visible-xs">
+ <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline">
+          <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
+<div class="form-group">
+          <div class="col-xs-offset-1 col-xs-6">
+            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" placeholder="enter search terms" autofocus="autofocus">
+          </div>
+          <div class="query-actions col-xs-5">
+             <button type="submit" class="call-to-action">Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V</button>
+           
+        </div></div>
+        </form>
+
+      
     </div>
+    <div class="col-xs-offset-2 col-xs-9 visible-xs">
+      <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
+      </div>
+ 
   </div>
 </div>
 </div>

@@ -8,12 +8,16 @@
   <%= render 'home' %>
   <%= render 'shared/sitelinks_search_box' %>
 <% else %>
+
+
+<div class="container">
 <div class="row eraav-content">
 <div class="col-sm-3">
  <%= render 'search_sidebar' %>
  </div>
  <div class="col-sm-9">
   <%= render 'search_results' %>
+  </div>
   </div>
   </div>
 <% end %>
