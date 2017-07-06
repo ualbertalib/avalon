@@ -14,44 +14,41 @@ Unless required by applicable law or agreed to in writing, software distributed
 ---  END LICENSE_HEADER BLOCK  ---
 %>
 <div class="container-fluid grey">
-<div class="mast-branding hidden-xs">
-  <ul class="col-lg-8 col-lg-offset-2">
-  
-    <% unless current_page?(root_url) %>
- 
-    <li><%= link_to 'home', root_path %></li>
-    <% end %>
-    <li><%= link_to 'browse', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
-    <% if can? :read, Admin::Collection %>
-    <li class=<%= active_for_controller('admin/collections') %>><%= link_to 'Manage Content', admin_collections_path %></li>
-    <% end %>
-    
-    <% if can? :manage, Admin::Group %>
-    <li class=<%= active_for_controller('admin/groups') %>><%= link_to 'Manage Groups', admin_groups_path, target: '_admin' %></li>
-    <% end %>
-    <% if user_session && user_session[:lti_group] %>
-    <li><%= link_to(vgroup_display(user_session[:lti_group]), catalog_index_path('f[read_access_virtual_group_ssim][]' => user_session[:lti_group])) %></li>
-    <% end %>
-    <% if render_bookmarks_control? %>
-    <li class=<%= active_for_controller('bookmarks') %>>
-      <%= link_to bookmarks_path, id:'bookmarks_nav' do %>
-        <%= t('blacklight.header_links.bookmarks') %>
-	(<span data-role='bookmark-counter'><%= current_or_guest_user.bookmarks.count %></span>)
+  <div class="mast-branding hidden-xs">
+    <ul class="col-lg-8 col-lg-offset-2">
+      <% unless current_page?(root_url) %>
+        <li><%= link_to 'home', root_path %></li>
       <% end %>
-    </li>
-    <% end %>
-    <% if current_ability.can? :create, Playlist %>
-    <li class=<%= active_for_controller('playlists') %>>
-      <%= link_to 'Playlists', playlists_path, id:'playlists_nav' %> 
-    </li>
-    <% end %>
-    <li class="divider desktop-hidden" />
-    <%= link_to_if user_signed_in?, 'Sign out', destroy_user_session_path do %>
-    <%# Fallback if the test above fails %>
-    <%= link_to 'Sign in', new_user_session_path %>
-    <% end %>
-     <li><%= link_to 'contact', contact_path %></li>
-        <li><%= link_to 'ERA home', "https://era.library.ualberta.ca" %></li>
+      <li><%= link_to 'browse', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
+      <% if can? :read, Admin::Collection %>
+        <li class=<%= active_for_controller('admin/collections') %>><%= link_to 'Manage Content', admin_collections_path %></li>
+      <% end %>
+      <% if can? :manage, Admin::Group %>
+        <li class=<%= active_for_controller('admin/groups') %>><%= link_to 'Manage Groups', admin_groups_path, target: '_admin' %></li>
+      <% end %>
+      <% if user_session && user_session[:lti_group] %>
+        <li><%= link_to(vgroup_display(user_session[:lti_group]), catalog_index_path('f[read_access_virtual_group_ssim][]' => user_session[:lti_group])) %></li>
+      <% end %>
+      <% if render_bookmarks_control? %>
+        <li class=<%= active_for_controller('bookmarks') %>>
+          <%= link_to bookmarks_path, id:'bookmarks_nav' do %>
+            <%= t('blacklight.header_links.bookmarks') %>
+	           (<span data-role='bookmark-counter'><%= current_or_guest_user.bookmarks.count %></span>)
+          <% end %>
+        </li>
+      <% end %>
+      <% if current_ability.can? :create, Playlist %>
+        <li class=<%= active_for_controller('playlists') %>>
+          <%= link_to 'Playlists', playlists_path, id:'playlists_nav' %> 
+        </li>
+      <% end %>
+      <li class="divider desktop-hidden" />
+        <%= link_to_if user_signed_in?, 'Sign out', destroy_user_session_path do %>
+        <%# Fallback if the test above fails %>
+        <%= link_to 'Sign in', new_user_session_path %>
+        <% end %>
+      <li><%= link_to 'contact', contact_path %></li>
+      <li><%= link_to 'ERA home', "https://era.library.ualberta.ca" %></li>
   </ul>
 </div>
 </div>

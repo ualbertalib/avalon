@@ -26,31 +26,25 @@
     display: none !important;
   }
 }
-
 .sm-hidden {
   @media (max-width: $screen-sm-max) {
     display: none !important;
   }
 }
-
 .desktop-hidden {
   @media (min-width: $screen-sm-min) {
     display: none !important;
   }
 }
-
-
 @mixin hidden-disabled-link  {
   text-decoration: none !important;
   color: $black !important;
   cursor: default !important;
   pointer-events: none !important;
 }
-
 tr.active-false td {
   color: $gray;
 }
-
 /**
  * Components for navigation wizard. Copied from the LESS source so
  * might need some tweaking to work right
@@ -81,7 +75,6 @@ tr.active-false td {
       margin-right: 1em;
     }
   }
-
   li.nav-success {
     background-color: $state-success-bg;
     border-color: $state-success-border;
@@ -90,13 +83,11 @@ tr.active-false td {
   li.nav-success a {
     text-shadow: rgba(255, 255, 255, 0.2) 0px 1px 0px;
   }
-
   li.nav-info {
     background-color: $state-info-bg;
     border-color: $state-info-border;
     color: $state-info-text;
   }
-
   .step {
     font-size: 250%;
     width: 1em;
@@ -105,7 +96,6 @@ tr.active-false td {
     margin-bottom: $line-height-base/2;
   }
 }
-
 /**
  *  Overridding Blacklight's brand logo
  */
@@ -113,7 +103,6 @@ tr.active-false td {
   @extend .desktop-hidden;
   height: 35px;
 }
-
 .navbar {
   background-image: linear-gradient(to bottom, #ffffff, #f2f2f2);
   background-repeat: repeat-x;
@@ -123,7 +112,6 @@ tr.active-false td {
   margin: 10px 0;
   min-height: 0px;
 }
-
 .navbar-nav {
   li {
     a {
@@ -146,12 +134,10 @@ tr.active-false td {
 #user-util-collapse{
   border-top: 0;
 }
-
 .big-modal {
   width: 80%;
   margin-left: -40%;
 }
-
 #browse-btn {
   margin: .5em 0;
 }
@@ -228,15 +214,12 @@ label {
     text-decoration: none;
   }
 }
-
 .item-access label {
   display: block;
 }
-
 .form-horizontal label {
   font-weight: normal;
 }
-
 .access-block {
   .row {
     margin-right: 0;
@@ -264,11 +247,9 @@ body {
   padding-top: 0;
   min-width: 295px;
 }
-
 input[type="text"]#admin_group {
   margin-bottom: 0;
 }
-
 /* Header */
 .custom-header {
   background-color: #e9e9e9;
@@ -280,8 +261,6 @@ input[type="text"]#admin_group {
     margin: 0;
   }
 }
-
-
 header div{
   padding: 1em;
   @extend .mobile-hidden;
@@ -299,9 +278,6 @@ header div{
 .navbar-inner {
   padding-right: 12px;
 }
-
-
-
 .avalon-search-query-form .search-query {
   border-radius: 15px;
   font-family: Arial,Helvetica,sans-serif;
