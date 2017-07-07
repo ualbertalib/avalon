@@ -26,41 +26,38 @@ Unless required by applicable law or agreed to in writing, software distributed
     <div class="branding">
       <h2>education &amp; research archive</h2>
       <h1>ERA</h1>
-      <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO</h3>
+      <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO 
+        <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO
+      </h3>
       <div class="hidden-xs">
-        <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline mast-sm-search">
+        <form accept-charset="UTF-8" action="/catalog" id="search-form-header" 
+        method="get" role="search" class="form-inline mast-sm-search">
           <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
           <input id="search_field" name="search_field" type="hidden" value="all_fields">
           <div class="form-group">
-            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" placeholder="enter search terms">
+            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" 
+            placeholder="enter search terms">
           </div>
-          <button type="submit" class="call-to-action">Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V</button>
+          <button type="submit" class="call-to-action">
+            Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V
+          </button>
         </form>
-        <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
+        <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true">
+        </span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
+        :class => "call-to-action", :id => "browse-call" %>
       </div>
     </div>
     <div class="video-wrap">
       <object class="embed-responsive embed-responsive-16by9 banner-video">
-
-      <script>
-var videos = [
-    'welcome',
-    'welcome2',
-    'welcome3',
-    'welcome4'
-];
-
-var index=Math.floor(Math.random() * videos.length);
-var html="<video src='/assets/"+videos[index]+".mp4' autoplay='true'>";
-document.write(html);
-</script>
-        
+        <%- vidnumber = rand(4).to_s %>
+        <%= video_tag ("welcome"+vidnumber+".mp4"), autoplay: 'true' %>
       </object>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-12 more-info hidden-xs">
-      <h4>You can also learn  more <%= link_to 'about this service', about_path %>, or <%= link_to 'contact us', contact_path %>.</h4>
+      <h4>You can also learn  more <%= link_to 'about this service', about_path %>, 
+      or <%= link_to 'contact us', contact_path %>.</h4>
     </div>
   </div>
   <div class="row visible-xs">
@@ -78,12 +75,23 @@ document.write(html);
       </form>
     </div>
     <div class="col-xs-offset-2 col-xs-9 visible-xs">
-      <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
+      <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, 
+      catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-8 info-pane">
-      <p>Welcome to ERA Audio<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>Video (ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V), the University of Alberta's media streaming repository. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is a new feature of the University of Alberta's <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V provides access to audiovisual materials in support of teaching, learning, and research at the University of Alberta. ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is developed and supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>.</p>
+      <p>Welcome to ERA Audio<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+      Video (ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V), 
+      the University of Alberta's media streaming repository. 
+      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V 
+      is a new feature of the University of Alberta's 
+      <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. 
+      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V provides 
+      access to audiovisual materials in support of teaching, learning, and research 
+      at the University of Alberta. 
+      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is developed and 
+      supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>.</p>
     </div>
     <div class="col-sm-4">
       <a href="/catalog?f[collection_ssim][]=Nosotros+Television+Programme&q=&search_field=all_fields#" class="featured">
