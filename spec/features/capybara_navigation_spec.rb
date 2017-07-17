@@ -19,9 +19,7 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    # The U of A has two links to Browse on the homepage, so some care is needed.
-    # We test both links:
-    [".navbar-nav", ".footer"].each do |region|
+    [".footer"].each do |region|
       within(region) do 
         click_link('Browse')
         expect(page.current_url).
