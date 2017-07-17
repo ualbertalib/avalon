@@ -30,7 +30,8 @@ describe 'checks navigation after logging in' do
   it 'checks navigation to Manage Content' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    # Navigation on Browse page, not home page
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Manage Content')
     expect(page.current_url).to eq('http://www.example.com/admin/collections')
     page.should have_content('Skip to main content')
@@ -45,7 +46,7 @@ describe 'checks navigation after logging in' do
   it 'checks naviagtion to Manage Groups' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Manage Groups')
     expect(page.current_url).to eq('http://www.example.com/admin/groups')
     page.should have_content('System Groups')
@@ -58,7 +59,7 @@ describe 'checks navigation after logging in' do
   it 'checks naviagtion to Playlist' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Playlist')
     expect(page.current_url).to eq('http://www.example.com/playlists')
     page.should have_content('Playlists')
