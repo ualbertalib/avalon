@@ -564,7 +564,7 @@ font-weight: normal;
 #mast-login{
 	float: right;
 }
-#masthead #user_utility_links, #masthead .login_button {
+#masthead #user_utility_links, #masthead .login_button, #user_utility_links{
   margin-top:0.5em;
 }
 .mast-sm-search{
@@ -1433,6 +1433,21 @@ legend{
 .result-thumbnail{
 	display:none;
 }
+.era-link{
+	display:block;
+	font-size:16px;
+	color:#fff;
+	font-family: 'Playfair Display', serif;
+	margin-top:5px;
+	background-color:#2d353d;
+	border-radius:5px;
+	padding:5px 10px;
+	width:100px;
+}
+.era-link:hover{
+	color:#efefef;
+	background-color:#000;
+}
 
 /* BEGIN STYLES FOR LARGER DEVICES */
 /* Small devices (tablets, 768px and up) */
@@ -1746,7 +1761,7 @@ legend{
 		font-family: 'Abel', sans-serif;
 	}
 	#browse-call{
-		margin-top:40px;
+		margin-top:20px;
 	}
 	#slide1 .form-group{
 		margin-top: 50%;

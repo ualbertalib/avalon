@@ -17,9 +17,9 @@ Unless required by applicable law or agreed to in writing, software distributed
   <div class="mast-branding hidden-xs">
     <ul class="col-lg-8 col-lg-offset-2">
       <% unless current_page?(root_url) %>
-        <li><%= link_to 'home', root_path %></li>
+        <li><%= link_to 'Home', root_path %></li>
       <% end %>
-      <li><%= link_to 'browse', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
+      <li><%= link_to 'Browse', catalog_index_path(search_field: 'all_fields', utf8: '✓', q: '') %></li>
       <% if can? :read, Admin::Collection %>
         <li class=<%= active_for_controller('admin/collections') %>><%= link_to 'Manage Content', admin_collections_path %></li>
       <% end %>
@@ -47,8 +47,8 @@ Unless required by applicable law or agreed to in writing, software distributed
         <%# Fallback if the test above fails %>
         <%= link_to 'Sign in', new_user_session_path %>
         <% end %>
-      <li><%= link_to 'contact', contact_path %></li>
-      <li><%= link_to 'ERA home', "https://era.library.ualberta.ca" %></li>
+      <li><%= link_to 'Contact', contact_path %></li>
+  
   </ul>
 </div>
 </div>

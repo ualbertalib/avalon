@@ -30,20 +30,13 @@ Unless required by applicable law or agreed to in writing, software distributed
         <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO
       </h3>
       <div class="hidden-xs">
-        <form accept-charset="UTF-8" action="/catalog" id="search-form-header" 
-        method="get" role="search" class="form-inline mast-sm-search">
-          <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
-          <input id="search_field" name="search_field" type="hidden" value="all_fields">
+        <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline mast-sm-search") do %>
           <div class="form-group">
-            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" 
-            placeholder="enter search terms">
+            <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
           </div>
-          <button type="submit" class="call-to-action">
-            Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V
-          </button>
-        </form>
-        <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true">
-        </span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
+            <%= submit_tag "Search ERA A+V", class: "call-to-action" %>
+        <% end %>
+        <%= link_to 'Browse ERA A+V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
         :class => "call-to-action", :id => "browse-call" %>
       </div>
     </div>
@@ -62,20 +55,17 @@ Unless required by applicable law or agreed to in writing, software distributed
   </div>
   <div class="row visible-xs">
     <div class="col-xs-12 mobile-search">
-      <form accept-charset="UTF-8" action="/catalog" id="search-form-header" method="get" role="search" class="form-inline">
-        <div style="display:none"><input name="utf8" type="hidden" value="✓"></div>
-        <div class="form-group">
-          <div class="col-xs-offset-1 col-xs-6">
-            <input type="text" class="form-control input-lg q query" id="search-field-header" name="q" placeholder="enter search terms" autofocus="autofocus">
-          </div>
-          <div class="query-actions col-xs-5">
-             <button type="submit" class="call-to-action">Search ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V</button>
-          </div>
+      <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline") do %>
+        <div class="col-xs-offset-1 col-xs-6">
+          <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
         </div>
-      </form>
+          <div class="query-actions col-xs-5">
+            <%= submit_tag "Search ERA A+V", class: "call-to-action" %>
+          </div>
+      <% end %>
     </div>
     <div class="col-xs-offset-2 col-xs-9 visible-xs">
-      <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, 
+      <%= link_to 'Browse ERA A+V', 
       catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
     </div>
   </div>

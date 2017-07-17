@@ -18,6 +18,7 @@ Unless required by applicable law or agreed to in writing, software distributed
   <link rel="alternative" type="application/xml+oembed" href="<%= "#{oembed_url(format: 'xml', url: share_link_for(@currentStream))}" %>" />
 <% end %>
 
+<div class="container">
 <% f_start, f_end = parse_media_fragment params['t'] %>
 <div class="row">
   <div class="col-sm-8" id="left_column">
@@ -70,6 +71,7 @@ Unless required by applicable law or agreed to in writing, software distributed
     </div>
   </div>
 
+</div>
 </div>
 
 <% content_for :page_scripts do %>

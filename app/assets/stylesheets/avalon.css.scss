@@ -317,7 +317,7 @@ header div{
   margin-bottom: 0;
 }
 
-#sidebar, #facets {
+#sidebar, #facets, #facets-workflow {
   @media (min-width: $screen-sm-min) {
     max-width: 220px;
   }

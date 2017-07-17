@@ -53,21 +53,14 @@ Unless required by applicable law or agreed to in writing, software distributed
     <a id="skip-to-content" class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <%= render partial: 'shared/ajax_modal' %>
     
-    <% if !current_page?(root_path) %>
+    <% if !current_page?(root_path) || request.query_string.present? %>
         <%= render 'modules/header' %>
-      
-    
         <%= render :partial => 'modules/global_navigation' %>
-   
         <div class="container-fluid secondary">
-    <% end %>
-    
-   
-       
+    <% end %>  
       <%= render 'modules/flash_messages' %>
-      <%= yield %>
-  
-    <%= render 'modules/footer' %>
+        <%= yield %>
+      <%= render 'modules/footer' %>
 
     <!-- With this many Javascript files performance will be much better
          if they are included here. That means the important content will
