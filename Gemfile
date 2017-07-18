@@ -11,7 +11,7 @@
   gem 'builder', '~>3.1.0'
   gem 'rake', '~>10.4'
   gem 'levenshtein'
-  
+
   # Some package upgrades related to Gemnasium alerts
   gem 'mail', '~> 2.6.6.rc1'
   gem 'nokogiri', '~> 1.7.2'
@@ -49,7 +49,7 @@
 
   gem 'multipart-post'
   gem 'modal_logic', git: 'https://github.com/ualbertalib/modal_logic.git', branch: 'master'
-  
+
   gem 'rubyzip', '>=1.2.1'
   gem 'hooks'
   gem 'addressable'
@@ -60,6 +60,8 @@
   gem 'edtf'
 
   gem 'marc'
+
+  gem 'rollbar'
 
   platforms :jruby do
     gem 'jruby-openssl'
@@ -133,7 +135,7 @@
     gem 'rvm-capistrano', require: false
     gem 'rubocop', '~> 0.40.0', require: false
     gem 'rugged'
-    gem 'web-console', '~> 2.0' 
+    gem 'web-console', '~> 2.0'
   end
 
   # For testing.  You will probably want to use these to run the tests you write for your hydra head

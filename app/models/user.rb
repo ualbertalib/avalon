@@ -1,23 +1,23 @@
 # Copyright 2011-2015, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
-# 
+#
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software distributed 
+#
+# Unless required by applicable law or agreed to in writing, software distributed
 #   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-#   CONDITIONS OF ANY KIND, either express or implied. See the License for the 
+#   CONDITIONS OF ANY KIND, either express or implied. See the License for the
 #   specific language governing permissions and limitations under the License.
 # ---  END LICENSE_HEADER BLOCK  ---
 
 
 class User < ActiveRecord::Base
-  
-# Connects this user object to Hydra behaviors. 
+
+# Connects this user object to Hydra behaviors.
   include Hydra::User
-# Connects this user object to Blacklights Bookmarks and Folders. 
+# Connects this user object to Blacklights Bookmarks and Folders.
   include Blacklight::User
   # Include default devise modules. Others available are:
   # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
@@ -28,10 +28,15 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :email, presence: true, uniqueness: true
-  
+
+  # For masking the ID that we send to rollbar
+  def id_as_hash
+    Digest::SHA2.hexdigest("#{Rails.application.secrets.secret_key_base}_#{id}")
+  end
+
   # Method added by Blacklight; Blacklight uses #to_s on your
   # user class to get a user-displayable login/identifier for
-  # the account. 
+  # the account.
   def to_s
     user_key
   end
@@ -43,15 +48,15 @@ class User < ActiveRecord::Base
 
   def self.find_for_lti(auth_hash, signed_in_resource=nil)
     if auth_hash.uid.blank?
-      raise Avalon::MissingUserId 
+      raise Avalon::MissingUserId
     end
-    
+
     class_id = auth_hash.extra.context_id
     if Course.find_by_context_id(class_id).nil?
       class_name = auth_hash.extra.context_name
       Course.create :context_id => class_id, :label => auth_hash.extra.consumer.context_label, :title => class_name unless class_name.nil?
     end
-    result = 
+    result =
       User.find_by_username(auth_hash.uid) ||
       User.find_by_email(auth_hash.info.email) ||
       User.create(:username => auth_hash.info.email, :email => auth_hash.info.email)
@@ -66,10 +71,10 @@ class User < ActiveRecord::Base
   def self.find_for_shibboleth(auth_hash, signed_in_resource=nil)
 
     if auth_hash.uid.blank?
-      raise Avalon::MissingUserId 
+      raise Avalon::MissingUserId
     end
-    
-    result = 
+
+    result =
       User.find_by_username(auth_hash.uid) ||
       User.find_by_email(auth_hash.info.email) ||
       User.create(:username => auth_hash.info.email, :email => auth_hash.info.email)
@@ -79,10 +84,10 @@ class User < ActiveRecord::Base
   def self.find_for_shibboleth(auth_hash, signed_in_resource=nil)
 
     if auth_hash.uid.blank?
-      raise Avalon::MissingUserId 
+      raise Avalon::MissingUserId
     end
-    
-    result = 
+
+    result =
       User.find_by_username(auth_hash.uid) ||
       User.find_by_email(auth_hash.info.email) ||
       User.create(:username => auth_hash.info.email, :email => auth_hash.info.email)

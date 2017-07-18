@@ -694,6 +694,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (2.1.0)
+    rollbar (2.15.0)
+      multi_json
     rsolr (1.1.2)
       builder (>= 2.1.2)
     rspec-core (3.5.4)
@@ -939,6 +941,7 @@ DEPENDENCIES
   rake (~> 10.4)
   rb-fsevent (~> 0.9.1)
   red5wrapper!
+  rollbar
   roo!
   rsolr (~> 1.1.2)
   rspec-its
