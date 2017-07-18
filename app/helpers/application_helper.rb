@@ -198,4 +198,8 @@ module ApplicationHelper
       yield
     end
   end
+  def should_hide_header?
+    current_page?(root_path) ||
+    (request.path == '/catalog' && !has_search_parameters?)
+  end
 end
