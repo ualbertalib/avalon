@@ -53,10 +53,10 @@ Unless required by applicable law or agreed to in writing, software distributed
     <a id="skip-to-content" class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
     <%= render partial: 'shared/ajax_modal' %>
     
-    <% if !current_page?(root_path) || request.query_string.present? %>
-        <%= render 'modules/header' %>
-        <%= render :partial => 'modules/global_navigation' %>
-        <div class="container-fluid secondary">
+    <% unless should_hide_header? %>
+      <%= render 'modules/header' %>
+      <%= render :partial => 'modules/global_navigation' %>
+      <div class="container-fluid secondary">
     <% end %>  
       <%= render 'modules/flash_messages' %>
         <%= yield %>
