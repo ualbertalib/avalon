@@ -58,9 +58,12 @@ Unless required by applicable law or agreed to in writing, software distributed
       <%= render :partial => 'modules/global_navigation' %>
       <div class="container-fluid secondary">
     <% end %>  
-      <%= render 'modules/flash_messages' %>
-        <%= yield %>
-      <%= render 'modules/footer' %>
+    <%= render 'modules/flash_messages' %>
+    <%= yield %>
+    <% unless should_hide_header? %>
+      </div>
+    <% end %>  
+    <%= render 'modules/footer' %>
 
     <!-- With this many Javascript files performance will be much better
          if they are included here. That means the important content will

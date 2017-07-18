@@ -201,6 +201,7 @@ module ApplicationHelper
 
   def should_hide_header?
     current_page?(root_path) ||
-      (request.path == '/catalog' && request.query_string.empty?)
+      (request.path == '/catalog' &&
+       (request.query_string.empty? || params[:q].empty?))
   end
 end
