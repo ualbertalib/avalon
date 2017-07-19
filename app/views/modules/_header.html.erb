@@ -29,7 +29,7 @@ Unless required by applicable law or agreed to in writing, software distributed
       <div class="mast-branding col-sm-4">
         <h2 class="hidden-xs">education &amp; research archive</h2>
         <h1><a href="/">ERA</a></h1>
-        <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO</h3>
+        <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <span class="plus-head">&plus;</span> VIDEO</h3>
       </div>
       <div class="col-sm-4 user-util hidden-xs">
         <div class="row">
@@ -39,7 +39,7 @@ Unless required by applicable law or agreed to in writing, software distributed
            <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline hidden-xs mast-sm-search") do %>
             <div class="form-group">
               <%= text_field_tag :q, "", id: "search-field-header", class: "form-control q", placeholder: "enter search terms" %>
-              <%= submit_tag "Search ERA A+V", class: "btn btn-default sm-search" %>
+              <%= submit_tag "Search ERA A&plus;V".html_safe, class: "btn btn-default sm-search" %>
             </div>
           <% end %>
         </div>
@@ -50,12 +50,12 @@ Unless required by applicable law or agreed to in writing, software distributed
                 <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
               </div>
               <div class="query-actions col-xs-5">
-                <%= submit_tag "Search ERA A+V", class: "call-to-action" %>
+                <%= submit_tag "Search ERA A&plus;V".html_safe, class: "call-to-action" %>
               </div>
             <% end %>
           </div>
     <div class="col-xs-offset-2 col-xs-9 visible-xs">
-      <%= link_to 'Browse ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
+      <%= link_to 'Browse ERA A&plus;V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
       </div>
  
   </div>

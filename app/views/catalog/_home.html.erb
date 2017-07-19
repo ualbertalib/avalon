@@ -15,10 +15,10 @@ Unless required by applicable law or agreed to in writing, software distributed
 %>
 <div class="container-fluid front-images">
   <div class="row">
-    <div class="lib-logo col-xs-10">
+    <div class="lib-logo col-xs-6">
       <%= ualib_logo_link %>
     </div>
-    <div class="col-xs-2">
+    <div class="col-xs-6 t-right">
       <%= render partial: "modules/user_util_dropdowns"%>
     </div>
   </div>
@@ -27,16 +27,16 @@ Unless required by applicable law or agreed to in writing, software distributed
       <h2>education &amp; research archive</h2>
       <h1>ERA</h1>
       <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO 
-        <span class="glyphicon glyphicon-plus logo-plus" aria-hidden="true"></span> VIDEO
+        <span class="plus-head">&plus;</span> VIDEO
       </h3>
       <div class="hidden-xs">
         <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline mast-sm-search") do %>
           <div class="form-group">
             <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
           </div>
-            <%= submit_tag "Search ERA A+V", class: "call-to-action" %>
+            <%= submit_tag "Search ERA A&plus;V".html_safe, class: "call-to-action" %>
         <% end %>
-        <%= link_to 'Browse ERA A+V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
+        <%= link_to 'Browse ERA A&plus;V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
         :class => "call-to-action", :id => "browse-call" %>
       </div>
     </div>
@@ -60,27 +60,22 @@ Unless required by applicable law or agreed to in writing, software distributed
           <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
         </div>
           <div class="query-actions col-xs-5">
-            <%= submit_tag "Search ERA A+V", class: "call-to-action" %>
+            <%= submit_tag "Search ERA A&plus;V".html_safe, class: "call-to-action" %>
           </div>
       <% end %>
     </div>
     <div class="col-xs-offset-2 col-xs-9 visible-xs">
-      <%= link_to 'Browse ERA A+V', 
+      <%= link_to 'Browse ERA A&plus;V'.html_safe, 
       catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-8 info-pane">
-      <p>Welcome to ERA Audio<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-      Video (ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V), 
+      <p>Welcome to ERA A<span class="plus">&plus;</span>V), 
       the University of Alberta's media streaming repository. 
-      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V 
-      is a new feature of the University of Alberta's 
+      ERA A<span class="plus">&plus;</span>V is a new feature of the University of Alberta's 
       <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. 
-      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V provides 
-      access to audiovisual materials in support of teaching, learning, and research 
-      at the University of Alberta. 
-      ERA A<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>V is developed and 
+      ERA A<span class="plus">&plus;</span>V provides access to audiovisual materials in support of teaching, learning, and research at the University of Alberta. ERA A<span class="plus">&plus;</span>V is developed and 
       supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>.</p>
     </div>
     <div class="col-sm-4">
