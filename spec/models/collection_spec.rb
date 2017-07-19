@@ -486,7 +486,7 @@ describe Admin::Collection do
 
     it 'removes bad characters from collection name' do
       collection.name = '../../secret.rb'
-      expect(Dir).to receive(:mkdir).with( File.join(Avalon::Configuration.lookup('dropbox.path'), '______secret_rb') )
+      expect(Dir).to receive(:mkdir).with(File.join(Avalon::Configuration.lookup('dropbox.path'), '______secret_rb'), 0775)
       allow(Dir).to receive(:mkdir) # stubbing this out in a before(:each) block will effect where mkdir is used elsewhere (i.e. factories)
       collection.send(:create_dropbox_directory!)
     end
@@ -501,9 +501,28 @@ describe Admin::Collection do
       FakeFS.activate!
       FileUtils.mkdir_p(File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art'))
       FileUtils.mkdir_p(File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art_2'))
-      expect(Dir).to receive(:mkdir).with(File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art_3'))
+      expect(Dir).to receive(:mkdir).with(File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art_3'), 0775)
       collection.send(:create_dropbox_directory!)
       FakeFS.deactivate!
+    end
+    it 'creates the dropbox directory with user/group write permissions' do
+      saved_dropbox_path = Avalon::Configuration.lookup('dropbox.path')
+      Avalon::Configuration['dropbox']['path'] = 'spec/fixtures/dropbox'
+
+      collection.name = 'african art'
+      dropbox_dir = File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art')
+
+      collection.send(:create_dropbox_directory!)
+      expect(File.exists?(dropbox_dir)).to be_truthy
+
+      fstat = File.stat(dropbox_dir)
+      # "0O" is the prefix for octal literals
+      # "4" means directory
+      # "775" is the permission we want
+      expect(fstat.mode).to eq(0O40775)
+
+      Dir.rmdir(dropbox_dir)
+      Avalon::Configuration['dropbox']['path'] = saved_dropbox_path
     end
   end
 
@@ -514,7 +533,7 @@ describe Admin::Collection do
 
     it 'handles Unicode collection names correctly' do
       collection.name = collection_name
-      expect(Dir).to receive(:mkdir).with( File.join(Avalon::Configuration.lookup('dropbox.path'), collection_dir) )
+      expect(Dir).to receive(:mkdir).with(File.join(Avalon::Configuration.lookup('dropbox.path'), collection_dir), 0775)
       allow(Dir).to receive(:mkdir)
       collection.send(:create_dropbox_directory!)
     end

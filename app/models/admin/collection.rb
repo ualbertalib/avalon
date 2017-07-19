@@ -230,7 +230,15 @@ class Admin::Collection < ActiveFedora::Base
       
       unless File.directory?(absolute_path)
         begin
-          Dir.mkdir(absolute_path)
+          # We want group write so that uploaders can access the directory via SFTP.
+          # The default umask prevents the group write permission from being set, so
+          # we loosen it when creating the directory (restoring the umask afterwards).
+          old_umask = File::umask
+          # Our new umask will only prevent write permission for non-user/non-group
+          File::umask(0002)
+          # 0775 corresponds to permission rwxrwxr-x
+          Dir.mkdir(absolute_path, 0775)
+          File::umask(old_umask)
         rescue Exception => e
           Rails.logger.error "Could not create directory (#{absolute_path}): #{e.inspect}"
         end
