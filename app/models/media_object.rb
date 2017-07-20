@@ -83,7 +83,6 @@ class MediaObject < ActiveFedora::Base
   def validate_access_restrictions_rights
     if access_restrictions_license == 'User_Defined_Rights_Statement'
       if access_restrictions_rights.empty?
-        Rails.logger.debug "VALIDATING ARR empty."
         errors.add(:access_restrictions_license, "A custom license statement is required, please enter it in the Custom License text area.")
       end
     end
@@ -93,11 +92,8 @@ class MediaObject < ActiveFedora::Base
   end
 
   def validate_access_restrictions_license
-    Rails.logger.debug "VALIDATING ARL begin."
-    Rails.logger.debug "in Validator: val_ARL is: #{access_restrictions_license}"
     unless access_restrictions_license.nil?
       if access_restrictions_license.empty?
-        Rails.logger.debug "VALIDATING ARL empty."
         errors.add(:access_restrictions_license, "Please choose an access license from the menu.")
       end
     end
@@ -356,8 +352,6 @@ class MediaObject < ActiveFedora::Base
       #  - license_type goes on directly to access_restrictions_license
 
       if values[:license_type] != 'User_Defined_Rights_Statement'
-        Rails.logger.debug "pre updateDataStream: val_ARL is: #{values[:access_restrictions_license]}"
-        Rails.logger.debug "pre updateDataStream: val_LT is: #{values[:license_type]}"
         # For GUI case, values[:license_type] is populated with a controlled vocab key 
         # from the menu selection process.
         # For the batch ingest case, values[:license_type] is not set and
@@ -371,17 +365,9 @@ class MediaObject < ActiveFedora::Base
         else
           # Batch case
         end
-        Rails.logger.debug "post updateDataStream: val_ARL is: #{values[:access_restrictions_license]}"
-        Rails.logger.debug "post updateDataStream: val_LT is: #{values[:license_type]}"
       else
         # user defined case
-        Rails.logger.debug "pre UDRS updateDataStream: val_ARL is: #{values[:access_restrictions_license]}"
-        Rails.logger.debug "pre UDRS updateDataStream: val_LT is: #{values[:license_type]}"
-        Rails.logger.debug "pre UDRS updateDataStream: val_ARR is: #{values[:access_restrictions_rights]}"
         values[:access_restrictions_license] = values.delete(:license_type)
-        Rails.logger.debug "post UDRS updateDataStream: val_ARL is: #{values[:access_restrictions_license]}"
-        Rails.logger.debug "post UDRS updateDataStream: val_LT is: #{values[:license_type]}"
-        Rails.logger.debug "post UDRS updateDataStream: val_ARR is: #{values[:access_restrictions_rights]}"
       end
     end
 
