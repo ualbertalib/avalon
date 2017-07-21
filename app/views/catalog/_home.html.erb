@@ -15,10 +15,10 @@ Unless required by applicable law or agreed to in writing, software distributed
 %>
 <div class="container-fluid front-images">
   <div class="row">
-    <div class="lib-logo col-xs-6">
+    <div class="lib-logo col-xs-6" id="modal">
       <%= ualib_logo_link %>
     </div>
-    <div class="col-xs-6 t-right">
+    <div class="col-xs-6 t-right" id="menu">
       <%= render partial: "modules/user_util_dropdowns"%>
     </div>
   </div>
@@ -41,10 +41,10 @@ Unless required by applicable law or agreed to in writing, software distributed
       </div>
     </div>
     <div class="video-wrap">
-      <object class="embed-responsive embed-responsive-16by9 banner-video">
+      <div class="embed-responsive embed-responsive-16by9 banner-video">
         <%- vidnumber = rand(4).to_s %>
         <%= video_tag ("welcome"+vidnumber+".mp4"), autoplay: 'true' %>
-      </object>
+      </div>
     </div>
   </div>
   <div class="row">
@@ -55,9 +55,9 @@ Unless required by applicable law or agreed to in writing, software distributed
   </div>
   <div class="row visible-xs">
     <div class="col-xs-12 mobile-search">
-      <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline") do %>
+      <%= form_tag("/catalog", method: "get", id: "search-form-header-sm", class: "form-inline") do %>
         <div class="col-xs-offset-1 col-xs-6">
-          <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
+          <%= text_field_tag :q, "", class: "form-control input-lg q query", id: 'q-sm',placeholder: "enter search terms" %>
         </div>
           <div class="query-actions col-xs-5">
             <%= submit_tag "Search ERA A&plus;V".html_safe, class: "call-to-action" %>
@@ -66,12 +66,12 @@ Unless required by applicable law or agreed to in writing, software distributed
     </div>
     <div class="col-xs-offset-2 col-xs-9 visible-xs">
       <%= link_to 'Browse ERA A&plus;V'.html_safe, 
-      catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call" %>
+      catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call-sm" %>
     </div>
   </div>
   <div class="row">
     <div class="col-sm-8 info-pane">
-      <p>Welcome to ERA A<span class="plus">&plus;</span>V), 
+      <p>Welcome to ERA A<span class="plus">&plus;</span>V, 
       the University of Alberta's media streaming repository. 
       ERA A<span class="plus">&plus;</span>V is a new feature of the University of Alberta's 
       <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. 
@@ -79,9 +79,10 @@ Unless required by applicable law or agreed to in writing, software distributed
       supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>.</p>
     </div>
     <div class="col-sm-4">
-      <a href="/catalog?f[collection_ssim][]=Nosotros+Television+Programme&q=&search_field=all_fields#" class="featured">
+      <a href="/catalog?q=Nosotros+Television+Programme" class="featured"> 
         <h3><em>Featured Collection</em></h3>
         <h2>Nostros Television</h2>
       </a>
     </div>
+  </div>
   </div>
