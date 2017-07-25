@@ -27,6 +27,16 @@ describe 'checks navigation after logging in' do
       end
     end
   end
+  it 'verifies presence of features after login' do
+    user = FactoryGirl.create(:administrator)
+    login_as user, scope: :user
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
+    page.should have_link('Manage Content')
+    page.should have_link('Manage Groups')
+    page.should have_link('Manage Selected Items')
+    page.should have_link('Playlists')
+    page.should have_link('Sign out')
+  end
   it 'checks navigation to Manage Content' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
@@ -69,7 +79,7 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    click_link('Sign out', match: :first)
+    click_link('log out', match: :first)
     page.should have_content('Signed out successfully')
   end
 end
