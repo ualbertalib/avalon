@@ -14,7 +14,7 @@ Unless required by applicable law or agreed to in writing, software distributed
 ---  END LICENSE_HEADER BLOCK  ---
 %>
 <% @page_title = t('groups.title', :application_name => application_name) %>
-
+<div class="container">
 <div class="row col-md-9 col-lg-8">
   <div class="container-fluid">
     <h3>System Groups</h3>
@@ -73,6 +73,7 @@ Unless required by applicable law or agreed to in writing, software distributed
         class: "btn btn-danger delete", disabled: true %>
     <% end %>
   </div>
+</div>
 </div>
 
 <% content_for :page_scripts do %>

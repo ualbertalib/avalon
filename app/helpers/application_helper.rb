@@ -161,7 +161,7 @@ module ApplicationHelper
   end
 
   def active_for_controller controller_name
-    params[:controller] == controller_name.to_s ? 'active' : ''
+    params[:controller] == controller_name.to_s ? 'active' : nil
   end
 
   def build_solr_request_from_response
@@ -197,5 +197,9 @@ module ApplicationHelper
       concat tag(:meta, itemprop: 'description', content: m.mediaobject.abstract) if m.mediaobject.abstract.present?
       yield
     end
+  end
+  def should_hide_header?
+    current_page?(root_path) ||
+    (request.path == '/catalog' && !has_search_parameters?)
   end
 end

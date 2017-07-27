@@ -19,9 +19,7 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    # The U of A has two links to Browse on the homepage, so some care is needed.
-    # We test both links:
-    [".navbar-nav", ".footer"].each do |region|
+    [".footer"].each do |region|
       within(region) do 
         click_link('Browse')
         expect(page.current_url).
@@ -29,10 +27,21 @@ describe 'checks navigation after logging in' do
       end
     end
   end
+  it 'verifies presence of features after login' do
+    user = FactoryGirl.create(:administrator)
+    login_as user, scope: :user
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
+    page.should have_link('Manage Content')
+    page.should have_link('Manage Groups')
+    page.should have_link('Manage Selected Items')
+    page.should have_link('Playlists')
+    page.should have_link('Sign out')
+  end
   it 'checks navigation to Manage Content' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    # Navigation on Browse page, not home page
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Manage Content')
     expect(page.current_url).to eq('http://www.example.com/admin/collections')
     page.should have_content('Skip to main content')
@@ -47,7 +56,7 @@ describe 'checks navigation after logging in' do
   it 'checks naviagtion to Manage Groups' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Manage Groups')
     expect(page.current_url).to eq('http://www.example.com/admin/groups')
     page.should have_content('System Groups')
@@ -60,7 +69,7 @@ describe 'checks navigation after logging in' do
   it 'checks naviagtion to Playlist' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Playlist')
     expect(page.current_url).to eq('http://www.example.com/playlists')
     page.should have_content('Playlists')
@@ -70,7 +79,7 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    click_link('Sign out', match: :first)
+    click_link('log out', match: :first)
     page.should have_content('Signed out successfully')
   end
 end
@@ -78,14 +87,16 @@ end
 describe 'Search' do
   it 'is able to enter keyword and perform search' do
     visit '/'
-    fill_in('search-field-header', with: 'Video')
-    click_button 'Search ERA Audio+Video'
+    form = page.find('#search-form-header')
+    form.fill_in(with: 'Video')
+    form.click_button('Search ERA A&plus;V')
     expect(page.current_url).to eq('http://www.example.com/catalog?utf8=%E2%9C%93&search_field=all_fields&q=Video')
   end
   it 'gives appropriate error when keyword returns no results' do
     visit '/'
-    fill_in('search-field-header', with: 'Video')
-    click_button 'Search ERA Audio+Video'
+    form = page.find('#search-form-header')
+    form.fill_in(with: 'Video')
+    form.click_button('Search ERA A&plus;V')
     page.should have_content('No results found for your search')
     page.should have_content('No entries found')
     page.should have_content('Use fewer keywords to start, then refine your search using the links on the left')

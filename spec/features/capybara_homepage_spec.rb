@@ -24,7 +24,8 @@ describe 'homepage' do
     page.should have_link('Contact Us')
     # U of A puts the following in an HTML comment, so we check "source"
     page.source.should include('Avalon Media System Release 5.1.5')
-    page.should have_content('Search')
+    # Bootstrap has break points for visibility of this item, so check "source"
+    page.source.should include('Search ERA A&plus;V')
   end
   it 'validates absence of features when not logged in' do
     visit '/'
@@ -62,12 +63,8 @@ describe 'checks navigation to external links' do
   it 'verifies presence of features after login' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit'/'
-    page.should have_link('Manage Content')
-    page.should have_link('Manage Groups')
-    page.should have_link('Manage Selected Items')
-    page.should have_link('Playlists')
-    page.should have_link('Sign out')
+    visit '/'
+    page.should have_link('log out')
     page.should have_content(user.username)
   end
 end

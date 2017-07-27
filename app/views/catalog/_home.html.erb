@@ -1,0 +1,92 @@
+<%#
+Copyright 2011-2015, The Trustees of Indiana University and Northwestern
+  University.  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed
+  under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+  CONDITIONS OF ANY KIND, either express or implied. See the License for the
+  specific language governing permissions and limitations under the License.
+---  END LICENSE_HEADER BLOCK  ---
+%>
+<div class="container-fluid front-images">
+  <div class="row">
+    <div class="lib-logo col-xs-6" id="modal">
+      <%= ualib_logo_link %>
+    </div>
+    <div class="col-xs-6 t-right" id="menu">
+      <%= render partial: "modules/user_util_dropdowns"%>
+    </div>
+  </div>
+  <div class="row">
+    <div class="branding">
+      <h2>education &amp; research archive</h2>
+      <h1>ERA</h1>
+      <h3><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO 
+        <span class="plus-head">&plus;</span> VIDEO
+      </h3>
+      <div class="hidden-xs">
+        <%= form_tag("/catalog", method: "get", id: "search-form-header", class: "form-inline mast-sm-search") do %>
+          <%= hidden_field_tag :utf8, '✓', id: nil %>
+          <%= hidden_field_tag :search_field, 'all_fields', id: nil %>
+          <div class="form-group">
+            <%= text_field_tag :q, "", class: "form-control input-lg q query", placeholder: "enter search terms" %>
+          </div>
+            <%= submit_tag "Search ERA A&plus;V".html_safe, name: nil, class: "call-to-action" %>
+        <% end %>
+        <%= link_to 'Browse ERA A&plus;V'.html_safe, catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), 
+        :class => "call-to-action", :id => "browse-call" %>
+      </div>
+    </div>
+    <div class="video-wrap">
+      <div class="embed-responsive embed-responsive-16by9 banner-video">
+        <%- vidnumber = rand(4).to_s %>
+        <%= video_tag ("welcome"+vidnumber+".mp4"), autoplay: 'true' %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12 more-info hidden-xs">
+      <h4>You can also learn  more <%= link_to 'about this service', about_path %>, 
+      or <%= link_to 'contact us', contact_path %>.</h4>
+    </div>
+  </div>
+  <div class="row visible-xs">
+    <div class="col-xs-12 mobile-search">
+      <%= form_tag("/catalog", method: "get", id: "search-form-header-sm", class: "form-inline") do %>
+        <%= hidden_field_tag :utf8, '✓', id: nil %>
+        <%= hidden_field_tag :search_field, 'all_fields', id: nil %>
+        <div class="col-xs-offset-1 col-xs-6">
+          <%= text_field_tag :q, "", class: "form-control input-lg q query", id: 'q-sm',placeholder: "enter search terms" %>
+        </div>
+          <div class="query-actions col-xs-5">
+            <%= submit_tag "Search ERA A&plus;V".html_safe, name: nil, class: "call-to-action" %>
+          </div>
+      <% end %>
+    </div>
+    <div class="col-xs-offset-2 col-xs-9 visible-xs">
+      <%= link_to 'Browse ERA A&plus;V'.html_safe, 
+      catalog_index_path(search_field: 'all_fields', utf8: '✓', q: ''), :class => "call-to-action", :id => "browse-call-sm" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8 info-pane">
+      <p>Welcome to ERA A<span class="plus">&plus;</span>V, 
+      the University of Alberta's media streaming repository. 
+      ERA A<span class="plus">&plus;</span>V is a new feature of the University of Alberta's 
+      <a href="https://era.library.ualberta.ca">Education and Research Archive (ERA)</a>. 
+      ERA A<span class="plus">&plus;</span>V provides access to audiovisual materials in support of teaching, learning, and research at the University of Alberta. ERA A<span class="plus">&plus;</span>V is developed and 
+      supported by the <a href="https://library.ualberta.ca/">University of Alberta Libraries</a>.</p>
+    </div>
+    <div class="col-sm-4">
+      <a href="/catalog?q=Nosotros+Television+Programme" class="featured"> 
+        <h3><em>Featured Collection</em></h3>
+        <h2>Nostros Television</h2>
+      </a>
+    </div>
+  </div>
+  </div>

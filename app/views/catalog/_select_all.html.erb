@@ -21,7 +21,7 @@ Unless required by applicable law or agreed to in writing, software distributed
            current_or_guest_user.bookmarks.where({document_id: d.id, document_type: blacklight_config.solr_document_model.to_s}).exists?
          end %>
       <%= check_box_tag('bookmarks_selectall', '', all_selected) %>
-      <%= label_tag 'selectall', t('blacklight.bookmarks.addall.button') %>
+      <%= label_tag 'bookmarks_selectall', t('blacklight.bookmarks.addall.button') %>
   </div>
   <% content_for :page_scripts do %>
     <%= javascript_include_tag 'select_all' %>

@@ -22,13 +22,13 @@ describe ApplicationHelper do
     it "should return 'active' for matching controller names" do
       expect(helper.active_for_controller('media_objects')).to eq('active')
     end
-    it "should return '' for non-matching controller names" do
-      expect(helper.active_for_controller('master_files')).to eq('')
+    it "should return nil for non-matching controller names" do
+      expect(helper.active_for_controller('master_files')).to eq(nil)
     end
     it "should handle name-spaced controllers" do
       allow(helper).to receive(:params).and_return({controller: 'admin/groups'})
       expect(helper.active_for_controller('admin/groups')).to eq('active')
-      expect(helper.active_for_controller('groups')).to eq('')
+      expect(helper.active_for_controller('groups')).to eq(nil)
     end
   end
 

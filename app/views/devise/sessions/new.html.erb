@@ -13,12 +13,13 @@ Unless required by applicable law or agreed to in writing, software distributed
   specific language governing permissions and limitations under the License.
 ---  END LICENSE_HEADER BLOCK  ---
 %>
+<div class="page container main">
 <% unless flash.empty? %>
   <div class="alert alert-danger"><%= flash[:alert] %></div>
 <% end %>
 
-<h2>Login to ERA Audio+Video</h2>
-<p class="login-instruct">ERA Audio+Video is a <a href="https://ist.ualberta.ca/services/ccid-passwords/campus-computing-id">CCID</a> (Campus Computing ID) enabled service. If you have a CCID please use it to log in to ERA.</p>
+<h2>Login to ERA A<span class="plus">&plus;</span>V </h2>
+<p class="login-instruct">ERA A<span class="plus">&plus;</span>V is a <a href="https://ist.ualberta.ca/services/ccid-passwords/campus-computing-id">CCID</a> (Campus Computing ID) enabled service. If you have a CCID please use it to log in to ERA.</p>
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
     <%- if provider.to_s == "shibboleth" %>
@@ -28,3 +29,4 @@ Unless required by applicable law or agreed to in writing, software distributed
     <% end -%>
   <% end -%>
 <% end -%>
+</div>

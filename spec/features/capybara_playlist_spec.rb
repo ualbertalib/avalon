@@ -18,7 +18,8 @@ describe 'Playlist' do
   it 'checks navigation when create new playlist is accessed' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
-    visit '/'
+    # Playlist is not on home page, visit browse page
+    visit '/catalog?q=&search_field=all_fields&utf8=%E2%9C%93'
     click_link('Playlists')
     click_on('Create New Playlist')
     expect(page.current_url).to eq('http://www.example.com/playlists/new')

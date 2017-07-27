@@ -82,3 +82,9 @@ cucumber-results/
 
 /dropbox
 public/source_maps
+
+## From Docker deploy
+Gemfile.local
+config/lti.yml
+config/resque.yml
+vendor/gems/
