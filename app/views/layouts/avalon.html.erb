@@ -58,7 +58,9 @@ Unless required by applicable law or agreed to in writing, software distributed
       <div class="container-fluid secondary">
     <% end %>  
     <%= render 'modules/flash_messages' %>
-    <%= yield %>
+    <div class='page-content'>
+      <%= yield %>
+    </div>
     <% unless should_hide_header? %>      
       </div>
     <% end %>  
