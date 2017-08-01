@@ -163,6 +163,13 @@ namespace :avalon do
     MediaObject.find_each({},{batch_size:5}) {|mo| puts "#{mo.pid}: #{mo.errors.full_messages}" if !mo.valid? }
   end
 
+  desc "Report invalid objects"
+  task :audit_objects => :environment do
+    require 'avalon/audit_objects'
+
+    Avalon::AuditObjects.run
+  end
+
   namespace :variations do
     desc "Import playlists/bookmarks from Variation export"
     task :import => :environment do

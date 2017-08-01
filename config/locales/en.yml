@@ -281,3 +281,9 @@ en:
       Remove the *.processed file from the dropbox to reprocess'
     processing: 'Batch is currently processing for collection "%{name}"'
     view_log: 'View most recent batch ingest log'
+  audit:
+    class_total_header_html: 'Bad <b>%{class}</b> objects'
+    collection_total_header_html: 'Errors for collection <b>%{collection}</b>'
+    error_report_subject: 'ERA A+V Object Errors'
+    total_header_html: '<b>Total</b>'
+    

@@ -12,8 +12,7 @@
 #   specific language governing permissions and limitations under the License.
 # ---  END LICENSE_HEADER BLOCK  ---
 
-class IngestBatchMailer < ActionMailer::Base
-  layout 'mailer'
+class IngestBatchMailer < ApplicationMailer
 
   def status_email( ingest_batch_id )
     @ingest_batch = IngestBatch.find(ingest_batch_id)
@@ -21,7 +20,6 @@ class IngestBatchMailer < ActionMailer::Base
     @email = @ingest_batch.email || Avalon::Configuration.lookup('email.notification')
     mail(
       to: @email, 
-      from: Avalon::Configuration.lookup('email.notification'), 
       subject: "Batch ingest status for: #{@ingest_batch.name}"
     )
   end
@@ -32,7 +30,6 @@ class IngestBatchMailer < ActionMailer::Base
     email = package.manifest.email || Avalon::Configuration.lookup('email.notification')
     mail(
       to: email,
-      from: Avalon::Configuration.lookup('email.notification'),
       subject: "Failed batch ingest processing errors for: #{package.manifest.name}",
     )
   end
@@ -42,7 +39,6 @@ class IngestBatchMailer < ActionMailer::Base
     email = package.manifest.email || Avalon::Configuration.lookup('email.notification')
     mail(
       to: email,
-      from: Avalon::Configuration.lookup('email.notification'),
       subject: "Successfully processed batch ingest: #{package.manifest.name}",
     )
   end

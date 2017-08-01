@@ -19,6 +19,7 @@ development:
     comments: 'avalon-comments@example.edu'
     notification: 'avalon-notifications@example.edu'
     support: 'avalon-support@example.edu'
+    errors: 'avalon-errors@example.edu'
     mailer:
       smtp:
         address: 'smtp.example.edu'
@@ -56,6 +57,7 @@ test:
     comments: 'avalon-comments@example.edu'
     notification: 'avalon-notifications@example.edu'
     support: 'avalon-support@example.edu'
+    errors: 'avalon-errors@example.edu'
     mailer:
       smtp:
         address: 'smtp.example.edu'

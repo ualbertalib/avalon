@@ -1,0 +1,29 @@
+<h2>ERA A+V Object Errors</h2>
+
+<h3>Stats</h3>
+<table>
+  <% @stats.each do |stat| %>
+    <tr>
+      <th style='font-weight:normal;text-align:right;'><%= stat[:heading] %></th>
+      <td><%= stat[:value] %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>Errors</h3>
+<dl>
+  <% @bad_objects.each do |object| %>
+    <dt><b><%= "#{object.class}: #{object.pid}" %></b>
+      <% if object.respond_to?(:collection) %>
+        (Collection: <b><%= "#{object.collection.pid}:#{object.collection.name}" %></b>)
+      <% end %>
+    </dt>
+    <dd>
+      <ul>
+        <% object.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </dd>
+  <% end %>
+</dl>
