@@ -305,9 +305,11 @@ describe Admin::CollectionsController, type: :controller do
 
   describe 'batch actions' do
     before(:each) do
-      @saved_dropbox_path = Avalon::Configuration.lookup('dropbox.path')
-      Avalon::Configuration['dropbox']['path'] = 'spec/fixtures/dropbox'
-      Avalon::Configuration['email']['notification'] = 'test_archivist@example.com'
+      allow(Avalon::Configuration).to receive(:lookup).and_call_original
+      allow(Avalon::Configuration).to receive(:lookup)
+        .with('dropbox.path').and_return('spec/fixtures/dropbox')
+      allow(Avalon::Configuration).to receive(:lookup)
+        .with('email.notification').and_return('test_archivist@example.com')
       Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error']
         .each { |file| File.delete(file) }
       User.create(username: 'test_archivist@example.com',
@@ -325,7 +327,6 @@ describe Admin::CollectionsController, type: :controller do
     end
 
     after :each do
-      Avalon::Configuration['dropbox']['path'] = @saved_dropbox_path
       Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error']
         .each { |file| File.delete(file) }
       RoleControls.remove_user_role('test_archivist@example.com','manager')

@@ -506,8 +506,9 @@ describe Admin::Collection do
       FakeFS.deactivate!
     end
     it 'creates the dropbox directory with user/group write permissions' do
-      saved_dropbox_path = Avalon::Configuration.lookup('dropbox.path')
-      Avalon::Configuration['dropbox']['path'] = 'spec/fixtures/dropbox'
+      allow(Avalon::Configuration).to receive(:lookup).and_call_original
+      allow(Avalon::Configuration).to receive(:lookup)
+        .with('dropbox.path').and_return('spec/fixtures/dropbox')
 
       collection.name = 'african art'
       dropbox_dir = File.join(Avalon::Configuration.lookup('dropbox.path'), 'african_art')
@@ -522,7 +523,6 @@ describe Admin::Collection do
       expect(fstat.mode).to eq(0O40775)
 
       Dir.rmdir(dropbox_dir)
-      Avalon::Configuration['dropbox']['path'] = saved_dropbox_path
     end
   end
 

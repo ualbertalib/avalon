@@ -316,24 +316,25 @@ describe MasterFile do
         }
 
         before(:each) do
-          @old_media_path = Avalon::Configuration.lookup('matterhorn.media_path')
+          allow(Avalon::Configuration).to receive(:lookup).and_call_original
           FileUtils.mkdir_p media_path
           FileUtils.cp fixture, tempfile
         end
 
         after(:each) do
-          Avalon::Configuration['matterhorn']['media_path'] = @old_media_path
           File.unlink subject.file_location
           FileUtils.rm_rf media_path
         end
 
         it "should rename an uploaded file in place" do
-          Avalon::Configuration['matterhorn'].delete('media_path')
+          allow(Avalon::Configuration).to receive(:lookup)
+            .with('matterhorn.media_path').and_return(nil)
           expect(subject.file_location).to eq(File.join(tempdir,original))
         end
 
         it "should copy an uploaded file to the media path" do
-          Avalon::Configuration['matterhorn']['media_path'] = media_path
+          allow(Avalon::Configuration).to receive(:lookup)
+            .with('matterhorn.media_path').and_return(media_path)
           expect(subject.file_location).to eq(File.join(media_path,original))
         end
       end

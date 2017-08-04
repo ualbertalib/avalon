@@ -18,23 +18,28 @@ require 'avalon/bib_retriever'
 describe Avalon::BibRetriever do
   let(:bib_id) { '7763100' }
   let(:mods) { File.read(File.expand_path("../../../fixtures/#{bib_id}.mods",__FILE__)) }
+  before(:each) do
+    allow(Avalon::Configuration).to receive(:lookup).and_call_original
+    allow(Avalon::Configuration).to receive(:lookup).with('bib_retriever')
+      .and_return({ 'protocol' => 'sru',
+                    'url' => 'http://zgate.example.edu:9000/db' })
+  end
 
   describe 'configured?' do
-    before :each do
-      Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
-    end
-    
     it 'valid' do
       expect(Avalon::BibRetriever).to be_configured
     end
     
     it 'invalid' do
-      Avalon::Configuration['bib_retriever'] = { 'protocol' => 'unknown', 'url' => 'http://zgate.example.edu:9000/db' }
+      allow(Avalon::Configuration).to receive(:lookup).with('bib_retriever')
+        .and_return({ 'protocol' => 'unknown',
+                      'url' => 'http://zgate.example.edu:9000/db' })
       expect(Avalon::BibRetriever).not_to be_configured
     end
     
     it 'missing' do
-      Avalon::Configuration['bib_retriever'] = nil
+      allow(Avalon::Configuration).to receive(:lookup).with('bib_retriever')
+        .and_return(nil)
       expect(Avalon::BibRetriever).not_to be_configured
     end
   end
@@ -46,7 +51,6 @@ describe Avalon::BibRetriever do
       let(:sru_response) { File.read(File.expand_path("../../../fixtures/#{bib_id}.xml",__FILE__)) }
 
       before :each do
-        Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
         FakeWeb.register_uri :get, sru_url, body: sru_response
       end
       
@@ -64,7 +68,10 @@ describe Avalon::BibRetriever do
       let(:sru_response) { File.read(File.expand_path("../../../fixtures/#{bib_id}-ns.xml",__FILE__)) }
 
       before :each do
-        Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db', 'namespace' => 'http://example.edu/fake/sru/namespace/' }
+        allow(Avalon::Configuration).to receive(:lookup).with('bib_retriever')
+          .and_return({ 'protocol' => 'sru',
+                        'url' => 'http://zgate.example.edu:9000/db',
+                        'namespace' => 'http://example.edu/fake/sru/namespace/' })
         FakeWeb.register_uri :get, sru_url, body: sru_response
       end
       

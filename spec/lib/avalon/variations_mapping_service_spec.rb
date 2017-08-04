@@ -16,8 +16,11 @@ require 'spec_helper'
 require 'avalon/variations_mapping_service'
 
 describe Avalon::VariationsMappingService do
-  before(:all) do
-    Avalon::Configuration['variations'] = { 'media_object_id_map_file' => 'spec/fixtures/variations_playlists/variations_media_object_id_map.yml' }
+  before(:each) do
+    allow(Avalon::Configuration).to receive(:[]).and_call_original
+    allow(Avalon::Configuration).to receive(:[]).with('variations')
+      .and_return({ 'media_object_id_map_file' =>
+                    'spec/fixtures/variations_playlists/variations_media_object_id_map.yml' })
     Avalon::VariationsMappingService::MEDIA_OBJECT_ID_MAP = YAML.load_file(Avalon::Configuration['variations']['media_object_id_map_file']).freeze rescue {}
   end
   subject { Avalon::VariationsMappingService.new }

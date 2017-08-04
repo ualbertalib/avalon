@@ -171,6 +171,10 @@ describe MediaObjectsController, type: :controller do
       context 'using api' do
         before do
           request.headers['Avalon-Api-Key'] = 'secret_token'
+          allow(Avalon::Configuration).to receive(:lookup).and_call_original
+          allow(Avalon::Configuration).to receive(:lookup).with('bib_retriever')
+            .and_return({ 'protocol' => 'sru',
+                          'url' => 'http://zgate.example.edu:9000/db' })
         end
         it "should respond with 422 if collection not found" do
           post 'create', format: 'json', collection_id: "avalon:doesnt_exist"
@@ -212,7 +216,6 @@ describe MediaObjectsController, type: :controller do
           expect(new_media_object.workflow.last_completed_step).to eq([HYDRANT_STEPS.last.step])
        end
         it "should create a new mediaobject with successful bib import" do
-          Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: sru_response
           # The genre returned by bib import doesn't match our controlled
           # vocabulary, so we override it.
@@ -224,7 +227,6 @@ describe MediaObjectsController, type: :controller do
           expect(new_media_object.title).to eq('245 A : B F G K N P S')
         end
         it "should create a new mediaobject with supplied fields when bib import fails" do
-          Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: nil
           media_object = FactoryGirl.create(:media_object)
           fields = media_object.export_attributes(attribute_list: descMetadata_fields)
@@ -255,7 +257,6 @@ describe MediaObjectsController, type: :controller do
           expect(new_media_object.copyright_date).to eq nil
         end
         it "should merge supplied other identifiers after bib import" do
-          Avalon::Configuration['bib_retriever'] = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           FakeWeb.register_uri :get, sru_url, body: sru_response
           # The genre returned by bib import doesn't match our controlled
           # vocabulary, so we override it.
