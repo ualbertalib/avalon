@@ -53,5 +53,65 @@ describe 'Batch Ingest Email' do
     expect(fragment.find('.master-file')).to have_content(File.basename(master_file.file_location))
     expect(fragment.find('.percent-complete')).to have_content(master_file.percent_complete)
     expect(fragment.find('.status-code')).to have_content(master_file.status_code.downcase.titleize)
+
   end
+
+  describe 'recipients' do
+    before(:each) do
+      allow(Avalon::Configuration).to receive(:lookup).and_call_original
+      allow(Avalon::Configuration).to receive(:lookup)
+        .with('email.notification').and_return('avalon-notifications@example.edu')
+      allow(Avalon::Configuration).to receive(:lookup)
+        .with('email.errors').and_return('avalon-errors@example.edu')
+    end
+
+    it 'sends a copy of status emails to the right recipients' do
+      ingest_batch = IngestBatch.create
+      @email = IngestBatchMailer.status_email(ingest_batch.id)
+      expect(@email.to).to eq(['avalon-notifications@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+
+      ingest_batch = IngestBatch.create(email: 'batch_maintainer@example.edu')
+      @email = IngestBatchMailer.status_email(ingest_batch.id)
+      expect(@email.to).to eq(['batch_maintainer@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+    end
+
+    it 'sends a copy of ingest validation errors message to the right recipients' do
+      package = double('ingest_package', entries: [])
+      allow(package).to receive(:manifest) {
+        double('manifest', name: 'batch without email', email: nil, file: nil)
+      }
+      @email = IngestBatchMailer.batch_ingest_validation_error(package, nil)
+      expect(@email.to).to eq(['avalon-notifications@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+
+      allow(package).to receive(:manifest) {
+        double('manifest', name: 'batch with email',
+               email: 'batch_maintainer@example.edu', file: nil)
+      }
+      @email = IngestBatchMailer.batch_ingest_validation_error(package, nil)
+      expect(@email.to).to eq(['batch_maintainer@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+    end
+
+    it 'sends a copy of ingest success message to the right recipients' do
+      package = double('ingest_package', entries: [])
+      allow(package).to receive(:manifest) {
+        double('manifest', name: 'batch without email', email: nil, file: nil)
+      }
+      @email = IngestBatchMailer.batch_ingest_validation_success(package)
+      expect(@email.to).to eq(['avalon-notifications@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+
+      allow(package).to receive(:manifest) {
+        double('manifest', name: 'batch with email',
+               email: 'batch_maintainer@example.edu', file: nil)
+      }
+      @email = IngestBatchMailer.batch_ingest_validation_success(package)
+      expect(@email.to).to eq(['batch_maintainer@example.edu'])
+      expect(@email.cc).to eq(['avalon-errors@example.edu'])
+    end
+  end
+
 end
