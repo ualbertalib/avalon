@@ -172,6 +172,57 @@ describe MasterFile do
     end
   end
 
+  describe "#destroy" do
+    let!(:master_file) { FactoryGirl.create(:master_file) }
+
+    it "should remove the MasterFile" do
+      expect { master_file.destroy }.to change { MasterFile.all.count }.by(-1)
+    end
+
+    it "should cancel any encoding jobs" do
+      master_file.workflow_id = "13"
+
+      encoding_job = double
+      allow(encoding_job).to receive(:cancel!)
+
+      allow(master_file.encoder_class).to receive(:find).
+        with(master_file.workflow_id).and_return(encoding_job)
+
+      master_file.destroy
+
+      expect(encoding_job).to have_received(:cancel!)
+    end
+
+    it "should remove the MasterFile even when no workflow exists" do
+      # This is a degenerate state: MasterFile thinks there is an encoding job
+      # being processed, but there isn't
+      master_file.workflow_id = "13"
+      allow(master_file).to receive(:finished_processing?).and_return(false)
+
+      expect(master_file.encoder_class.find(master_file.workflow_id))
+        .to be_nil
+      expect { master_file.destroy }.to change { MasterFile.all.count }.by(-1)
+    end
+
+    it "should destroy derivatives" do
+      derivative = FactoryGirl.create(:derivative)
+      masterfile = derivative.masterfile
+      allow(derivative).to receive(:destroy)
+      expect { masterfile.destroy }.to change { Derivative.all.count }.by(-1)
+    end
+
+    it "saves the MediaObject if it exists" do
+      mediaobject = master_file.mediaobject
+      allow(mediaobject).to receive(:save)
+      master_file.mediaobject = mediaobject
+
+      master_file.destroy
+
+      expect(mediaobject).to have_received(:save)
+    end
+
+  end
+
   describe "image_offset" do
     subject(:master_file) {FactoryGirl.create(:master_file, duration: (rand(21600000)+60000).to_s )}
 

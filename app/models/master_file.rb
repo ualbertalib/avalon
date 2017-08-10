@@ -175,7 +175,7 @@ class MasterFile < ActiveFedora::Base
 
     # Stops all processing
     if workflow_id.present? && !finished_processing?
-      encoder_class.find(workflow_id).cancel!
+      encoder_class.find(workflow_id)&.cancel!
     end
     self.derivatives.map(&:destroy)
 
