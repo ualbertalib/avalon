@@ -17,9 +17,6 @@ before_install:
   - git submodule init
   - git submodule update --depth=10 -- red5
   - rvm use 2.3.3@global
-  # Bundler 1.15 has stricter dependency checking -- problematic for Hydra projects
-  - gem uninstall -aIx bundler
-  - gem install bundler -v 1.14.6
   - bundle config without development:production:staging
 before_script:
   - rm config/database.yml
