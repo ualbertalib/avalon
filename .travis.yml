@@ -1,9 +1,11 @@
 ---
+dist: trusty
+sudo: required
 git:
   submodules: false
-bundler_args: --with mysql --without development debug
+bundler_args: --with mysql --without development debug production staging --jobs=3 --retry=3
 services:
-  - mysql2
+  - mysql
 before_install:
   - sudo apt-get update
   - sudo apt-get install mediainfo
@@ -11,17 +13,21 @@ before_install:
   - cp spec/config/*.yml config
   - cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
   - cp config/avalon.yml.example config/avalon.yml
-  - cp config/secrets.travis.yml config/secrets.yml
+  - cp config/secrets.yml.example config/secrets.yml
   - git submodule init
   - git submodule update --depth=10 -- red5
-  - bundle config without development:production:staging
+
+  # Bundler 1.15 has stricter dependency checking -- problematic for Hydra projects
+  - rvm use 2.3.3@global
+  - gem uninstall -aIx bundler
+  - gem install bundler -v 1.14.6
+
 before_script:
-  - rm config/database.yml
-  - cp config/database.travis.yml config/database.yml
-  - mysql -e 'create database avalon_test;'
+  - bundle exec rake db:create
   - bundle exec rake jetty:unzip jetty:config jetty:start delayed_job:start
   - bundle exec rake db:migrate
   - bundle exec rake avalon:db_migrate
 language: ruby
+cache: bundler
 rvm:
   - 2.3.3
