@@ -20,7 +20,6 @@ before_install:
   # Bundler 1.15 has stricter dependency checking -- problematic for Hydra projects
   - gem uninstall -aIx bundler
   - gem install bundler -v 1.14.6
-  - bundle install
 before_script:
   - rm config/database.yml
   - cp config/database.travis.yml config/database.yml
