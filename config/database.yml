@@ -11,10 +11,11 @@ development:
   <<: *default
   database: rails_dev
 
+# This config is for Travis
 test:
   adapter: mysql2
   database: rails_test
-  username: travis
+  username: root
   encoding: utf8
 
 staging:
