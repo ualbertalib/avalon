@@ -21,8 +21,6 @@ before_install:
   - gem uninstall -aIx bundler
   - gem install bundler -v 1.14.6
 before_script:
-  - rm config/database.yml
-  - cp config/database.travis.yml config/database.yml
   - bundle exec rake db:create
   - bundle exec rake jetty:unzip jetty:config jetty:start delayed_job:start
   - bundle exec rake db:migrate
