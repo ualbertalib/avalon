@@ -15,6 +15,7 @@
 require 'avalon/controller/controller_behavior'
 
 class MediaObjectsController < ApplicationController 
+  include ActionView::Helpers::TagHelper
   include Avalon::Workflow::WorkflowControllerBehavior
   include Avalon::Controller::ControllerBehavior
   include ConditionalPartials
@@ -296,27 +297,26 @@ class MediaObjectsController < ApplicationController
     success_count = 0
     Array(params[:id]).each do |id|
       media_object = MediaObject.find(id)
-      if cannot? :update, media_object
-        errors += ["#{media_object.title} (#{id}) (permission denied)."]
+
+      if (status == 'publish') && can?(:update, media_object)
+        media_object.publish!(user_key)
+        # additional save to set permalink
+        media_object.save(validate: false)
+        success_count += 1
+      elsif (status == 'unpublish') && can?(:unpublish, media_object)
+        media_object.publish!(nil)
+        success_count += 1
       else
-        case status
-          when 'publish'
-            media_object.publish!(user_key)
-            # additional save to set permalink
-            media_object.save( validate: false )
-            success_count += 1
-          when 'unpublish'
-            if can? :unpublish, media_object
-              media_object.publish!(nil)
-              success_count += 1
-            else
-              errors += ["#{media_object.title} (#{id}) (permission denied)."]
-            end
-        end
+        errors << escape_once("#{media_object.title} (#{id}) "\
+                              "#{t('blacklight.messages.permission_denied')}.")
       end
     end
-    message = "#{success_count} #{'media object'.pluralize(success_count)} successfully #{status}ed."
-    message += "These objects were not #{status}ed:</br> #{ errors.join('<br/> ') }" if errors.count > 0
+    message = t("blacklight.status.success_#{status}", count: success_count)
+    message +=
+      "#{t("blacklight.status.alert_#{status}", count: errors.count)}</br>"\
+      "#{ errors.join('<br/> ') }".html_safe if errors.count > 0
+    puts message
+
     redirect_to :back, flash: {notice: message.html_safe}
   end
 

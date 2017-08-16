@@ -89,13 +89,22 @@ en:
       }     	     
       error: "You do not have permission to add to collection %{collection_name}."
     status:
-      success: {
-        one: "One item is being %{status}ed.",
-	other: "%{count} items are being %{status}ed. This operation could take a while for large numbers of items."
+      bulk_warning: "This operation could take a while for large numbers of items."
+      success_publish: {
+        one: "One item is being published.",
+        other: "%{count} items are being published."
       }
-      alert: {
-        one: "This item was not %{status}ed:",
-        other: "These items were not %{status}ed:"
+      success_unpublish: {
+        one: "One item is being unpublished.",
+        other: "%{count} items are being unpublished."
+      }
+      alert_publish: {
+        one: "This item was not published:",
+        other: "These items were not published:"
+      }
+      alert_unpublish: {
+        one: "This item was not unpublished:",
+        other: "These items were not unpublished:"
       }
     publish:
       form:

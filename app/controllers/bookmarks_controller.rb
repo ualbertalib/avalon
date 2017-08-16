@@ -132,23 +132,22 @@ class BookmarksController < CatalogController
     status = params['action']
     Array(documents.map(&:id)).each do |id|
       media_object = MediaObject.find(id)
-      if cannot? :update, media_object
-        errors += ["#{media_object.title} (#{id}) #{t('blacklight.messages.permission_denied')}."]
+      if (status == 'publish') && can?(:update, media_object)
+        success_ids << id
+      elsif (status == 'unpublish') && can?(:unpublish, media_object)
+        success_ids << id
       else
-        case status
-        when 'publish'
-          success_ids << id
-        when 'unpublish'
-          if can? :unpublish, media_object
-            success_ids << id
-          else
-            errors += ["#{media_object.title} (#{id}) #{t('blacklight.messages.permission_denied')}."]
-          end
-        end
+        errors << escape_once("#{media_object.title} (#{id}) "\
+                              "#{t('blacklight.messages.permission_denied')}.")
       end
     end
-    flash[:success] = t("blacklight.status.success", count: success_ids.count, status: status) if success_ids.count > 0
-    flash[:alert] = "#{t('blacklight.status.alert', count: errors.count, status: status)}</br> #{ errors.join('<br/> ') }".html_safe if errors.count > 0
+    flash[:success] =
+      "#{t("blacklight.status.success_#{status}", count: success_ids.count)} "\
+      "#{t('blacklight.status.bulk_warning')}" if success_ids.count > 0
+    flash[:alert] = 
+      "#{t("blacklight.status.alert_#{status}", count: errors.count)} "\
+      "</br> #{ errors.join('<br/> ') }".html_safe if errors.count > 0
+
     MediaObject.update_status_bulk success_ids, current_user.user_key, params
   end
 

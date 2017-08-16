@@ -738,7 +738,7 @@ describe MediaObjectsController, type: :controller do
         media_objects = []
         3.times { media_objects << FactoryGirl.create(:media_object, collection: collection) }
         get 'update_status', id: media_objects.map(&:id), status: 'publish'
-        expect(flash[:notice]).to include('3 media objects')
+        expect(flash[:notice]).to include('3 items are being published')
         media_objects.each do |mo|
           mo.reload
           expect(mo).to be_published
@@ -748,11 +748,35 @@ describe MediaObjectsController, type: :controller do
     end
 
     context 'unpublishing' do
-      it 'unpublishes media object' do
-        media_object = FactoryGirl.create(:published_media_object, collection: collection)
-        get 'update_status', :id => media_object.pid, :status => 'unpublish'
-        media_object.reload
-        expect(media_object).not_to be_published
+      [:managers, :editors].each do |role|
+        before(:each) do
+          login_user collection.send(role).first
+        end
+
+        it "unpublishes media object for #{role}" do
+          media_object = FactoryGirl.create(:published_media_object, collection: collection)
+          expect(media_object).to be_published
+          get 'update_status', :id => media_object.pid, :status => 'unpublish'
+          media_object.reload
+          expect(media_object).not_to be_published
+        end
+
+        it "should unpublish multiple items for #{role}" do
+          media_objects = []
+          3.times do
+            media_object =  FactoryGirl.create(:published_media_object,
+                                               collection: collection)
+            expect(media_object).to be_published
+            media_objects << media_object
+          end
+
+          get 'update_status', id: media_objects.map(&:id), status: 'unpublish'
+          expect(flash[:notice]).to include('3 items are being unpublished')
+          media_objects.each do |mo|
+            mo.reload
+            expect(mo).not_to be_published
+          end
+        end
       end
 
       it "should fail when id doesn't exist" do
@@ -760,16 +784,6 @@ describe MediaObjectsController, type: :controller do
         expect(response.code).to eq '404'
       end
 
-      it "should unpublish multiple items" do
-        media_objects = []
-        3.times { media_objects << FactoryGirl.create(:published_media_object, collection: collection) }
-        get 'update_status', id: media_objects.map(&:id), status: 'unpublish'
-        expect(flash[:notice]).to include('3 media objects')
-        media_objects.each do |mo|
-          mo.reload
-          expect(mo).not_to be_published
-        end
-      end
     end
   end
 

@@ -50,22 +50,34 @@ describe BookmarksController, type: :controller do
 
       it "should publish multiple items" do
         post 'publish'
-	expect(flash[:success]).to eq( I18n.t("blacklight.status.success", count: 3, status: 'publish'))
+        expect(flash[:success]).
+            to eq("3 items are being published. "\
+                  "This operation could take a while for large numbers of items.")
         media_objects.each do |mo|
           mo.reload
-	  expect(mo).to be_published
-	  expect(mo.permalink).to be_present
+          expect(mo).to be_published
+          expect(mo.permalink).to be_present
         end
       end
     end
 
     context 'unpublishing' do
-      it "should unpublish multiple items" do
-        post 'unpublish'
-	expect(flash[:success]).to eq( I18n.t("blacklight.status.success", count: 3, status: 'unpublish'))
-        media_objects.each do |mo|
-          mo.reload
-	  expect(mo).not_to be_published
+      [:managers, :editors].each do |role|
+        it "should allow #{role} to unpublish multiple items" do
+          login_user collection.send(role).first
+          media_objects.each do |mo|
+            mo.publish!('some guy')
+            mo.reload
+            expect(mo).to be_published
+          end
+          post 'unpublish'
+          expect(flash[:success]).
+            to eq("3 items are being unpublished. "\
+                  "This operation could take a while for large numbers of items.")
+          media_objects.each do |mo|
+            mo.reload
+            expect(mo).not_to be_published
+          end
         end
       end
     end
