@@ -14,8 +14,8 @@
 
   # Some package upgrades related to Gemnasium alerts
   gem 'mail', '~> 2.6.6.rc1'
-  gem 'nokogiri', '~> 1.7.2'
-
+  # pin this to post-USN-3424-1
+  gem 'nokogiri', '~> 1.8.1'
 
 #  gem 'hydra', '~>8.0'
   gem 'hydra-head', git: 'https://github.com/avalonmediasystem/hydra-head.git', branch: '8-1-stable'
