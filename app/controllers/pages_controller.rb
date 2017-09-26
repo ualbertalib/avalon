@@ -14,5 +14,8 @@ class PagesController < ApplicationController
   
   def contact
   end
+
+  def flash_help
+  end
 end
 

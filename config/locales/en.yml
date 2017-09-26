@@ -221,7 +221,13 @@ en:
     show:
       title: '%{media_object_title} - %{application_name}'
     player:
-      customError: 'Your browser requires Adobe Flash Player in order to play this item. For more information, see <a href="https://helpx.adobe.com/flash-player.html" target="_blank">Adobe Flash Player Help</a>.'
+      customError:
+        '<p>Your browser requires Adobe Flash Player in order to play this item.</p>
+         <p>If you are using the Chrome web browser, please see our
+           <a href="/flash_help" target="_blank">help page</a>.</p>
+         <p>For more information, see
+         <a href="https://helpx.adobe.com/flash-player.html" target="_blank">
+         Adobe Flash Player Help</a>.</p>'
 
   playlist:
     ago: "%{time} ago"

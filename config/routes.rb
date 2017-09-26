@@ -131,7 +131,8 @@ Avalon::Application.routes.draw do
   get 'deposit' => 'pages#deposit', id: 'deposit_page'
   get 'contact' => 'pages#contact', id: 'contact_page'
   get 'about' => 'pages#about', id: 'about_page'
- 
+  get 'flash_help' => 'pages#flash_help', id: 'flash_help_page'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
