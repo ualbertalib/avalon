@@ -223,12 +223,11 @@ en:
     player:
       customError:
         '<p>Your browser requires Adobe Flash Player in order to play this item.</p>
-         <p>If you are using the Chrome web browser, please see our
+         <p>To enable flash in your browser, please see our
            <a href="/flash_help" target="_blank">help page</a>.</p>
-         <p>For more information, see
+         <p>You can also check the
          <a href="https://helpx.adobe.com/flash-player.html" target="_blank">
-         Adobe Flash Player Help</a>.</p>'
-
+         Adobe Flash Player Help page</a> for more information.</p>'
   playlist:
     ago: "%{time} ago"
     lockAltText: "This playlist is private."
