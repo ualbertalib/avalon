@@ -27,3 +27,18 @@ body {
 .mejs-layers {
     pointer-events: none !important;
 }
+
+// For eClass, on a black background
+.avalon-player .me-cannotplay {
+  font-size: 18px;
+  font-weight: bold;
+  padding: 20px;
+
+  a {
+    color: powderblue;
+  }
+  p {
+    padding-bottom: 1em;
+    color: antiquewhite;
+  }
+}

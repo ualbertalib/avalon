@@ -1810,9 +1810,10 @@ legend {
   h3,h4 { padding-top: 1em; }
 }
 
-.me-cannotplay {
+// In ERA-AV, on light background
+.avalon-player .me-cannotplay {
   a {
-    color: #337ab7 !important;
+    color: #337ab7;
   }
   p {
     padding-bottom: 1em;
