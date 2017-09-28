@@ -118,4 +118,19 @@ class ApplicationController < ActionController::Base
   end
   helper_method :get_user_collections
 
+  # In order to report usage to SOCAN, we need to log views by unique users.
+  # For this purpose, the hashed User ID is best, but if not present we can use
+  # hashed (overkill?) session ID as next-best guess.
+  def unique_user_identifier
+    if current_user.present?
+      current_user.id_as_hash
+    else
+      # Inspired by how we hash for Rollbar
+      Digest::SHA2.hexdigest("#{Rails.application.secrets.secret_key_base}_#{session.id}")
+    end
+  end
+
+  def socan_logging
+    { user_id:  unique_user_identifier }
+  end
 end

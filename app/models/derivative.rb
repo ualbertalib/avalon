@@ -99,8 +99,13 @@ class Derivative < ActiveFedora::Base
     derivativeFile.location
   end
 
-  def streaming_url(is_mobile=false)
-    is_mobile ? self.hls_url : self.location_url
+  def streaming_url(is_mobile=false, logging_hash: {})
+    uri = URI(is_mobile ? self.hls_url : self.location_url)
+    if logging_hash.present?
+      uri.query ||= ''
+      uri.query += URI.encode_www_form(logging_hash)
+    end
+    uri.to_s
   end
 
   def format

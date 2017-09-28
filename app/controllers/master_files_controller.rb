@@ -51,7 +51,7 @@ class MasterFilesController < ApplicationController
   def embed
     @masterfile = MasterFile.find(params[:id])
     if can? :read, @masterfile.mediaobject
-      @stream_info = secure_streams(@masterfile.stream_details)
+      @stream_info = secure_streams(@masterfile.stream_details, logging_hash: socan_logging)
     end
     respond_to do |format|
       format.html do

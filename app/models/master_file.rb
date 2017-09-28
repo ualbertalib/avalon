@@ -221,14 +221,21 @@ class MasterFile < ActiveFedora::Base
     status?('COMPLETED')
   end
 
-  def stream_details
+  def stream_details(logging_hash: {})
     flash, hls = [], []
+    if logging_hash.present?
+      logging_hash = {
+        master_file: id,
+        media_object: mediaobject_id,
+        collection: mediaobject&.collection&.id
+      }.merge(logging_hash).compact
+    end
     ActiveFedora::SolrService.reify_solr_results(derivatives.load_from_solr, load_from_solr: true).each do |d|
       common = { quality: d.encoding.quality.first,
                  mimetype: d.encoding.mime_type.first,
                  format: d.format }
-      flash << common.merge(url: d.streaming_url(false))
-      hls << common.merge(url: d.streaming_url(true))
+      flash << common.merge(url: d.streaming_url(false, logging_hash: logging_hash))
+      hls << common.merge(url: d.streaming_url(true, logging_hash: logging_hash))
     end
 
     # Sorts the streams in order of quality, note: Hash order only works in Ruby 1.9 or later
