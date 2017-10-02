@@ -1803,3 +1803,19 @@ legend {
   }
 }
 
+.flash-help {
+  div.flash-help-image {
+    text-align: center;
+  }
+  h3,h4 { padding-top: 1em; }
+}
+
+// In ERA-AV, on light background
+.avalon-player .me-cannotplay {
+  a {
+    color: #337ab7;
+  }
+  p {
+    padding-bottom: 1em;
+  }
+}

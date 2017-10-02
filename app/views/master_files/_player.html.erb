@@ -82,6 +82,13 @@ Unless required by applicable law or agreed to in writing, software distributed
       customError: '<%= t("media_objects.player.customError").html_safe %>'
     })
     currentPlayer = avalonPlayer.player;
+    // A bug in mediaelement causes the errormessage to get 0 width in eClass
+    $('.me-cannotplay').each(function(){
+      if ($(this).width() == 0) {
+        $(this).width('inherit');
+        $(this).height('inherit');
+      }
+    });
   </script>
 
   <style>
