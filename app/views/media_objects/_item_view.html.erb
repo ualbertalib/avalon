@@ -128,6 +128,10 @@ Unless required by applicable law or agreed to in writing, software distributed
 
       setup_controls_autohide()
     }
+    if ($('.me-cannotplay').length > 0) {
+      // Hide section list if Flash isn't working
+      $('#accordion').hide();
+    }
 
     function setup_controls_autohide() {
       setup_controls_autohide_by_mouse_position();
