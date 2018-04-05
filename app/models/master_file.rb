@@ -264,7 +264,7 @@ class MasterFile < ActiveFedora::Base
       if self.permalink
         url = self.permalink(permalink_opts)
       else
-        url = embed_master_file_path(self.pid, only_path: false, protocol: '//')
+        url = embed_master_file_path(self.pid, only_path: false, protocol: 'https://')
       end
       height = is_video? ? (width/display_aspect_ratio.to_f).floor : AUDIO_HEIGHT
       "<iframe title=\"#{ embed_title }\" src=\"#{url}\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
