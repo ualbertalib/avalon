@@ -3,7 +3,7 @@ dist: trusty
 sudo: required
 git:
   submodules: false
-bundler_args: --with mysql --without development debug production staging --jobs=3 --retry=3
+install: bundle _1.14.6_ --with mysql --without development debug production staging --jobs=3 --retry=3
 services:
   - mysql
 before_install:
@@ -19,7 +19,6 @@ before_install:
 
   # Bundler 1.15 has stricter dependency checking -- problematic for Hydra projects
   - rvm use 2.3.3@global
-  - gem uninstall -aIx bundler
   - gem install bundler -v 1.14.6
 
 before_script:
