@@ -15,7 +15,7 @@
   # Some package upgrades related to Gemnasium alerts
   gem 'mail', '~> 2.6.6.rc1'
   # pin this to post-USN-3424-1
-  gem 'nokogiri', '~> 1.8.1'
+  gem 'nokogiri', '~> 1.8.2'
 
 #  gem 'hydra', '~>8.0'
   gem 'hydra-head', git: 'https://github.com/avalonmediasystem/hydra-head.git', branch: '8-1-stable'
@@ -87,7 +87,8 @@
   gem 'active_encode', git: "https://github.com/projecthydra-labs/active_encode.git", tag: 'v0.0.3'
   gem 'rubyhorn', git: "https://github.com/avalonmediasystem/rubyhorn.git"
   gem 'validates_email_format_of'
-  gem 'loofah'
+  gem 'loofah', '~> 2.2.1'
+  gem 'rails-html-sanitizer', '~> 1.0.4'
   gem 'omniauth-identity'
   gem 'omniauth-lti', git: "https://github.com/avalonmediasystem/omniauth-lti.git", tag: 'avalon-r4'
   gem 'omniauth-shibboleth'
@@ -99,7 +100,7 @@
   gem 'with_locking'
 
   gem 'equivalent-xml'
-  gem 'net-ldap'
+  gem 'net-ldap', '~> 0.16.0'
 
   gem 'api-pagination'
   gem 'avalon-wowza'
@@ -133,7 +134,7 @@
     gem 'meta_request'
     gem 'capistrano', '~>2.12.0'
     gem 'rvm-capistrano', require: false
-    gem 'rubocop', '~> 0.40.0', require: false
+    gem 'rubocop', '~> 0.49.1', require: false
     gem 'rugged'
     gem 'web-console', '~> 2.0'
   end
