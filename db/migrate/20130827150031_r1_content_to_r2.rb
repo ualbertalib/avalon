@@ -14,13 +14,13 @@
 
 class R1ContentToR2 < ActiveRecord::Migration
   def up
-    say_with_time("R1->R2") do
-      prefix = Avalon::Configuration.lookup('fedora.namespace')
-      ActiveFedora::Base.reindex_everything("pid~#{prefix}:*")
-      MediaObject.find_each({},{batch_size:5}) do |mo|
-        mediaobject_to_r2(mo) if mo.current_migration.nil?
-      end
-    end
+    #say_with_time("R1->R2") do
+    #  prefix = Avalon::Configuration.lookup('fedora.namespace')
+    #  ActiveFedora::Base.reindex_everything("pid~#{prefix}:*")
+    #  MediaObject.find_each({},{batch_size:5}) do |mo|
+    #    mediaobject_to_r2(mo) if mo.current_migration.nil?
+    #  end
+    #end
   end
 
   def down

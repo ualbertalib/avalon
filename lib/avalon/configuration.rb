@@ -50,6 +50,7 @@ module Avalon
       "FEDORA_NAMESPACE" => { key: "fedora.namespace" },
       "FFMPEG_PATH" => { key: "ffmpeg.path" },
       "MEDIAINFO_PATH" => { key: "mediainfo.path" },
+      "MEDIA_PATH" => { key: "matterhorn.media_path" },
       "EMAIL_COMMENTS" => { key: "email.comments" },
       "EMAIL_NOTIFICATION" => { key: "email.notification" },
       "EMAIL_SUPPORT" => { key: "email.support" },
