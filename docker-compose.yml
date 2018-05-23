@@ -19,6 +19,7 @@ services:
       - POSTGRES_USER=postgres
     ports:
       - "5432:5432"
+
   fedora:
     image: avalonmediasystem/fedora:4.7.x
     depends_on:
@@ -28,16 +29,14 @@ services:
     ports:
       - "8984:8080"
   solr:
-    image: avalonmediasystem/solr:latest
+    image: solr:6.6
     ports:
       - "8983:8983"
     volumes:
       - solr:/opt/solr/server/solr/mycores
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - avalon
-      - /opt/solr/avalon_conf
+      - ./solr/config:/config
+      - ./solr/scripts/solr-precreate-avalon.sh:/docker-entrypoint-initdb.d/solr-precreate-avalon.sh
+
   matterhorn:
     image: avalonmediasystem/matterhorn
     volumes:
@@ -98,7 +97,8 @@ services:
       - SMTP_PASSWORD
       - SMTP_PORT
       - SMTP_USER_NAME
-      - SOLR_URL=http://solr:8983/solr/avalon
+      - SOLR_URL=http://solr:8983/solr/development
+      - SOLR_TEST_URL=http://solr:8983/solr/test
       - SETTINGS__STREAMING__CONTENT_PATH=/streamfiles
       - SETTINGS__STREAMING__STREAM_DEFAULT_QUALITY=medium
       - SETTINGS__STREAMING__HTTP_BASE=http://localhost:8880/avalon
