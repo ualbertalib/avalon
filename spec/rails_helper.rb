@@ -1,6 +1,9 @@
 ENV['RAILS_ENV'] = 'test'
 ENV['SETTINGS__DOMAIN'] = 'http://test.host/'
 ENV['BASE_URL'] = 'http://test.host'
+if ENV['SOLR_URL'] && ENV['SOLR_TEST_URL']
+  ENV['SOLR_URL'] = ENV['SOLR_TEST_URL']
+end
 
 if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
