@@ -2,6 +2,10 @@
 git:
   submodules: false
 bundler_args: --with postgres aws --without development debug
+env:
+  - FCREPO_URL=http://127.0.0.1:8986/rest
+  - SOLR_URL=http://127.0.0.1:8985/solr/hydra-test
+  - RAILS_ENV=test
 services:
   - mysql2
   - redis-server
