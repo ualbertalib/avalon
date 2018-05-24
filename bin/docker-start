@@ -14,15 +14,18 @@ cd /home/app/avalon
 
 export HOME=/home/app
 bundle config build.nokogiri --use-system-libraries && \
-bundle install --path=/home/app/gems --with postgres
+bundle install --path=/home/app/gems --with postgres aws test
 
 cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
 
+bundle exec rake db:create
+
 if [[ "$RAILS_ENV" =~ ^(production|uat|staging)$ ]]; then
   bundle exec rake assets:precompile
+elif [[ "$RAILS_ENV" = "development" ]]; then
+  RAILS_ENV=test bundle exec rake db:create
 fi
 
-bundle exec rake db:create
 bundle exec rake db:migrate
 
 rm -rf tmp/pids/server.pid

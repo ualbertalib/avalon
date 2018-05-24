@@ -1,3 +1,7 @@
+ENV['RAILS_ENV'] = 'test'
+ENV['SETTINGS__DOMAIN'] = 'http://test.host/'
+ENV['BASE_URL'] = 'http://test.host'
+
 if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
   require 'codeclimate-test-reporter'
@@ -14,7 +18,6 @@ require 'aws-sdk'
 Aws.config[:stub_responses] = true
 
 # This file is copied to spec/ when you run 'rails generate rspec:install'
-ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
 # Prevent database truncation if the environment is production
 abort('The Rails environment is running in production mode!') if Rails.env.production?
@@ -74,7 +77,7 @@ RSpec.configure do |config|
   config.use_transactional_fixtures = false
 
   config.before :suite do
-    WebMock.disable_net_connect!(allow: ['localhost', '127.0.0.1', 'fedora', 'solr', 'matterhorn'])
+    WebMock.disable_net_connect!(allow: ['localhost', '127.0.0.1', 'fcrepo', 'solr', 'matterhorn'])
     DatabaseCleaner.clean_with(:truncation)
     ActiveFedora::Cleaner.clean!
     disable_production_minter!
