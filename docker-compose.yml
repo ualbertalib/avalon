@@ -9,14 +9,13 @@ volumes:
 
 services:
   db:
-    image: avalonmediasystem/db:fedora4
-    volumes:
-      - database:/data
+    image: postgres:9.6-alpine
     environment:
-      - AVALON_DB_PASSWORD=avalondb
-      - FEDORA_DB_PASSWORD
-      - PGDATA=/data
-      - POSTGRES_USER=postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_PASSWORD: mysecretpassword
+      POSTGRES_USER: avalon
+    volumes:
+      - database:/var/lib/postgresql/data
     ports:
       - "5432:5432"
 
@@ -56,7 +55,7 @@ services:
       - "6379:6379"
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
-    command: "/rails_init-dev.sh"
+    command: "/home/app/avalon/bin/docker-start"
     depends_on:
       - db
       - fcrepo
@@ -69,7 +68,7 @@ services:
       - AVALON_DB_PASSWORD=avalondb
       - SETTINGS__DOMAIN=http://localhost:3000
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
-      - DATABASE_URL=postgres://avalon:${AVALON_DB_PASSWORD}@db/avalon
+      - DATABASE_URL=postgresql://avalon:mysecretpassword@db:5432/
       - SETTINGS__DROPBOX__PATH=/masterfiles
       - SETTINGS__DROPBOX__UPLOAD_URI=./masterfiles
       - EMAIL_COMMENTS
@@ -111,6 +110,6 @@ services:
       - ./gems:/gems
       - .:/home/app/avalon
     ports:
-      - "3000:80"
+      - "3000:3000"
     stdin_open: true
     tty: true
