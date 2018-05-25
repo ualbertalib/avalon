@@ -1,9 +1,17 @@
-ENV['RAILS_ENV'] = 'test'
-ENV['SETTINGS__DOMAIN'] = 'http://test.host/'
-ENV['BASE_URL'] = 'http://test.host'
+if ENV['RAILS_ENV'] != 'test'
+  ENV['RAILS_ENV'] = 'test'
+  unless ENV['SOLR_TEST_URL']
+    raise "You are going to wipe out your Solr instance!\n"\
+          "Please set SOLR_TEST_URL and try again."
+  end
+end
+
 if ENV['SOLR_URL'] && ENV['SOLR_TEST_URL']
   ENV['SOLR_URL'] = ENV['SOLR_TEST_URL']
 end
+
+ENV['SETTINGS__DOMAIN'] = 'http://test.host/'
+ENV['BASE_URL'] = 'http://test.host'
 
 if ENV['COVERAGE'] || ENV['TRAVIS']
   require 'simplecov'
