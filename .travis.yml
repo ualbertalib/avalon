@@ -16,9 +16,7 @@ before_install:
   - cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
   - bundle config without development:production
 before_script:
-  - rm config/database.yml
-  - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:create
   - bundle exec rake db:migrate
 script:
   - bundle exec rake
@@ -26,7 +24,7 @@ language: ruby
 jdk:
   - oraclejdk8
 rvm:
-  - 2.3
   - 2.4
+  - 2.5
 dist: trusty
 sudo: required
