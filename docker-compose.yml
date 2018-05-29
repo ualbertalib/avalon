@@ -1,11 +1,18 @@
-version: '2'
+version: '3'
 
 volumes:
   streaming:
+    driver: local
   database:
+    driver: local
   fcrepo:
+    driver: local
   work:
+    driver: local
   solr:
+    driver: local
+  redis:
+    driver: local
 
 services:
   db:
@@ -49,10 +56,14 @@ services:
       - streaming:/data
     ports:
        - "8880:80"
+
   redis:
     image: redis:alpine
+    volumes:
+      - redis:/data
     ports:
       - "6379:6379"
+
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
     command: "/home/app/avalon/bin/docker-start"
@@ -82,8 +93,7 @@ services:
       - SETTINGS__MATTERHORN__MEDIA_PATH=/masterfiles
       - MEDIAINFO_PATH=/usr/bin/mediainfo
       - RAILS_ENV=development
-      - SETTINGS__REDIS__HOST=redis
-      - SETTINGS__REDIS__PORT=6379
+      - REDIS_URL=redis://redis/90210
       - SECRET_KEY_BASE=abcd
       - SMTP_ADDRESS
       - SMTP_AUTHENTICATION

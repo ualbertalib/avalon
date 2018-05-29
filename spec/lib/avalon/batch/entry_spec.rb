@@ -23,6 +23,15 @@ describe Avalon::Batch::Entry do
   let(:entry_opts) { {user_key: 'archivist1@example.org', collection: collection} }
   let(:entry) { Avalon::Batch::Entry.new(entry_fields, entry_files, entry_opts, nil, nil) }
 
+  before do
+    @old_queue_adaptor = ActiveJob::Base.queue_adapter
+    ActiveJob::Base.queue_adapter = :test
+  end
+
+  after do
+    ActiveJob::Base.queue_adapter = @old_queue_adaptor
+  end
+
   describe '#file_valid?' do
     let(:filename) { 'spec/fixtures/dropbox/example_batch_ingest/assets/Vid1-1.mp4' }
     it 'should be valid if the file exists' do
