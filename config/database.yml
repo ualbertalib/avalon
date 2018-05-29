@@ -13,7 +13,9 @@ development:
   database: avalon_development
   # e.g. for connecting with docker image from docker-compose.lightweight.yml:
   #   AVALON_DATABASE_URL=postgresql://avalon:mysecretpassword@127.0.0.1?pool=5
-  url: <%= ENV['AVALON_DATABASE_URL'] || ENV['DATABASE_URL'] %>
+  url: <%= ENV['AVALON_DATABASE_URL'] ||
+           ENV['DATABASE_URL'] ||
+           'postgresql://avalon:mysecretpassword@127.0.0.1?pool=5' %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -27,7 +29,9 @@ test:
   # rails 5 will provision both dev and test database when running db:* rake tasks but it only uses the DATABASE_URL
   # for the dev database. A fix for this is upstream in rails here https://github.com/rails/rails/pull/28933
   # More information can be found here: https://github.com/rails/rails/issues/28827
-  url: <%= ENV['AVALON_DATABASE_URL'] || ENV['DATABASE_URL'] %>
+  url: <%= ENV['AVALON_DATABASE_URL'] ||
+           ENV['DATABASE_URL'] ||
+           'postgresql://avalon:mysecretpassword@127.0.0.1?pool=5' %>
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
