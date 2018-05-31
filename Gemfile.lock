@@ -101,8 +101,8 @@ GIT
 
 GIT
   remote: https://github.com/avalonmediasystem/rubyhorn.git
-  revision: fd1e0ee2cca53df515f58690603e9a6351066106
-  tag: avalon-r6
+  revision: 57c12f23344d8015e223bd36e2544f98fb3a672d
+  ref: 57c12f23344d8015e223bd36e2544f98fb3a672d
   specs:
     rubyhorn (0.0.6)
       activesupport

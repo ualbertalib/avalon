@@ -90,7 +90,8 @@ services:
       - MASTER_FILE_PATH
       - MASTER_FILE_STRATEGY=delete
       - MATTERHORN_URL=http://matterhorn_system_account:CHANGE_ME@matterhorn:8080/
-      - SETTINGS__MATTERHORN__MEDIA_PATH=/masterfiles
+      - MATTERHORN_CLIENT_MEDIA_PATH=/masterfiles
+      - MATTERHORN_SERVER_MEDIA_PATH=/masterfiles
       - MEDIAINFO_PATH=/usr/bin/mediainfo
       - RAILS_ENV=development
       - REDIS_URL=redis://redis/90210

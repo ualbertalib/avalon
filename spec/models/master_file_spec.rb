@@ -302,24 +302,24 @@ describe MasterFile do
         }
 
         before(:each) do
-          @old_media_path = Settings.matterhorn.media_path
+          @old_media_path = Rails.application.secrets.matterhorn_client_media_path
           FileUtils.mkdir_p media_path
           FileUtils.cp fixture, tempfile
         end
 
         after(:each) do
-          Settings.matterhorn.media_path = @old_media_path
+          Rails.application.secrets.matterhorn_client_media_path = @old_media_path
           File.unlink subject.file_location
           FileUtils.rm_rf media_path
         end
 
         it "should rename an uploaded file in place" do
-          Settings.matterhorn.media_path = nil
+          Rails.application.secrets.matterhorn_client_media_path = nil
           expect(subject.file_location).to eq(File.realpath(File.join(File.dirname(tempfile),original)))
         end
 
         it "should copy an uploaded file to the media path" do
-          Settings.matterhorn.media_path = media_path
+          Rails.application.secrets.matterhorn_client_media_path = media_path
           expect(subject.file_location).to eq(File.join(media_path,original))
         end
       end
