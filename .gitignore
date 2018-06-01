@@ -25,7 +25,6 @@ config/avalon.yml
 config/controlled_vocabulary.yml
 config/role_map_development.yml
 config/initializers/rubyhorn.rb
-config/secrets.yml
 #config/lti.yml
 
 public/media_objects
