@@ -1,12 +1,11 @@
-if ENV['RAILS_ENV'] != 'test'
-  ENV['RAILS_ENV'] = 'test'
-  if ENV['SOLR_URL']
-    if ENV['SOLR_TEST_URL']
-      ENV['SOLR_URL'] = ENV['SOLR_TEST_URL']
-    else
-      raise "You will likely wipe out your Solr instance!\n"\
-            "Please set SOLR_TEST_URL and try again."
-    end
+ENV['RAILS_ENV'] = 'test'
+# If `SOLR_URL` is set, we also want `SOLR_TEST_URL` to be set to prevent disaster.
+if ENV['SOLR_URL']
+  if ENV['SOLR_TEST_URL']
+    ENV['SOLR_URL'] = ENV['SOLR_TEST_URL']
+  else
+    raise "You will likely wipe out your Solr instance!\n"\
+          "Please set SOLR_TEST_URL and try again."
   end
 end
 
