@@ -66,7 +66,7 @@ services:
 
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
-    command: "/home/app/avalon/bin/docker-start"
+    command: "bin/docker-start"
     depends_on:
       - db
       - fcrepo
