@@ -2,6 +2,8 @@
 git:
   submodules: false
 bundler_args: --with postgres aws --without development debug
+env:
+  - FCREPO_URL=http://127.0.0.1:8986/rest SOLR_TEST_URL=http://127.0.0.1:8985/solr/hydra-test RAILS_ENV=test DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/
 services:
   - mysql2
   - redis-server
@@ -14,22 +16,15 @@ before_install:
   - cp config/controlled_vocabulary.yml.example config/controlled_vocabulary.yml
   - bundle config without development:production
 before_script:
-  - rm config/database.yml
-  - cp config/database.travis.yml config/database.yml
-  - psql -c 'create database travis_ci_test;' -U postgres
+  - bundle exec rake db:create
   - bundle exec rake db:migrate
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
 script:
   - bundle exec rake
-after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 language: ruby
 jdk:
   - oraclejdk8
 rvm:
-  - 2.3
   - 2.4
+  - 2.5
 dist: trusty
 sudo: required

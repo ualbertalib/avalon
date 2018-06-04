@@ -1,0 +1,10 @@
+development: &default
+  url: <%= Rails.application.secrets.matterhorn_url %>
+test:
+  <<: *default
+uat:
+  <<: *default
+staging:
+  <<: *default
+production:
+  <<: *default

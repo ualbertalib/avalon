@@ -1,11 +1,9 @@
 config = Rails.application.config
-
-redis_host = Settings.redis.host
-redis_port = Settings.redis.port || 6379
-config.cache_store = :redis_store, {
-  host: redis_host,
-  port: redis_port,
-  db: 0,
-  namespace: 'avalon'
-}
-
+if ["development", "test"].include?(Rails.env)
+  config.cache_store = :memory_store, { size: 64.megabytes }
+else
+  config.cache_store = :redis_store, {
+    url: Rails.application.secrets.redis_url,
+    namespace: 'avalon'
+  }
+end

@@ -1,25 +1,60 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
+# Rails will assume you have a psql superuser matching your system user
+# This may be an issue when using a local postgres instance.
+# configure with:
+# `sudo -u postgres createuser ${USER}`
+# `sudo -u postgres alter user ${USER} superuser
 default: &default
-  adapter: sqlite3
-  pool: 5
-  timeout: 10000
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: avalon_development
+  # e.g. for connecting with docker image from docker-compose.lightweight.yml:
+  #   AVALON_DATABASE_URL=postgresql://avalon:mysecretpassword@127.0.0.1?pool=5
+  url: <%= ENV['AVALON_DATABASE_URL'] ||
+           ENV['DATABASE_URL'] ||
+           'postgresql://avalon:mysecretpassword@127.0.0.1?pool=5' %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: avalon_test
 
+  # TODO: Review this later
+  # This is a temporary fix for docker with using DATABASE_URL environment variable,
+  # rails 5 will provision both dev and test database when running db:* rake tasks but it only uses the DATABASE_URL
+  # for the dev database. A fix for this is upstream in rails here https://github.com/rails/rails/pull/28933
+  # More information can be found here: https://github.com/rails/rails/issues/28827
+  url: <%= ENV['AVALON_DATABASE_URL'] ||
+           ENV['DATABASE_URL'] ||
+           'postgresql://avalon:mysecretpassword@127.0.0.1?pool=5' %>
+
+# As with config/secrets.yml, you never want to store sensitive information,
+# like your database password, in your source code. If your source code is
+# ever seen by anyone, they now have access to your database.
+#
+# Instead, provide the password as a unix environment variable when you boot
+# the app. Read http://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full rundown on how to provide these environment variables in a
+# production deployment.
+#
+# On Heroku and other platform providers, you may have a full connection URL
+# available as an environment variable. For example:
+#
+#   DATABASE_URL="mysql2://myuser:mypass@localhost/somedatabase"
+#
+# You can use this database configuration with:
+#
+#   production:
+#     url: <%= ENV['DATABASE_URL'] %>
+#
+uat:
+  url: <%= Rails.application.secrets.database_url %>
+staging:
+  url: <%= Rails.application.secrets.database_url %>
 production:
-  <<: *default
-  database: db/production.sqlite3
+  url: <%= Rails.application.secrets.database_url %>

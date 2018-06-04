@@ -44,7 +44,7 @@ gem 'speedy-af', '~> 0.1.1'
 gem 'avalon-workflow', git: "https://github.com/avalonmediasystem/avalon-workflow.git", tag: 'avalon-r6.2'
 
 # Authentication & Authorization
-gem 'devise'
+gem 'devise', '~> 4.4'
 gem 'ims-lti', '~> 1.1.13'
 gem 'net-ldap'
 gem 'omniauth-identity'
@@ -56,7 +56,7 @@ gem 'browse-everything', '~> 0.13.0'
 gem 'mediainfo', git: "https://github.com/avalonmediasystem/mediainfo.git", branch: 'avalon_fixes'
 gem 'rest-client'
 gem 'roo'
-gem 'rubyhorn', git: "https://github.com/avalonmediasystem/rubyhorn.git", tag: 'avalon-r6'
+gem 'rubyhorn', git: "https://github.com/avalonmediasystem/rubyhorn.git", ref: '57c12f23344d8015e223bd36e2544f98fb3a672d'
 
 # Data Translation & Normalization
 gem 'edtf'
