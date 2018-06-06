@@ -21,6 +21,34 @@ en:
     empty_share_link: ""
     empty_share_link_notice: "After processing has started the embedded link will be available."
     empty_share_section_permalink_notice: "After processing has started the section link will be available."
+  metadata_label:
+    creator: 'Main contributor(s)'
+    additional_contributors: 'Additional contributor(s)'
+    topical_subject: 'Subject(s)'
+    date_issued: 'Publication date'
+    date_created: 'Creation date'
+    contributor: 'Additonal contributor(s)'
+    publisher: 'Publisher(s)'
+    physical_description: 'Physical Description'
+    related_item_url: 'Related Item(s)'
+    related_item_url_url: 'URL'
+    related_item_url_label: 'Item'
+    genre: 'Genre(s)'
+    table_of_contents: 'Table of Contents'
+  metadata_parenthesis:
+    title: 'Add a descriptive title or caption'
+    creator: 'Enter only one main contributor per box. Example: Doe, Jane B.'
+    topical_subject: 'Enter only one word or phrase per box'
+    date_issued:
+      'Enter in this format: YYYY-MM-DD, YYYY-MM or YYYY. Example: 2017-02-20'
+    date_created:
+      'Enter in this format: YYYY-MM-DD, YYYY-MM or YYYY. Example: 2017-02-20'
+    contributor: 'Enter only one additional contributor per box. Example: Jones, Mary'
+    publisher: 'Enter only one publisher per box. Example: University of Alberta Press'
+    physical_description: 'Example: 1 videocassette (20 minutes)'
+    related_item_url: 'Example: University of Alberta | http://www.ualberta.ca'
+    genre: 'Enter only one genre per box. Example: Interview'
+    table_of_contents: 'Example: Chapter 1 -- Chapter 2 -- Chapter 3'
   metadata_tip:
     abstract: |
       Summary provides a space for describing the contents of the item. Examples
@@ -213,3 +241,6 @@ en:
       playlist:
         title: "Name"
         comment: "Description"
+
+  required_field_html:
+    <strong><span class="tooltip-label-required">*</span> indicates required field</strong>

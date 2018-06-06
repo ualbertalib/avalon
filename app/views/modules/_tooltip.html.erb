@@ -17,7 +17,15 @@ Unless required by applicable law or agreed to in writing, software distributed
 
     <%= form.label(field, class: 'control-label') do %>
       <%= content_tag :span, class: 'tooltip-label', :'data-title' => options[:display_label], :'data-tooltip' => "##{field.to_s}_tooltip" do %>
-         <%= options[:display_label] %><% if options[:required] %>*<% end %>
+         <% if options[:required] %>
+           <span class="tooltip-label-required">* </span>
+         <% end %>
+         <%= options[:display_label] %>
+         <% if options[:label_parenthesis] %>
+           <span class="tooltip-label-parenthesis">
+              (<%= options[:label_parenthesis] %>)
+           </span>
+         <% end %>
          <%= content_tag :span, '', class: 'glyphicon glyphicon-question-sign' %>
       <% end %>
     <% end %>
