@@ -160,7 +160,7 @@ module ApplicationHelper
   # @return [String] time in HH:MM:SS
   def pretty_time( milliseconds )
     duration = milliseconds/1000
-    Time.at(duration).utc.strftime(duration<3600?'%M:%S':'%H:%M:%S')
+    Time.at(duration).utc.strftime(duration < 3600 ? '%M:%S' : '%H:%M:%S')
   end
 
   def git_commit_info pattern="%s %s [%s]"
@@ -218,5 +218,15 @@ module ApplicationHelper
     @view_flow.set(:layout, output_buffer)
     output = render(:file => "layouts/#{layout}")
     self.output_buffer = ActionView::OutputBuffer.new(output)
+  end
+
+
+  def tooltip_label(options)
+    out = ''
+    out += content_tag(:span, '* ', class: 'tooltip-label-required') if options[:required]
+    out += h(options[:display_label])
+    out += content_tag(:span, " (#{h(options[:label_parenthesis])})",
+                       class: 'tooltip-label-parenthesis') if options[:label_parenthesis]
+    out.html_safe
   end
 end
