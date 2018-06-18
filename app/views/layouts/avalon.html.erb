@@ -43,6 +43,7 @@ Unless required by applicable law or agreed to in writing, software distributed
          if they are included here. That means the important content will
          load first; the page will not gag on trying to pull down files
          from a CDN -->
+    <%= render partial: 'analytics' %>
     <%= javascript_include_tag "application" %>
     <%= yield :page_scripts %>
   </body>

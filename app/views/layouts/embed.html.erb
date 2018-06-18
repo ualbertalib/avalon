@@ -34,6 +34,7 @@ Unless required by applicable law or agreed to in writing, software distributed
 
   <body>
     <%= yield %>
+    <%= render partial: 'analytics' %>
     <%= javascript_include_tag "application" %>
     <%= yield :page_scripts %>
   </body>
