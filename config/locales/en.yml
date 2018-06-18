@@ -68,44 +68,44 @@ en:
       a band or opera, conductor, arranger, cinematographer, and choreographer. At
       this time this is no ability to specify a contributor as a corporate body. When
       possible, use the <a href="http://id.loc.gov/authorities/names.html"
-      target="_blank">Library of Congress Name Authority File</a>.
+      target="_blank" rel="noopener nofollow">Library of Congress Name Authority File</a>.
     creator: |
       Main contributors are the primary persons
       or bodies associated with the creation of the content.  Main contributors
       will be included in search results display and aggregated for browsing
       access. At this time there is no ability to specify a main contributor as
       a corporate body. When possible, use the <a
-      href="http://id.loc.gov/authorities/names.html" target="_blank">Library of
+      href="http://id.loc.gov/authorities/names.html" target="_blank" rel="noopener nofollow">Library of
       Congress Name Authority File</a>.
     date_created: |
       Creation date should only be used if Date is a re-issue date. Then Creation date
       would contain the original publication date. Enter date information in a format
       consistent with the options shown in <a
       href="http://www.loc.gov/standards/datetime/pre-submission.html"
-      target="_blank">Extended Date/Time Format (EDTF) 1.0</a>.
+      target="_blank" rel="noopener nofollow">Extended Date/Time Format (EDTF) 1.0</a>.
     date_issued: |
       <strong>Required field.</strong> Date should be the main publication date
       associated with the item to be used for sorting browse and search results.
       Enter date information in a format consistent with the options shown in <a
       href="http://www.loc.gov/standards/datetime/pre-submission.html"
-      target="_blank">Extended Date/Time Format (EDTF) 1.0</a>.
+      target="_blank" rel="noopener nofollow">Extended Date/Time Format (EDTF) 1.0</a>.
     genre: |
       Genre can be used to categorize an item by form, style, or subject matter. For
       consistency and to allow for sorting and aggregating, use terms from the <a
       href="http://metadataregistry.org/concept/list/vocabulary_id/148.html"
-      target="_blank">Open Metadata Registry labels for PBCore: pbcoreGenre</a>.
+      target="_blank" rel="noopener nofollow">Open Metadata Registry labels for PBCore: pbcoreGenre</a>.
     geographic_subject: |
       Location should be used for the geographic subject of the content. For
       consistency and to allow for sorting and aggregating, use terms from the
       <a href="http://www.getty.edu/research/tools/vocabularies/tgn/index.html"
-      target="_blank">Getty Thesaurus of Geographic Names</a>.
+      target="_blank" rel="noopener nofollow">Getty Thesaurus of Geographic Names</a>.
     publisher: |
       Publisher of the content of the item.
     temporal_subject: |
       Time period should be used for the temporal subject of the content (for example,
       years or year ranges). Enter date information in a format consistent with the
       options shown in <a href="http://www.loc.gov/standards/datetime/pre-
-      submission.html" target="_blank">Extended Date/Time Format (EDTF) 1.0</a>.
+      submission.html" target="_blank" rel="noopener nofollow">Extended Date/Time Format (EDTF) 1.0</a>.
     title: |
       <strong>Required field.</strong> Title is used for display in search results and
       single item views. Recommended use is to reflect the content captured in
@@ -116,7 +116,7 @@ en:
       <strong>Required field.</strong>Subject should be used for the topical subject of the content. For
       consistency and to allow for sorting and aggregating, use terms from the
       <a href="http://id.loc.gov/authorities/subjects.html"
-      target="_blank">Library of Congress Subject Headings</a>. For temporal
+      target="_blank" rel="noopener nofollow">Library of Congress Subject Headings</a>. For temporal
       subjects, use the Time period(s) field and for geographic subjects, use
       the Location(s) field in this form. See below.
     permalink: |
@@ -127,7 +127,7 @@ en:
       <strong>Required field.</strong>Language describes the languages used in the item. Typing two or more
       letters within the field will bring up permitted matches. Only terms or
       codes from the <a href="http://www.loc.gov/marc/languages/"
-      target="_blank">MARC Code List for Languages</a> may be used. Hint: for English language materials, type "English".
+      target="_blank" rel="noopener nofollow">MARC Code List for Languages</a> may be used. Hint: for English language materials, type "English".
     terms_of_use: |
       Terms of Use describes the conditions under which content may be used. This is an optional field.
     physical_description: |
@@ -208,7 +208,7 @@ en:
     show:
       title: '%{media_object_title} - %{application_name}'
     player:
-      customError: 'Your browser requires Adobe Flash Player in order to play this item. For more information, see <a href="https://helpx.adobe.com/flash-player.html" target="_blank">Adobe Flash Player Help</a>.'
+      customError: 'Your browser requires Adobe Flash Player in order to play this item. For more information, see <a href="https://helpx.adobe.com/flash-player.html" target="_blank" rel="noopener nofollow">Adobe Flash Player Help</a>.'
 
   playlist:
     ago: "%{time} ago"
