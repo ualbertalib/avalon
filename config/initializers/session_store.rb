@@ -2,7 +2,8 @@
 
 #Avalon::Application.config.session_store :cookie_store, :key => '_avalon_session'
 Avalon::Application.config.session_store :active_record_store,
-  secure: Rails.application.routes.default_url_options[:protocol] == "https" && Rails.env.production?,
+  secure: (Rails.application.routes.default_url_options[:protocol] == "https" &&
+           ['production', 'staging', 'uat'].include?(Rails.env)),
   httponly: true
 
 # Use the database for sessions instead of the cookie-based default,

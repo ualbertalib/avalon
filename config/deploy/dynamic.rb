@@ -3,7 +3,7 @@
 
 set :rails_env, ENV['RAILS_ENV'] || 'production'
 set :bundle_flags,  "--with #{ENV['DB']}" if ENV['DB']
-set :bundle_without, ENV['RAILS_ENV'] == "development" ? "production" : 'development test debug'
+set :bundle_without, ENV['RAILS_ENV'] == "development" ? "production uat staging" : 'development test debug'
 set :repo_url, ENV['REPO']
 set :branch, ENV['BRANCH']
 set :deploy_to, ENV['DEPLOY_TO']

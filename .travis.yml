@@ -13,7 +13,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install mediainfo
   - sudo ln -s /usr/bin/lsof /usr/sbin/lsof
-  - bundle config without development:production
+  - bundle config without development:production:staging:uat
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
