@@ -75,7 +75,9 @@ class CatalogController < ApplicationController
     config.add_facet_field 'date_sim', label: 'Date', limit: 5
     config.add_facet_field 'genre_sim', label: 'Genres', limit: 5
     config.add_facet_field 'collection_ssim', label: 'Collection', limit: 5
-    config.add_facet_field 'unit_ssim', label: 'Unit', limit: 5
+
+    # The U of A only has one Unit, so the unit facet has been removed
+
     config.add_facet_field 'language_sim', label: 'Language', limit: 5
     # Hide these facets if not a Collection Manager
     config.add_facet_field 'workflow_published_sim', label: 'Published', limit: 5, if: Proc.new {|context, config, opts| Ability.new(context.current_user, context.user_session).can? :create, MediaObject}, group: "workflow"
