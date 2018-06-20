@@ -676,6 +676,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     retriable (3.1.1)
+    rollbar (2.16.2)
+      multi_json
     roo (2.7.1)
       nokogiri (~> 1)
       rubyzip (~> 1.1, < 2.0.0)
@@ -924,6 +926,7 @@ DEPENDENCIES
   resque (~> 1.27.0)
   resque-scheduler (~> 4.3.0)
   rest-client
+  rollbar
   roo
   rsolr (~> 1.0)
   rspec-rails

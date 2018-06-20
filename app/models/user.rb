@@ -37,6 +37,11 @@ class User < ActiveRecord::Base
     user_key
   end
 
+  # For masking the ID that we send to rollbar
+  def id_as_hash
+    Digest::SHA2.hexdigest("#{Rails.application.secrets.secret_key_base}_#{id}")
+  end
+
   def destroy
     Bookmark.where(user_id: self.id).destroy_all
     super

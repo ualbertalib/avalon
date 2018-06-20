@@ -88,6 +88,9 @@ gem 'parallel'
 gem 'whenever', git: "https://github.com/javan/whenever.git", require: false
 gem 'with_locking'
 
+# Other
+gem 'rollbar'
+
 group :development do
   gem 'capistrano', '~>3.6'
   gem 'capistrano-rails', require: false
