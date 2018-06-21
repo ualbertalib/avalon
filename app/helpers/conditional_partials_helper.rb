@@ -35,6 +35,7 @@ module ConditionalPartialsHelper
   # @param [Symbol] partials_list_name
   # @return [Boolean]
   def will_partial_list_render? partials_list_name, *args
+    return false unless controller.class.respond_to?(:conditional_partials)
     partials = controller.class.conditional_partials[partials_list_name]
     partials.select { |_, config| evaluate_if_unless_configuration config, *args }.present?
   end

@@ -69,7 +69,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     elsif request['target_id']
       # Whitelist params that are allowed to be passed through via LTI
       params_whitelist = %w{t position token}
-      redirect_to objects_path(request['target_id'], params.slice(*params_whitelist))
+      if params[:custom_embed_section]
+        redirect_to embed_master_file_path(request['target_id'], params.slice(*params_whitelist))
+      else
+        redirect_to objects_path(request['target_id'], params.slice(*params_whitelist))
+      end
     elsif params[:url]
       # Limit redirects to current host only
       # Fixes bug https://bugs.dlib.indiana.edu/browse/VOV-5662
