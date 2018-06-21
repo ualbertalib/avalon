@@ -244,3 +244,12 @@ en:
 
   required_field_html:
     <strong><span class="tooltip-label-required">*</span> indicates required field</strong>
+
+  share:
+    item: Item
+    lti:
+      copy_link:
+        'Copy the link below to share this resource in eClass or other learning
+        management systems'
+      tab: 'eClass'
+    section: Section
