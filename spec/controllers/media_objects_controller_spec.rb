@@ -218,35 +218,6 @@ describe MediaObjectsController, type: :controller do
         captions: captions,
         captions_type: 'text/vtt'
       }}
-    let!(:descMetadata_fields) {[
-      :title,
-      :alternative_title,
-      :translated_title,
-      :uniform_title,
-      :statement_of_responsibility,
-      :creator,
-      :date_created,
-      :date_issued,
-      :copyright_date,
-      :abstract,
-      :note,
-      :format,
-      :resource_type,
-      :contributor,
-      :publisher,
-      :genre,
-      :subject,
-      :related_item_url,
-      :geographic_subject,
-      :temporal_subject,
-      :topical_subject,
-      :bibliographic_id,
-      :language,
-      :terms_of_use,
-      :table_of_contents,
-      :physical_description,
-      :other_identifier
-    ]}
 
     describe "#create" do
       context 'using api' do
@@ -265,9 +236,7 @@ describe MediaObjectsController, type: :controller do
         it "should create a new media_object" do
           # master_file_obj = FactoryGirl.create(:master_file, master_file.slice(:files))
           media_object = FactoryGirl.create(:media_object)#, master_files: [master_file_obj])
-          fields = {}
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          # fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
+          fields = media_object.export_descriptive_metadata_attributes
           post 'create', format: 'json', fields: fields, files: [master_file], collection_id: collection.id
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -289,9 +258,7 @@ describe MediaObjectsController, type: :controller do
         end
         it "should create a new published media_object" do
           media_object = FactoryGirl.create(:published_media_object)
-          fields = {}
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          # fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
+          fields = media_object.export_descriptive_metadata_attributes
           post 'create', format: 'json', fields: fields, files: [master_file], collection_id: collection.id, publish: true
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -301,7 +268,9 @@ describe MediaObjectsController, type: :controller do
         it "should create a new media_object with successful bib import" do
           Settings.bib_retriever = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           stub_request(:get, sru_url).to_return(body: sru_response)
-          fields = { bibliographic_id: bib_id }
+          # The genre returned by bib import doesn't match our controlled
+          # vocabulary, so we override it.
+          fields = { bibliographic_id: bib_id, genre: 'Aviation' }
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [master_file], collection_id: collection.id
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -312,8 +281,7 @@ describe MediaObjectsController, type: :controller do
           Settings.bib_retriever = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           stub_request(:get, sru_url).to_return(body: nil)
           ex_media_object = FactoryGirl.create(:media_object)
-          fields = {}
-          descMetadata_fields.each {|f| fields[f] = ex_media_object.send(f) }
+          fields = ex_media_object.export_descriptive_metadata_attributes
           fields[:bibliographic_id] = bib_id
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [master_file], collection_id: collection.id
           expect(response.status).to eq(200)
@@ -325,9 +293,7 @@ describe MediaObjectsController, type: :controller do
         end
         it "should create a new media_object, removing invalid data for non-required fields" do
           media_object = FactoryGirl.create(:media_object)
-          fields = {}
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          fields[:language] = ['???']
+          fields = media_object.export_descriptive_metadata_attributes
           fields[:related_item_url] = ['???']
           fields[:related_item_label] = ['???']
           fields[:note] = ['note']
@@ -338,7 +304,6 @@ describe MediaObjectsController, type: :controller do
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
           expect(new_media_object.title).to eq media_object.title
-          expect(new_media_object.language).to eq []
           expect(new_media_object.related_item_url).to eq []
           expect(new_media_object.note).to eq nil
           expect(new_media_object.date_created).to eq nil
@@ -347,7 +312,13 @@ describe MediaObjectsController, type: :controller do
         it "should merge supplied other identifiers after bib import" do
           Settings.bib_retriever = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           stub_request(:get, sru_url).to_return(body: sru_response)
-          fields = { bibliographic_id: bib_id, other_identifier_type: ['other'], other_identifier: ['12345'] }
+          # The genre returned by bib import doesn't match our controlled
+          # vocabulary, so we override it.
+          fields = { bibliographic_id: bib_id,
+                     other_identifier_type: ['other'],
+                     other_identifier: ['12345'],
+                     genre: 'Travel'
+                   }
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [master_file], collection_id: collection.id
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])

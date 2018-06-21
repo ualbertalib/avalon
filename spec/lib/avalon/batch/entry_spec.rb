@@ -15,10 +15,17 @@
 require 'rails_helper'
 
 describe Avalon::Batch::Entry do
-  let(:testdir) {'spec/fixtures/'}
+  let(:testdir) { Rails.root.join('spec', 'fixtures') }
   let(:filename) {'videoshort.mp4'}
   let(:collection) {FactoryGirl.build(:collection)}
-  let(:entry_fields) {{ title: Faker::Lorem.sentence, date_issued: "#{DateTime.now.strftime('%F')}" }}
+  let(:entry_fields) do
+    { title: Faker::Lorem.sentence,
+      topical_subject: 'This and that',
+      language: 'eng',
+      genre: 'Aviation',
+      date_issued: "#{Time.now.to_date}",
+    }
+  end
   let(:entry_files) { [{ file: File.join(testdir, filename), skip_transcoding: false }] }
   let(:entry_opts) { {user_key: 'archivist1@example.org', collection: collection} }
   let(:entry) { Avalon::Batch::Entry.new(entry_fields, entry_files, entry_opts, nil, nil) }
@@ -124,6 +131,55 @@ describe Avalon::Batch::Entry do
 	expect(Avalon::Batch::Entry.derivativePath(filename, 'low')).to eq filename_low
       end
     end
+
+    describe 'required fields' do
+      let(:entry_files) { [{ file: filename, skip_transcoding: true }] }
+      let(:entry) do
+        Avalon::Batch::Entry.
+          new(entry_fields, entry_files, entry_opts, nil, nil)
+      end
+      let(:entry_no_language) do
+        Avalon::Batch::Entry.
+          new(entry_fields.except(:language), entry_files, entry_opts, nil, nil)
+      end
+      let(:entry_no_topical_subject) do
+        Avalon::Batch::Entry.
+          new(entry_fields.except(:topical_subject), entry_files, entry_opts, nil, nil)
+      end
+      let(:entry_no_genre) do
+        Avalon::Batch::Entry.
+          new(entry_fields.except(:genre), entry_files, entry_opts, nil, nil)
+      end
+
+      it 'should pass when required fields present' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        entry.valid?
+        expect(entry.errors.empty?).to be_truthy
+      end
+
+      it 'should fail when no language' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        entry_no_language.valid?
+        expect(entry_no_language.errors.messages.keys).to eq([:language])
+        expect(entry_no_language.errors.messages[:language]).
+          to eq(["field is required."])
+      end
+
+      it 'should fail when no topical subject' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        entry_no_topical_subject.valid?
+        expect(entry_no_topical_subject.errors.messages.keys).to eq([:topical_subject])
+        expect(entry_no_topical_subject.errors.messages[:topical_subject]).
+          to eq(["field is required."])
+      end
+      it 'should fail when no genre' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        entry_no_genre.valid?
+        expect(entry_no_genre.errors.messages.keys).to eq([:genre])
+        expect(entry_no_genre.errors.messages[:genre]).to eq(["field is required."])
+      end
+    end
+
   end
 
   describe 'hidden' do
@@ -244,5 +300,4 @@ describe Avalon::Batch::Entry do
       expect(subject.opts[:publish]).to eq entry.opts[:publish]
     end
   end
-
 end

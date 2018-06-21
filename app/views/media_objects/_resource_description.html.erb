@@ -46,14 +46,13 @@ Unless required by applicable law or agreed to in writing, software distributed
                                 required: true,
                                 multivalued: true}} %>
 
-  <%# TODO: This needs to be hooked up to AJAX, separate PR %>
   <%= render partial: 'text_field',
              locals: {form: form, field: :genre,
                       options: {display_label: t('metadata_label.genre'),
                                 label_parenthesis: t('metadata_parenthesis.genre'),
                                 multivalued: true,
-                                # autocomplete_model: 'genreTerm',
-                                # autocomplete_validate: false,
+                                autocomplete_model: 'genreTerm',
+                                autocomplete_validate: false,
                                 required: true}} %>
 
   <%= render partial: 'text_field',

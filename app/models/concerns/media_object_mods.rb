@@ -25,50 +25,48 @@ module MediaObjectMods
     before_save :normalize_desc_metadata!
   end
 
-  # # this method returns a hash: class attribute -> metadata attribute
-  # # this is useful for decoupling the metdata from the view
-  # def klass_attribute_to_metadata_attribute_map
-  #   {
-  #   :avalon_uploader => :creator,
-  #   :avalon_publisher => :publisher,
-  #   :title => :main_title,
-  #   :alternative_title => :alternative_title,
-  #   :translated_title => :translated_title,
-  #   :uniform_title => :uniform_title,
-  #   :statement_of_responsibility => :statement_of_responsibility,
-  #   :creator => :creator,
-  #   :date_created => :date_created,
-  #   :date_issued => :date_issued,
-  #   :copyright_date => :copyright_date,
-  #   :abstract => :abstract,
-  #   :note => :note,
-  #   :format => :media_type,
-  #   :contributor => :contributor,
-  #   :publisher => :publisher,
-  #   :genre => :genre,
-  #   :subject => :topical_subject,
-  #   :related_item_url => :related_item_url,
-  #   :geographic_subject => :geographic_subject,
-  #   :temporal_subject => :temporal_subject,
-  #   :topical_subject => :topical_subject,
-  #   :bibliographic_id => :bibliographic_id,
-  #   :language => :language,
-  #   :terms_of_use => :terms_of_use,
-  #   :table_of_contents => :table_of_contents,
-  #   :physical_description => :physical_description,
-  #   :other_identifier => :other_identifier,
-  #   :record_identifier => :record_identifier,
-  #   }
-  # end
+  DESCRIPTIVE_METADATA_ATTRIBUTES = [
+    :title,
+    :alternative_title,
+    :translated_title,
+    :uniform_title,
+    :statement_of_responsibility,
+    :creator,
+    :date_created,
+    :date_issued,
+    :copyright_date,
+    :abstract,
+    :note,
+    :format,
+    :resource_type,
+    :contributor,
+    :publisher,
+    :genre,
+    :subject,
+    :related_item_url,
+    :geographic_subject,
+    :temporal_subject,
+    :topical_subject,
+    :bibliographic_id,
+    :language,
+    :terms_of_use,
+    :table_of_contents,
+    :physical_description,
+    :other_identifier
+  ]
 
-  # delegate :alternative_title, :translated_title, :uniform_title, :statement_of_responsibility, :creator,
-  #          :date_created, :date_issued, :copyright_date, :abstract, :note, :format, :contributor, :publisher,
-  #          :genre, :related_item_url, :geographic_subject, :temporal_subject, :topical_subject, :bibliographic_id,
-  #          :language, :terms_of_use, :table_of_contents, :physical_description, :other_identifier, :record_identifier,
-  #          to: :descMetadata
-  # end
+  # This method primarily helps the test suite, but may have utility elsewhere
+  def export_descriptive_metadata_attributes(attribute_list: nil)
+    attribute_list ||= DESCRIPTIVE_METADATA_ATTRIBUTES
+    fields = {}
+    attribute_list.each {|f| field = send(f); fields[f] = field if field.present? }
+    # Language field fetched from attributes is a hash, grab it from the metadata instead
+    if fields.has_key?(:language)
+      fields[:language] = descMetadata.language.code
+    end
+    fields
+  end
 
-  # has_attributes :title, datastream: :descMetadata, at: [:main_title], multiple: false
   def title
     descMetadata.main_title.first
   end
@@ -480,4 +478,15 @@ module MediaObjectMods
   def delete_all_values(*field_name)
     descMetadata.find_by_terms(*field_name).each &:remove
   end
+
+  def export_attributes(attribute_list: nil)
+    attribute_list ||= klass_attribute_to_metadata_attribute_map.keys
+    fields = self.attributes.select {|k,v| attribute_list.include? k.to_sym }
+    # Language field fetched from attributes is a mess, grab it from the metadata instead
+    if fields.has_key?('language')
+      fields["language"] = descMetadata.language.code
+    end
+    return fields
+  end
+
 end

@@ -258,6 +258,9 @@ describe MediaObject do
 
     it {is_expected.to validate_presence_of(:date_issued)}
     it {is_expected.to validate_presence_of(:title)}
+    it {is_expected.to validate_presence_of(:language)}
+    it {is_expected.to validate_presence_of(:genre)}
+    it {is_expected.to validate_presence_of(:topical_subject)}
   end
 
   describe "Languages are handled correctly" do

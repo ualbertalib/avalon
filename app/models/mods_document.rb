@@ -219,7 +219,7 @@ class ModsDocument < ActiveFedora::OmDatastream
         # replace old mods with newly imported mods
         self.ng_xml = Nokogiri::XML(new_record)
         # de-dupe imported values
-        [:genre, :topical_subject, :geographic_subject, :temporal_subject,
+        [:topical_subject, :geographic_subject, :temporal_subject,
          :occupation_subject, :person_subject, :corporate_subject, :family_subject,
          :title_subject].each do |field|
            self.send("#{field}=".to_sym, self.send(field).uniq)
@@ -234,6 +234,14 @@ class ModsDocument < ActiveFedora::OmDatastream
         self.language = nil
         languages.uniq.each { |lang| self.add_language(lang) }
         # add new other identifiers and restore old other identifiers and remove the old bibliographic id
+
+        # Want genre from our controlled vocabulary -- ignore it if it isn't
+        genre_terms = self.genre.collect(&:strip).uniq
+        self.genre = nil
+        genre_terms.each do |genre|
+          self.add_genre(genre) if GenreTerm.has_term?(genre)
+        end
+
         new_other_identifier = self.other_identifier.type.zip(self.other_identifier)
         self.other_identifier = nil
         ((old_other_identifier | new_other_identifier)-(old_bibliographic_id_source.zip old_bibliographic_id)).each do |id_pair|

@@ -487,6 +487,7 @@ GEM
       rdf-turtle
       rdf-vocab (>= 0.8)
       slop
+    levenshtein (0.2.2)
     link_header (0.0.8)
     little-plugger (1.1.4)
     logging (2.2.2)
@@ -897,6 +898,7 @@ DEPENDENCIES
   jquery-datatables
   jquery-rails
   jquery-ui-rails
+  levenshtein
   lograge
   marc
   media-element-logo-plugin

@@ -50,11 +50,17 @@ class MediaObject < ActiveFedora::Base
 
   validates :title, presence: true, if: :resource_description_active?
   validates :date_issued, presence: true, if: :resource_description_active?
-  validate  :validate_language, if: :resource_description_active?
-  validate  :validate_related_items, if: :resource_description_active?
-  validate  :validate_dates, if: :resource_description_active?
-  validate  :validate_note_type, if: :resource_description_active?
-  validate  :report_missing_attributes, if: :resource_description_active?
+  validate :validate_language, if: :resource_description_active?
+  validate :validate_related_items, if: :resource_description_active?
+  validate :validate_dates, if: :resource_description_active?
+  validate :validate_note_type, if: :resource_description_active?
+  validate :report_missing_attributes, if: :resource_description_active?
+
+  # For ERA A+V, additional mandatory elements.
+  validates :language, presence: true, if: :resource_description_active?
+  validates :topical_subject, presence: true, if: :resource_description_active?
+  validates :genre, presence: true, if: :resource_description_active?
+  validate :validate_genre, if: :resource_description_active?
 
   def resource_description_active?
     workflow.completed?("file-upload")
@@ -84,6 +90,12 @@ class MediaObject < ActiveFedora::Base
     edtf_date = Date.edtf(date)
     if edtf_date.nil? || edtf_date.class == EDTF::Unknown # remove second condition to allow 'uuuu'
       errors.add(date_field, I18n.t("errors.messages.dateformat", date: date))
+    end
+  end
+
+  def validate_genre
+    Array(genre).each do |i|
+      errors.add(:genre, "Genre not recognized (#{i})") unless GenreTerm::has_term?(i)
     end
   end
 

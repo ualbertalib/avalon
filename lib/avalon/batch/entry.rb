@@ -45,6 +45,9 @@ module Avalon
             rescue Exception => e
               @errors.add(:bibliographic_id, e.message)
             end
+            # Sometimes we want to override the bib import data for some of the
+            # required fields (particularly if import data doesn't pass validations)
+            mo.assign_attributes(fields.slice(:language, :topical_subject, :genre))
           else
             begin
               mo.assign_attributes(media_object_fields)

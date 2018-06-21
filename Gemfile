@@ -89,6 +89,7 @@ gem 'whenever', git: "https://github.com/javan/whenever.git", require: false
 gem 'with_locking'
 
 # Other
+gem 'levenshtein'
 gem 'rollbar'
 
 group :development do

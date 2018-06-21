@@ -136,6 +136,23 @@ module ModsTemplates
         end
       end
 
+      define_template :_genre do |xml, text, uri|
+        attributes = { authority: 'pbcore' }
+        attributes[:valueURI] = uri if uri.present?
+        xml.genre(attributes) {
+          xml.text(text) if text.present?
+        }
+      end
+
+      def add_genre(value, opts={})
+        begin
+          term = GenreTerm.find(value)
+          add_child_node(ng_xml.root, :_genre, term.text, term.uri)
+        rescue GenreTerm::LookupError => e
+          add_child_node(ng_xml.root, :_genre, value, nil)
+        end
+      end
+
       define_template :_terms_of_use do |xml, text|
         xml.accessCondition(:type => 'use and reproduction'){
           xml.text(text)

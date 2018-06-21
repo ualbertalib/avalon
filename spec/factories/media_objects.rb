@@ -17,6 +17,9 @@ FactoryGirl.define do
     title { Faker::Lorem.sentence }
     creator { [FactoryGirl.create(:user).user_key] }
     date_issued { Time.zone.today.edtf.to_s }
+    topical_subject {[Faker::Lorem.word]}
+    genre {[ 'Aviation' ]}
+    language { ['eng'] }
 
     # trait :with_collection do
       collection { FactoryGirl.create(:collection) }
@@ -34,7 +37,7 @@ FactoryGirl.define do
         contributor { [Faker::Name.name] }
         date_created { Time.zone.today.edtf.to_s }
         publisher { [Faker::Lorem.word] }
-        genre { [Faker::Lorem.word] }
+        genre {[ 'Aviation' ]}
         topical_subject { [Faker::Lorem.word] }
         temporal_subject { [Faker::Lorem.word] }
         geographic_subject { [Faker::Address.country] }
