@@ -91,7 +91,7 @@ module MasterFileBehavior
       url = if self.permalink.present?
         self.permalink_with_query(permalink_opts)
       else
-        embed_master_file_url(self.id, only_path: false, protocol: '//')
+        embed_master_file_url(self.id, only_path: false, protocol: 'https://')
       end
       height = is_video? ? (width/display_aspect_ratio.to_f).floor : AUDIO_HEIGHT
       "<iframe title=\"#{ embed_title }\" src=\"#{url}\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
