@@ -1,4 +1,7 @@
 ---
+<%# Rails.application.secrets.lti_servers holds a list of server names
+    For each server, we need to map LTI request variables to something Avalon/OmniAuth can use.
+    Here, `context_id` is the course name, which corresponds to an access group in Avalon. %>
 <% Array(Rails.application.secrets.lti_servers).each do |server| %>
 <%= server %>:
   :uid: :lis_person_contact_email_primary
