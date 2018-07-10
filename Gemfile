@@ -103,6 +103,16 @@ group :development do
   gem 'bixby', require: false
   gem 'web-console', '~> 2.0'
   gem 'xray-rails'
+
+  # Webserver for debugging LTI over https with a bogus cert.
+  # E.g., Generate bogus cert:
+  #   openssl req -x509 -sha256 -nodes -newkey rsa:2048 -days 365 \
+  #      -keyout localhost.key -out localhost.crt
+  # Run server:
+  #   SETTINGS__DOMAIN=https://localhost:3000 LTI_AUTH_KEY=whatever LTI_AUTH_SECRET=whatever \
+  #      bundle exec thin start --ssl --ssl-key-file /path/to/localhost.key \
+  #      --ssl-cert-file /path/to/localhost.crt
+  gem 'thin'
 end
 
 group :development, :test do

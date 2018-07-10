@@ -73,11 +73,11 @@ auth:
       :params:
         :fields:
         - :email
-          <% if ENV['LTI_AUTH_KEY'] %>
-    - :name: Avalon Lti OAuth
+<% if Rails.application.secrets.lti_auth_key.present? %>
+    - :name: Avalon LTI OAuth
       :provider: :lti
       :hidden: true
       :params:
         :oauth_credentials:
-          <%= ENV['LTI_AUTH_KEY'] %>: <%= ENV['LTI_AUTH_SECRET'] %>
-            <% end %>
+          <%= Rails.application.secrets.lti_auth_key %>: <%= Rails.application.secrets.lti_auth_secret %>
+<% end %>
