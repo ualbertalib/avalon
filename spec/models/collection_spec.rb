@@ -513,7 +513,7 @@ describe Admin::Collection do
 
     it 'removes bad characters from collection name' do
       collection.name = '../../secret.rb'
-      expect(Dir).to receive(:mkdir).with( File.join(Settings.dropbox.path, '______secret_rb') )
+      expect(Dir).to receive(:mkdir).with(File.join(Settings.dropbox.path, '______secret_rb'), 0775)
       allow(Dir).to receive(:mkdir) # stubbing this out in a before(:each) block will effect where mkdir is used elsewhere (i.e. factories)
       collection.send(:create_dropbox_directory!)
     end
@@ -528,7 +528,7 @@ describe Admin::Collection do
       FakeFS.activate!
       FileUtils.mkdir_p(File.join(Settings.dropbox.path, 'african_art'))
       FileUtils.mkdir_p(File.join(Settings.dropbox.path, 'african_art_2'))
-      expect(Dir).to receive(:mkdir).with(File.join(Settings.dropbox.path, 'african_art_3'))
+      expect(Dir).to receive(:mkdir).with(File.join(Settings.dropbox.path, 'african_art_3'), 0775)
       collection.send(:create_dropbox_directory!)
       FakeFS.deactivate!
     end
@@ -541,7 +541,7 @@ describe Admin::Collection do
 
     it 'handles Unicode collection names correctly' do
       collection.name = collection_name
-      expect(Dir).to receive(:mkdir).with( File.join(Settings.dropbox.path, collection_dir) )
+      expect(Dir).to receive(:mkdir).with(File.join(Settings.dropbox.path, collection_dir), 0775)
       allow(Dir).to receive(:mkdir)
       collection.send(:create_dropbox_directory!)
     end
