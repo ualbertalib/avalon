@@ -1,0 +1,53 @@
+<div class="form-group <% if @media_object.errors[:terms_of_use].any? %>has-error<% end %>">
+  <%= render partial: "modules/tooltip",
+             locals: { form: form,
+                       field: :terms_of_use,
+                       tooltip: t('metadata_tip.terms_of_use'),
+                       options: { display_label: t('metadata_label.terms_of_use'),
+                                  required: true} } %>
+
+  <% if @media_object.errors[:terms_of_use].any? %>
+    <%= content_tag :span, @media_object.errors[:terms_of_use].join(", "),
+        class: 'help-block' %>
+  <% end %>
+
+  <%# Bootstrap dropdown for license choices %>
+  <% selected_value = license_menu_value(@media_object) %>
+  <div class="input-group typed-textarea">
+    <div class="input-group-btn">
+      <button type="button" id="terms-of-use-button"
+              class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span><%= license_labels[selected_value] %></span> <span class="caret"></span>
+      </button>
+      <%= hidden_field_tag "media_object[terms_of_use]", selected_value %>
+      <ul class="dropdown-menu" role="menu">
+        <% license_labels.each_pair do |value, display| %>
+          <li>
+            <a class="dropdown-field license-select" data-uri="<%= value %>">
+              <%= display %>
+            </a>
+            <span class="hidden"><%= value %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <input type="text" class="form-control hidden"><%# to maintain spacing %>
+  </div>
+
+  <%# License descriptions (all but the selected one are hidden) %>
+  <% license_descriptions.each_pair do |value, display| %>
+    <% hidden = (selected_value == value) ? "" : " hidden" %>
+    <div data-uri="<%= value %>" class="license-description<%= hidden %>">
+      <%= display %>
+    </div>
+  <% end %>
+
+  <%# Custom license text input (hidden if a standard license) %>
+  <% hidden = @media_object.has_custom_license? ? "" : " hidden" %>
+  <div class="terms-of-use-custom">
+  <%= text_area_tag 'media_object[terms_of_use_custom]',
+      @media_object.has_custom_license? ? @media_object.terms_of_use : "",
+      rows: 5, class: "form-control#{hidden}",
+      placeholder: "Enter custom terms of use ..." %>
+  </div>
+</div>

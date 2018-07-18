@@ -24,6 +24,7 @@ describe Avalon::Batch::Entry do
       language: 'eng',
       genre: 'Aviation',
       date_issued: "#{Time.now.to_date}",
+      terms_of_use: 'http://creativecommons.org/publicdomain/mark/1.0/'
     }
   end
   let(:entry_files) { [{ file: File.join(testdir, filename), skip_transcoding: false }] }
@@ -150,6 +151,14 @@ describe Avalon::Batch::Entry do
         Avalon::Batch::Entry.
           new(entry_fields.except(:genre), entry_files, entry_opts, nil, nil)
       end
+      let(:entry_no_terms_of_use) do
+        Avalon::Batch::Entry.
+          new(entry_fields.except(:terms_of_use), entry_files, entry_opts, nil, nil)
+      end
+      let(:entry_custom_terms_of_use) do
+        Avalon::Batch::Entry.
+          new(entry_fields.merge(terms_of_use: 'My license'), entry_files, entry_opts, nil, nil)
+      end
 
       it 'should pass when required fields present' do
         allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
@@ -164,7 +173,6 @@ describe Avalon::Batch::Entry do
         expect(entry_no_language.errors.messages[:language]).
           to eq(["field is required."])
       end
-
       it 'should fail when no topical subject' do
         allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
         entry_no_topical_subject.valid?
@@ -177,6 +185,18 @@ describe Avalon::Batch::Entry do
         entry_no_genre.valid?
         expect(entry_no_genre.errors.messages.keys).to eq([:genre])
         expect(entry_no_genre.errors.messages[:genre]).to eq(["field is required."])
+      end
+      it 'should fail when no terms of use' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        entry_no_terms_of_use.valid?
+        expect(entry_no_terms_of_use.errors.messages.keys).to eq([:terms_of_use])
+        expect(entry_no_terms_of_use.errors.messages[:terms_of_use]).to eq(["field is required."])
+      end
+      it 'should pass with_custom_terms_of_use' do
+        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        expect(entry_custom_terms_of_use.media_object.terms_of_use).to eq('My license')
+        entry_custom_terms_of_use.valid?
+        expect(entry_custom_terms_of_use.errors.empty?).to be_truthy
       end
     end
 

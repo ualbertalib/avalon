@@ -20,6 +20,7 @@ FactoryGirl.define do
     topical_subject {[Faker::Lorem.word]}
     genre {[ 'Aviation' ]}
     language { ['eng'] }
+    terms_of_use { 'http://creativecommons.org/licenses/by-nc-nd/4.0/' }
 
     # trait :with_collection do
       collection { FactoryGirl.create(:collection) }

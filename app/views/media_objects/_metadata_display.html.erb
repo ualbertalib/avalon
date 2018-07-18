@@ -37,12 +37,12 @@ Unless required by applicable law or agreed to in writing, software distributed
   <%= display_metadata('Publisher', @media_object.publisher) %>
   <%= display_metadata('Subject', @media_object.subject) %>
   <%= display_metadata('Genre', @media_object.genre) %>
+  <%= display_metadata('Language', display_language(@media_object)) %>
+  <%= display_license(t('metadata_label.terms_of_use'), @media_object) %>
   <%= display_metadata('Time period', @media_object.temporal_subject) %>
   <%= display_metadata('Location', @media_object.geographic_subject) %>
   <%= display_metadata('Collection', @media_object.collection.name) %>
   <%= display_metadata('Unit', @media_object.collection.unit) %>
-  <%= display_metadata('Language', display_language(@media_object)) %>
-  <%= display_metadata('Terms of Use', @media_object.terms_of_use) %>
   <%= display_metadata('Physical Description', @media_object.physical_description) %>
   <%= display_metadata('Related Item', display_related_item(@media_object)) %>
   <%= display_metadata('Notes', display_notes(@media_object)) %>

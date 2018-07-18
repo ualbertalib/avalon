@@ -263,4 +263,35 @@ EOF
          end.sort
        end.flatten.uniq
      end
+
+     def license_menu_value(media_object)
+       return "CUSTOM" if media_object.has_custom_license?
+       media_object.terms_of_use
+     end
+
+     def license_labels
+       @license_labels ||=
+         Hash[ModsDocument::LICENSE_TYPES.map { |l| [l[:uri], l[:label]] } <<
+              ['CUSTOM', 'Enter your own license terms...']]
+     end
+
+     def license_descriptions
+       @license_descriptions ||=
+         Hash[ModsDocument::LICENSE_TYPES.map { |l| [l[:uri], l[:description]] } <<
+             ['CUSTOM', 'If you wish to make your own license statement, '\
+              "or if you are required to attach an existing publisher's license, "\
+              'please enter it in the text area below.']]
+     end
+
+     def display_license(label, media_object)
+       if media_object.has_standard_license?
+         # URL comes from controlled vocabulary, not user
+         link = link_to(license_labels[media_object.terms_of_use],
+                        media_object.terms_of_use,
+                        target: '_blank', rel: 'noopener nofollow').html_safe
+         display_metadata(label, link)
+       else
+         display_metadata(label, media_object.terms_of_use)
+       end
+     end
 end

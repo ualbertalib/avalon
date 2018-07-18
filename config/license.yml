@@ -1,0 +1,50 @@
+---
+- :uri: https://creativecommons.org/licenses/by/4.0/
+  :label: 'Attribution 4.0 International (CC BY 4.0)'
+  :description:
+    'This license lets others distribute, remix, tweak, and build upon your work, even
+    commercially, as long as they credit you for the original creation. This is the most
+    accommodating of licenses offered by Creative Commons. Recommended for maximum
+    dissemination and use of licensed materials.'
+- :uri: http://creativecommons.org/licenses/by-sa/4.0/
+  :label: 'Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)'
+  :description:
+    'This license lets others remix, tweak, and build upon your work even for commercial
+    purposes, as long as they credit you and license their new creations under the
+    identical terms. This license is often compared to “copyleft” free and open source
+    software licenses. All new works based on yours will carry the same license, so any
+    derivatives will also allow commercial use. This is the license used by Wikipedia,
+    and is recommended for materials that would benefit from incorporating content from
+    Wikipedia and similarly licensed projects.'
+- :uri: http://creativecommons.org/licenses/by-nd/4.0/
+  :label: 'Attribution-NoDerivs 4.0 International (CC BY-ND 4.0)'
+  :description:
+    'This license allows for redistribution, commercial and non-commercial, as long as it
+    is passed along unchanged and in whole, with credit to you.'
+- :uri: http://creativecommons.org/licenses/by-nc/4.0/
+  :label: 'Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)'
+  :description:
+    'This license lets others remix, tweak, and build upon your work non-commercially,
+    and although their new works must also acknowledge you and be non-commercial, they
+    don’t have to license their derivative works on the same terms.'
+- :uri: http://creativecommons.org/licenses/by-nc-sa/4.0/
+  :label: 'Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)'
+  :description:
+    'This license lets others remix, tweak, and build upon your work non-commercially,
+    as long as they credit you and license their new creations under the identical terms.'
+- :uri: http://creativecommons.org/licenses/by-nc-nd/4.0/
+  :label: 'Attribution-NonCommercial-NoDerivs 4.0 International (CC BY-NC-ND 4.0)'
+  :description:
+    'This license is the most restrictive of the six main Creative Commons licenses,
+    only allowing others to download your works and share them with others as long as they
+    credit you, but they can’t change them in any way or use them commercially.'
+- :uri: http://creativecommons.org/publicdomain/mark/1.0/
+  :label: 'Public Domain Mark 1.0'
+  :description: 'When content is in the public domain, it has no known copyright owner.'
+- :uri: http://creativecommons.org/publicdomain/zero/1.0/
+  :label: 'CC0 1.0 Universal'
+  :description:
+    "With this license you are waiving your rights as copyright owner to the content you
+    upload. This means your content may be distributed and reused without attribution,
+    without restriction. CC0 is a license that one applies to one's own work; rarely
+    does one apply it to another's work, unless one has the appropriate rights to do so."

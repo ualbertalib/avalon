@@ -39,6 +39,8 @@ Unless required by applicable law or agreed to in writing, software distributed
                                 required: true,
                                 multivalued: true}} %>
 
+  <%= render partial: 'license_form_field', locals: { form: form } %>
+
   <%= render partial: 'text_field',
              locals: {form: form, field: :topical_subject,
                       options: {display_label: t('metadata_label.topical_subject'),
@@ -119,9 +121,6 @@ Unless required by applicable law or agreed to in writing, software distributed
   <%= render partial: 'text_field',
              locals: {form: form, field: :permalink,
                       options: {}} %>
-  <%= render partial: 'text_area',
-             locals: {form: form, field: :terms_of_use,
-                      options: {display_label: 'Terms of Use'}} %>
   <%= render partial: 'text_field',
              locals: {form: form, field: :other_identifier,
                       options: {display_label: 'Other Identifier(s)',

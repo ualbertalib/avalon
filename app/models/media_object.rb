@@ -31,6 +31,9 @@ class MediaObject < ActiveFedora::Base
   has_and_belongs_to_many :governing_policies, class_name: 'ActiveFedora::Base', predicate: ActiveFedora::RDF::ProjectHydra.isGovernedBy
   belongs_to :collection, class_name: 'Admin::Collection', predicate: ActiveFedora::RDF::Fcrepo::RelsExt.isMemberOfCollection
 
+  # This should be 'before_validation', but before_validation doesn't work
+  before_save :update_terms_of_use
+
   before_save :update_dependent_properties!, prepend: true
   before_save :update_permalink, if: Proc.new { |mo| mo.persisted? && mo.published? }, prepend: true
   before_save :assign_id!, prepend: true
@@ -61,6 +64,17 @@ class MediaObject < ActiveFedora::Base
   validates :topical_subject, presence: true, if: :resource_description_active?
   validates :genre, presence: true, if: :resource_description_active?
   validate :validate_genre, if: :resource_description_active?
+  validates :terms_of_use, presence: true, if: :resource_description_active?
+  validate :validate_terms_of_use, if: :resource_description_active?
+
+  def update_terms_of_use
+    if terms_of_use == 'CUSTOM'
+      self.terms_of_use = nil
+      if @terms_of_use_custom.present?
+        self.terms_of_use = @terms_of_use_custom
+      end
+    end
+  end
 
   def resource_description_active?
     workflow.completed?("file-upload")
@@ -99,6 +113,13 @@ class MediaObject < ActiveFedora::Base
     end
   end
 
+  def validate_terms_of_use
+    # If it looks like a URL, but doesn't match a standard license ...
+    if terms_of_use.to_s.strip =~ /^\s*http/
+      errors.add(:terms_of_use, "not recognized (#{terms_of_use})") unless has_standard_license?
+    end
+  end
+
   property :duration, predicate: ::RDF::Vocab::EBUCore.duration, multiple: false do |index|
     index.as :stored_sortable
   end
@@ -125,6 +146,10 @@ class MediaObject < ActiveFedora::Base
   indexed_ordered_aggregation :master_files
 
   accepts_nested_attributes_for :master_files, :allow_destroy => true
+
+  def terms_of_use_custom=(val)
+    @terms_of_use_custom = val
+  end
 
   def published?
     !avalon_publisher.blank?
@@ -328,6 +353,14 @@ class MediaObject < ActiveFedora::Base
 
   def leases(scope=:all)
     governing_policies.select { |gp| gp.is_a?(Lease) and (scope == :all or gp.lease_type == scope) }
+  end
+
+  def has_standard_license?
+    ModsDocument::LICENSE_TYPES.map { |license| license[:uri] }.include?(terms_of_use)
+  end
+
+  def has_custom_license?
+    terms_of_use.present? && !has_standard_license?
   end
 
   private

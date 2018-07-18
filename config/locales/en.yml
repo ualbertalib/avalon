@@ -35,6 +35,7 @@ en:
     related_item_url_label: 'Item'
     genre: 'Genre(s)'
     table_of_contents: 'Table of Contents'
+    terms_of_use: 'License / Terms of Use'
   metadata_parenthesis:
     title: 'Add a descriptive title or caption'
     creator: 'Enter only one main contributor per box. Example: Doe, Jane B.'
@@ -129,7 +130,11 @@ en:
       codes from the <a href="http://www.loc.gov/marc/languages/"
       target="_blank" rel="noopener nofollow">MARC Code List for Languages</a> may be used. Hint: for English language materials, type "English".
     terms_of_use: |
-      Terms of Use describes the conditions under which content may be used. This is an optional field.
+      All content uploaded into ERA Audio+Video must have a license attached which
+      specifies usage rights. Browse the options below to select the best fit for your
+      content. If none of the options are a good fit, or your content requires a
+      publisher's license to be included, select 'Enter your own license terms ...'
+      to enter custom text.
     physical_description: |
       Physical Description is an optional field that will display information about the original resource being described.
     related_item_url: |

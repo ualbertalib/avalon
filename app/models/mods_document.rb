@@ -21,6 +21,7 @@ class ModsDocument < ActiveFedora::OmDatastream
 
   IDENTIFIER_TYPES = Avalon::ControlledVocabulary.find_by_name(:identifier_types) || {"other" => "Local"}
   NOTE_TYPES = Avalon::ControlledVocabulary.find_by_name(:note_types) || {"local" => "Local Note"}
+  LICENSE_TYPES = YAML.load(File.read(Rails.root.join('config', 'license.yml')))
 
   set_terminology do |t|
     t.root(:path=>'mods',
