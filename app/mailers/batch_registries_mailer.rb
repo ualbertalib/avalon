@@ -6,6 +6,7 @@ class BatchRegistriesMailer < ApplicationMailer
     email ||= Settings.email.notification
     mail(
       to: email,
+      cc: Settings.email.errors,
       subject: "Failed batch ingest registration for: #{package.title}"
     )
   end
@@ -15,6 +16,7 @@ class BatchRegistriesMailer < ApplicationMailer
     email = package.user.email
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Successfully registered batch ingest: #{package.title}"
     )
@@ -30,9 +32,9 @@ class BatchRegistriesMailer < ApplicationMailer
     @completed_items = BatchEntries.where(batch_registries_id: @batch_registry.id, complete: true).order(position: :asc)
     prefix = "Success:"
     prefix = "Errors Present:" unless @error_items.empty?
-
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "#{prefix} Batch Registry #{@batch_registry.file_name} for #{Admin::Collection.find(@batch_registry.collection).name} has completed"
     )
@@ -44,6 +46,7 @@ class BatchRegistriesMailer < ApplicationMailer
     email = Settings.email.notification
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Batch Registry #{@batch_registry.file_name} for #{Admin::Collection.find(@batch_registry.collection).name} has stalled"
     )

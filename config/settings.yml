@@ -17,9 +17,10 @@ mediainfo:
 ffmpeg:
   path: '/usr/local/bin/ffmpeg'
 email:
-  comments: 'avalon-comments@example.edu'
-  notification: 'avalon-notifications@example.edu'
-  support: 'avalon-support@example.edu'
+  comments: <%= Rails.application.secrets.email_comments %>
+  notification: <%= Rails.application.secrets.email_notification %>
+  support: <%= Rails.application.secrets.email_support %>
+  errors: <%= Rails.application.secrets.email_errors %>
 solr:
   configset: avalon
   configset_source_path: <%= File.join(Rails.root, 'solr', 'config') %>
