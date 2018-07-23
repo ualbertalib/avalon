@@ -21,6 +21,7 @@ describe Avalon::Batch::Ingest do
   before :each do
     @saved_dropbox_path = Settings.dropbox.path
     Settings.dropbox.path = File.join(Rails.root, 'spec/fixtures/dropbox')
+    @saved_notification_email = Settings.email.notification
     Settings.email.notification = 'frances.dickens@reichel.com'
     # Dirty hack is to remove the .processed files both before and after the
     # test. Need to look closer into the ideal timing for where this should take
@@ -38,6 +39,7 @@ describe Avalon::Batch::Ingest do
 
   after :each do
     Settings.dropbox.path = @saved_dropbox_path
+    Settings.email.notification = @saved_notification_email
     Dir['spec/fixtures/**/*.xlsx.process*','spec/fixtures/**/*.xlsx.error'].each { |file| File.delete(file) }
     Avalon::RoleControls.remove_user_role('frances.dickens@reichel.com','manager')
     Avalon::RoleControls.remove_user_role('jay@krajcik.org','manager')

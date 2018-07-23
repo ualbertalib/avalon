@@ -12,6 +12,7 @@ RSpec.describe BatchRegistriesMailer, type: :mailer do
     it "sends to the user when package has a registered user's email" do
        email = BatchRegistriesMailer.batch_ingest_validation_error(package, errors)
        expect(email.to).to include(manager.email)
+       expect(email.cc).to eq(['avalon-errors@example.edu'])
        expect(email.subject).to include package.title
        expect(email).to have_body_text(package.title)
        expect(email).to have_body_text(collection.id)
@@ -24,6 +25,7 @@ RSpec.describe BatchRegistriesMailer, type: :mailer do
        allow(package).to receive(:user).and_return(nil)
        email = BatchRegistriesMailer.batch_ingest_validation_error(package, errors)
        expect(email.to).to include(notification_email_address)
+       expect(email.cc).to eq(['avalon-errors@example.edu'])
     end
   end
 
@@ -38,6 +40,7 @@ RSpec.describe BatchRegistriesMailer, type: :mailer do
     it "sends an email when a batch is successfully registered" do
        email = BatchRegistriesMailer.batch_ingest_validation_success(package)
        expect(email.to).to include(manager.email)
+       expect(email.cc).to eq(['avalon-errors@example.edu'])
        expect(email.subject).to include package.title
        expect(email).to have_body_text(package.title)
     end
@@ -53,6 +56,7 @@ RSpec.describe BatchRegistriesMailer, type: :mailer do
     it "sends an email when a batch finishes processing" do
        email = BatchRegistriesMailer.batch_registration_finished_mailer(batch_registries)
        expect(email.to).to include(manager.email)
+       expect(email.cc).to eq(['avalon-errors@example.edu'])
        expect(email.subject).to include batch_registries.file_name
        expect(email.subject).to include collection.name
        expect(email).to have_body_text(batch_registries.file_name)
@@ -92,6 +96,7 @@ RSpec.describe BatchRegistriesMailer, type: :mailer do
     it "sends an email when a batch has stalled" do
        email = BatchRegistriesMailer.batch_registration_stalled_mailer(batch_registries)
        expect(email.to).to include(notification_email_address)
+       expect(email.cc).to eq(['avalon-errors@example.edu'])
        expect(email.subject).to include batch_registries.file_name
        expect(email.subject).to include collection.name
        expect(email).to have_body_text(batch_registries.id.to_s)

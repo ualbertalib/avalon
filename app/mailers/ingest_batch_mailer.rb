@@ -20,7 +20,8 @@ class IngestBatchMailer < ActionMailer::Base
     @media_objects = @ingest_batch.media_objects
     @email = @ingest_batch.email || Settings.email.notification
     mail(
-      to: @email, 
+      to: @email,
+      cc: Settings.email.errors,
       from: Settings.email.notification, 
       subject: "Batch ingest status for: #{@ingest_batch.name}"
     )
@@ -32,6 +33,7 @@ class IngestBatchMailer < ActionMailer::Base
     email = package.manifest.email || Settings.email.notification
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Failed batch ingest processing errors for: #{package.manifest.name}",
     )
@@ -42,6 +44,7 @@ class IngestBatchMailer < ActionMailer::Base
     email = package.manifest.email || Settings.email.notification
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Successfully processed batch ingest: #{package.manifest.name}",
     )

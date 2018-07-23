@@ -6,6 +6,7 @@ class BatchRegistriesMailer < ApplicationMailer
     email ||= Settings.email.notification
     mail(
       to: email,
+      cc: Settings.email.errors,
       subject: "Failed batch ingest registration for: #{package.title}"
     )
   end
@@ -15,6 +16,7 @@ class BatchRegistriesMailer < ApplicationMailer
     email = package.user.email
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Successfully registered batch ingest: #{package.title}"
     )
@@ -35,6 +37,7 @@ class BatchRegistriesMailer < ApplicationMailer
 
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "#{prefix} Batch Registry #{@batch_registry.file_name} for #{collection_text} has completed"
     )
@@ -49,6 +52,7 @@ class BatchRegistriesMailer < ApplicationMailer
 
     mail(
       to: email,
+      cc: Settings.email.errors,
       from: Settings.email.notification,
       subject: "Batch Registry #{@batch_registry.file_name} for #{collection_text} has stalled"
     )
