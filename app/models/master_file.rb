@@ -714,7 +714,7 @@ class MasterFile < ActiveFedora::Base
     else
       # Do nothing
     end
-    CleanupWorkingFileJob.perform_later(self.id) unless Settings.matterhorn.media_path.blank?
+    CleanupWorkingFileJob.perform_later(self.id) unless Rails.application.secrets.matterhorn_client_media_path.blank?
   end
 
   def update_ingest_batch

@@ -329,7 +329,9 @@ describe MediaObjectsController, type: :controller do
         it "should merge supplied DC identifiers after bib import" do
           Settings.bib_retriever = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }
           stub_request(:get, sru_url).to_return(body: sru_response)
-          fields = { bibliographic_id: bib_id, identifier: ['ABC1234'] }
+          fields = { bibliographic_id: bib_id,
+                     identifier: ['ABC1234'],
+                     genre: 'Aviation' }
           post 'create', format: 'json', import_bib_record: true, fields: fields, files: [master_file], collection_id: collection.id
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])

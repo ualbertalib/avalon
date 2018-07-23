@@ -489,11 +489,12 @@ describe MasterFile do
     let(:working_dir) {'/path/to/working_dir/'}
     before do
       ActiveJob::Base.queue_adapter = :test
-      Settings.matterhorn.media_path = working_dir
+      @old_path = Rails.application.secrets.matterhorn_client_media_path
+      Rails.application.secrets.matterhorn_client_media_path= working_dir
     end
 
     after do
-      Settings.matterhorn.media_path = nil
+      Rails.application.secrets.matterhorn_client_media_path = @old_path
     end
     describe 'post_processing_working_directory_file_management' do
       it 'enqueues the working directory cleanup job' do
