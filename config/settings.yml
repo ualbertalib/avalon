@@ -17,6 +17,7 @@ mediainfo:
 ffmpeg:
   path: '/usr/local/bin/ffmpeg'
 email:
+  mailer: :smtp
   comments: <%= Rails.application.secrets.email_comments %>
   notification: <%= Rails.application.secrets.email_notification %>
   support: <%= Rails.application.secrets.email_support %>
