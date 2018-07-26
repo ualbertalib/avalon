@@ -409,17 +409,19 @@ class MediaObjectsController < ApplicationController
     status = params[:status]
     errors = []
     success_count = 0
-    Array(params[:id]).each do |id|
-      media_object = MediaObject.find(id)
-      if cannot? :update, media_object
-        errors += ["#{media_object.title} (#{id}) (permission denied)."]
-      else
+    if ['publish', 'unpublish'].include?(status)
+      Array(params[:id]).each do |id|
+        media_object = MediaObject.find(id)
         case status
           when 'publish'
-            media_object.publish!(user_key)
-            # additional save to set permalink
-            media_object.save( validate: false )
-            success_count += 1
+            if can?(:update, media_object)
+              media_object.publish!(user_key)
+              # additional save to set permalink
+              media_object.save( validate: false )
+              success_count += 1
+            else
+              errors += ["#{media_object.title} (#{id}) (permission denied)."]
+            end
           when 'unpublish'
             if can? :unpublish, media_object
               media_object.publish!(nil)
@@ -429,9 +431,11 @@ class MediaObjectsController < ApplicationController
             end
         end
       end
+      message = "#{success_count} #{'media object'.pluralize(success_count)} successfully #{status}ed."
+      message += "These objects were not #{status}ed:</br> #{ errors.join('<br/> ') }" if errors.count > 0
+    else
+      message = "Status must be one of 'publish' or 'unpublish'"
     end
-    message = "#{success_count} #{'media object'.pluralize(success_count)} successfully #{status}ed."
-    message += "These objects were not #{status}ed:</br> #{ errors.join('<br/> ') }" if errors.count > 0
     redirect_to :back, flash: {notice: message.html_safe}
   end
 
