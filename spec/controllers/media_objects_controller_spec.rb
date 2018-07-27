@@ -23,11 +23,12 @@ describe MediaObjectsController, type: :controller do
 
   describe 'security' do
     let(:media_object) { FactoryGirl.create(:media_object) }
+    let(:published_media_object) { FactoryGirl.create(:published_media_object, visibility: 'public') }
+    let(:private_media_object) { FactoryGirl.create(:published_media_object, visibility: 'private') }
     let(:collection) { FactoryGirl.create(:collection) }
     describe 'ingest api' do
-      it "all routes should return 401 when no token is present" do
+      it "most routes should return 401 when no token is present" do
         expect(get :index, format: 'json').to have_http_status(401)
-        expect(get :show, id: media_object.id, format: 'json').to have_http_status(401)
         expect(post :create, format: 'json').to have_http_status(401)
         expect(put :update, id: media_object.id, format: 'json').to have_http_status(401)
       end
@@ -37,6 +38,17 @@ describe MediaObjectsController, type: :controller do
         expect(get :show, id: media_object.id, format: 'json').to have_http_status(403)
         expect(post :create, format: 'json').to have_http_status(403)
         expect(put :update, id: media_object.id, format: 'json').to have_http_status(403)
+      end
+      describe '#show' do
+        it "returns 401 when no token is present, and unpublished" do
+          expect(get :show, id: media_object.id, format: 'json').to have_http_status(401)
+        end
+        it "returns 401 for published private items when no token is present" do
+          expect(get :show, id: private_media_object.id, format: 'json').to have_http_status(401)
+        end
+        it "permits published public items when no token is present" do
+          expect(get :show, id: published_media_object.id, format: 'json').to have_http_status(200)
+        end
       end
     end
     describe 'normal auth' do
@@ -66,9 +78,8 @@ describe MediaObjectsController, type: :controller do
         it "should redirect to /" do
           expect(get :new).to redirect_to(root_path)
         end
-        it "all routes should redirect to /" do
+        it "most routes should redirect to /" do
           expect(get :show, id: media_object.id).to redirect_to(root_path)
-          expect(get :show_progress, id: media_object.id, format: 'json').to redirect_to(root_path)
           expect(get :edit, id: media_object.id).to redirect_to(root_path)
           expect(get :confirm_remove, id: media_object.id).to redirect_to(root_path)
           expect(post :create).to redirect_to(root_path)
@@ -77,6 +88,9 @@ describe MediaObjectsController, type: :controller do
           expect(get :tree, id: media_object.id).to redirect_to(root_path)
           expect(get :deliver_content, id: media_object.id, datastream: 'descMetadata').to redirect_to(root_path)
           expect(delete :destroy, id: media_object.id).to redirect_to(root_path)
+        end
+        it "show progress should return 401" do
+          expect(get :show_progress, id: media_object.id, format: 'json').to have_http_status(401)
         end
       end
     end
