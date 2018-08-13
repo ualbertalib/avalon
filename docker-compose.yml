@@ -94,7 +94,7 @@ services:
       - MATTERHORN_SERVER_MEDIA_PATH=/masterfiles
       - MEDIAINFO_PATH=/usr/bin/mediainfo
       - RAILS_ENV=development
-      - REDIS_URL=redis://redis/90210
+      - REDIS_URL=redis://redis:6379
       - SECRET_KEY_BASE=abcd
       - SMTP_ADDRESS
       - SMTP_AUTHENTICATION
