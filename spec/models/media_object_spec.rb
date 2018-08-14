@@ -141,6 +141,27 @@ describe MediaObject do
       end
     end
 
+    describe 'staleness' do
+      let(:stale_media_object) {
+        FactoryGirl.build(:media_object).tap {
+          |mo| mo.create_date = 1.week.ago - 1.day}
+      }
+      let(:almost_stale_media_object) {
+        FactoryGirl.build(:media_object).tap {
+          |mo| mo.create_date = 1.week.ago + 1.day}
+      }
+
+      it 'should detect stale objects' do
+        stale_media_object.valid?
+        expect(stale_media_object.errors[:base]).to include('Old MediaObject not fully ingested')
+      end
+
+      it 'should not detect almost stale objects' do
+        almost_stale_media_object.valid?
+        expect(almost_stale_media_object.errors[:base]).to_not include('Old MediaObject not fully ingested')
+      end
+
+    end
   end
 
   describe 'delegators' do

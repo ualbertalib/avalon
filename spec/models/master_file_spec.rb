@@ -24,6 +24,32 @@ describe MasterFile do
     xit {is_expected.to validate_exclusion_of(:file_format).in_array(['Unknown']).with_message("The file was not recognized as audio or video.")}
     it {is_expected.to validate_inclusion_of(:date_digitized).in_array([nil, '2016-04-07T15:05:01-05:00', '2016-04-07'])}
     it {is_expected.to validate_exclusion_of(:date_digitized).in_array(["","2016-14-99","Blergh"]).with_message(//)}
+
+    describe 'staleness' do
+      let(:stale_master_file) {
+        FactoryGirl.build(:master_file).tap do |mf|
+          mf.create_date = 1.week.ago - 1.day
+          mf.status_code = 'FAILED'
+        end
+      }
+      let(:almost_stale_master_file) {
+        FactoryGirl.build(:master_file).tap do |mf|
+          mf.create_date = 1.week.ago + 1.day
+          mf.status_code = 'FAILED'
+        end
+      }
+
+      it 'should detect stale objects' do
+        stale_master_file.valid?
+        expect(stale_master_file.errors[:base]).to include('Old MasterFile not fully encoded')
+      end
+
+      it 'should not detect almost stale objects' do
+        almost_stale_master_file.valid?
+        expect(almost_stale_master_file.errors[:base]).to_not include('Old MasterFile not fully encoded')
+      end
+
+    end
   end
 
   describe "locations" do

@@ -13,6 +13,7 @@
 # ---  END LICENSE_HEADER BLOCK  ---
 
 class MediaObject < ActiveFedora::Base
+
   include Hydra::AccessControls::Permissions
   include Hidden
   include VirtualGroups
@@ -66,6 +67,7 @@ class MediaObject < ActiveFedora::Base
   validate :validate_genre, if: :resource_description_active?
   validates :terms_of_use, presence: true, if: :resource_description_active?
   validate :validate_terms_of_use, if: :resource_description_active?
+  validate :validate_for_staleness
 
   def update_terms_of_use
     if terms_of_use == 'CUSTOM'
@@ -78,6 +80,15 @@ class MediaObject < ActiveFedora::Base
 
   def resource_description_active?
     workflow.completed?("file-upload")
+  end
+
+  def validate_for_staleness
+    # Created a long time ago but did not get past the upload stage?
+    unless resource_description_active?
+      if create_date.present? && create_date < 1.week.ago
+        errors.add(:base, "Old MediaObject not fully ingested")
+      end
+    end
   end
 
   def validate_note_type

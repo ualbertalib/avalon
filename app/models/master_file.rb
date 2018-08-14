@@ -19,6 +19,7 @@ require 'avalon/file_resolver'
 require 'avalon/m3u8_reader'
 
 class MasterFile < ActiveFedora::Base
+
   include ActiveFedora::Associations
   # TODO: Do we need permissions on master files?
   # include Hydra::AccessControls::Permissions
@@ -136,6 +137,16 @@ class MasterFile < ActiveFedora::Base
     end
   end
   # validates :file_format, presence: true, exclusion: { in: ['Unknown'], message: "The file was not recognized as audio or video." }
+
+  validate :validate_for_staleness
+
+  def validate_for_staleness
+    # Created a long time ago but did not get encoded?
+    if create_date.present? && create_date < 1.week.ago &&
+       status_code != 'COMPLETED'
+      errors.add(:base, "Old MasterFile not fully encoded")
+    end
+  end
 
   after_save :update_stills_from_offset!, if: Proc.new { |mf| mf.previous_changes.include?("poster_offset") || mf.previous_changes.include?("thumbnail_offset") }
   before_destroy :stop_processing!

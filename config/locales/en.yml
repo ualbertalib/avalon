@@ -258,3 +258,9 @@ en:
         management systems'
       tab: 'eClass'
     section: Section
+
+  audit:
+    class_total_header_html: 'Bad <b>%{class}</b> objects'
+    collection_total_header_html: 'Errors for collection <b>%{collection}</b>'
+    error_report_subject: 'ERA A+V Object Errors'
+    total_header_html: '<b>Total</b>'
