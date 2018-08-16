@@ -147,7 +147,7 @@ describe MasterFile do
     end
     it 'starts an ActiveEncode workflow' do
       master_file.process
-      expect(ActiveEncodeJob::Create).to have_been_enqueued.with(master_file.id, "file://" + URI.escape(master_file.file_location), {preset: master_file.workflow_name})
+      expect(ActiveEncodeJob::Create).to have_been_enqueued.with(master_file.id, URI.escape(master_file.matterhorn_path), {preset: master_file.workflow_name})
       # expect(encode_job).to have_received(:perform)
     end
     describe 'already processing' do
