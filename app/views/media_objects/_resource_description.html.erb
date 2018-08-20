@@ -140,6 +140,8 @@ Unless required by applicable law or agreed to in writing, software distributed
              locals: {form: form, field: :note,
                       options: {multivalued: true,
                                 display_label: 'Note(s)',
+                                primary_hash_key: :note,
+                                secondary_hash_key: :type,
                                 dropdown_field: :note_type,
                                 dropdown_options: ModsDocument::NOTE_TYPES }} %>
 
