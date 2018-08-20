@@ -276,8 +276,11 @@ class MasterFile < ActiveFedora::Base
   def matterhorn_path
     # This returns the URI path on the matterhorn server of the file who's path is on
     # the app server (so the path doesn't need to be the same on both servers)
-    new_path = file_location.gsub(Rails.application.secrets.matterhorn_client_media_path,
-                                  Rails.application.secrets.matterhorn_server_media_path)
+
+    # Prefer working_file_path, when available
+    old_path = working_file_path || file_location
+    new_path = old_path.gsub(Rails.application.secrets.matterhorn_client_media_path,
+                             Rails.application.secrets.matterhorn_server_media_path)
 
     FileLocator.new(new_path).uri.to_s
   end
