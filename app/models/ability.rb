@@ -94,7 +94,7 @@ class Ability
         end
 
         can :unpublish, MediaObject do |media_object|
-          @user.in?(media_object.collection.managers)
+          is_editor_of?(media_object.collection)
         end
 
         can :update, Admin::Collection do |collection|

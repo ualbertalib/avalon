@@ -208,12 +208,15 @@ describe MediaObject do
       it{ is_expected.to be_able_to(:update, media_object) }
       it{ is_expected.to be_able_to(:destroy, media_object) }
       it{ is_expected.to be_able_to(:update_access_control, media_object) }
-      it "should not be able to destroy and unpublish published item" do
+      it "should not be able to destroy or update published item" do
         media_object.publish! "someone"
         expect(subject).not_to be_able_to(:destroy, media_object)
         expect(subject).not_to be_able_to(:update, media_object)
         expect(subject).not_to be_able_to(:update_access_control, media_object)
-        expect(subject).not_to be_able_to(:unpublish, media_object)
+      end
+      it "should be able to unpublish published item" do
+        media_object.publish! "someone"
+        expect(subject).to be_able_to(:unpublish, media_object)
       end
     end
 
