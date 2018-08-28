@@ -54,6 +54,10 @@ services:
       - "8080:8080"
   hls:
     image: avalonmediasystem/nginx
+    network_mode: "host"
+    environment:
+      AVALON_DOMAIN: http://127.0.0.1:3000
+      AVALON_STREAMING_PORT: 8880
     volumes:
       - streaming:/data
     ports:
