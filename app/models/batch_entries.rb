@@ -62,10 +62,6 @@ class BatchEntries < ActiveRecord::Base
     @files ||= JSON.parse(payload)['files']
   end
 
-  def file_locations
-    @file_locations ||= files.map { |file| file.values }.flatten
-  end
-
   def encoding_status
     return @encoding_status if @encoding_status.present?
 
@@ -74,15 +70,16 @@ class BatchEntries < ActiveRecord::Base
     return (@encoding_status = :error) unless media_object
 
     # TODO: match file_locations strings with those in MasterFiles?
-    if media_object.master_files.to_a.count != file_locations.count
+    if media_object.master_files.to_a.count != files.count
       return (@encoding_status = :error)
     end
 
     @encoding_status = :success
     media_object.master_files.each do |master_file|
       # TODO: explore border cases
-      return (@encoding_status = :error) if master_file.status_code == 'FAILED'
-      @encoding_status = :in_progress if master_file.status_code != 'COMPLETED'
+      return (@encoding_status = :error) if ['FAILED',
+                                             'CANCELLED'].include?(master_file.status_code)
+      @encoding_status = :in_progress unless master_file.status_code == 'COMPLETED'
     end
     @encoding_status
   end
