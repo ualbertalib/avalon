@@ -278,7 +278,10 @@ class MasterFile < ActiveFedora::Base
     # the app server (so the path doesn't need to be the same on both servers)
 
     # Prefer working_file_path, when available
-    old_path = working_file_path || file_location
+    old_path = working_file_path
+    unless old_path.present? && File.exists?(old_path)
+      old_path = file_location
+    end
     new_path = old_path.gsub(Rails.application.secrets.matterhorn_client_media_path,
                              Rails.application.secrets.matterhorn_server_media_path)
 
