@@ -63,8 +63,11 @@ class BatchEntries < ActiveRecord::Base
   end
 
   def encoding_status
+    # Returns :success, :error, or :in_progress
+
     return @encoding_status if @encoding_status.present?
 
+    # Issues with the MediaObject are treated as encoding errors
     return :error if media_object_pid.blank?
     media_object = MediaObject.where(id: media_object_pid).first
     return (@encoding_status = :error) unless media_object
@@ -74,6 +77,7 @@ class BatchEntries < ActiveRecord::Base
       return (@encoding_status = :error)
     end
 
+    # Only return success if all MasterFiles have status 'COMPLETED'
     @encoding_status = :success
     media_object.master_files.each do |master_file|
       # TODO: explore border cases

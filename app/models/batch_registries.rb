@@ -62,6 +62,9 @@ class BatchRegistries < ActiveRecord::Base
   end
 
   def encoding_status
+    # Returns :success, :error, or :in_progress
+
+    # Only return success if all BatchEntries report encoding success
     return @encoding_status if @encoding_status.present?
     @encoding_status = :success
     batch_entries.each do |batch_entry|
