@@ -7,7 +7,7 @@ class BatchRegistriesMailer < ApplicationMailer
     mail(
       to: email,
       cc: Settings.email.errors,
-      subject: "Failed batch ingest registration for: #{package.title}"
+      subject: "Batch ingest: #{package.title} failed"
     )
   end
 
@@ -18,7 +18,7 @@ class BatchRegistriesMailer < ApplicationMailer
       to: email,
       cc: Settings.email.errors,
       from: Settings.email.notification,
-      subject: "Successfully registered batch ingest: #{package.title}"
+      subject: "Batch ingest: #{package.title} initiated"
     )
   end
 
