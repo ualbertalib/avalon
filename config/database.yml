@@ -4,7 +4,7 @@
 # `sudo -u postgres createuser ${USER}`
 # `sudo -u postgres alter user ${USER} superuser
 default: &default
-  adapter: postgresql
+  adapter: mysql
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 

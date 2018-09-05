@@ -15,10 +15,9 @@ services:
     environment:
       - AVALON_DB_PASSWORD=avalondb
       - FEDORA_DB_PASSWORD=fedoradb
-      - PGDATA=/data
-      - POSTGRES_USER=postgres
+      - MYSQL_ROOT_PASSWORD: mysecretpassword
     ports:
-      - "5432:5432"
+      - "3306:3306"
   fedora:
     image: avalonmediasystem/fedora:4.x
     environment:
@@ -67,7 +66,7 @@ services:
       - AVALON_DB_PASSWORD=avalondb
       - BASE_URL=http://test.host
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
-      - DATABASE_URL=postgres://avalon:${AVALON_DB_PASSWORD}@db/avalon
+      - DATABASE_URL=mysql2://avalon:${AVALON_DB_PASSWORD}@db/avalon
       - SETTINGS__DROPBOX__PATH=/masterfiles/dropbox
       - SETTINGS__DROPBOX__UPLOAD_URI=./masterfiles/dropbox
       - EMAIL_COMMENTS

@@ -1,9 +1,9 @@
 ---
 git:
   submodules: false
-bundler_args: --with postgres aws --without development debug
+bundler_args: --with mysql aws --without development debug
 env:
-  - FCREPO_URL=http://127.0.0.1:8986/rest SOLR_TEST_URL=http://127.0.0.1:8985/solr/hydra-test RAILS_ENV=test DATABASE_URL=postgresql://postgres:@127.0.0.1:5432/
+  - FCREPO_URL=http://127.0.0.1:8986/rest SOLR_TEST_URL=http://127.0.0.1:8985/solr/hydra-test RAILS_ENV=test DATABASE_URL=mysql2://root:mysecretpassword@127.0.0.1:3306/
 services:
   - mysql2
   - redis-server

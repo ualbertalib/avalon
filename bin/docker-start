@@ -14,7 +14,7 @@ cd /home/app/avalon
 
 export HOME=/home/app
 bundle config build.nokogiri --use-system-libraries && \
-bundle install --path=/home/app/gems --with postgres aws test
+bundle install --path=/home/app/gems --with mysql aws test
 
 bundle exec rake db:create
 
