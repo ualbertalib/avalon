@@ -7,11 +7,13 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ## Table of Contents
 
-[Avalon-6 6.4.3.Unreleased](#Avalon.v6.4.3.Unreleased)
-[Avalon-6 6.4.2.Unreleased](#Avalon.v6.4.2.Unreleased)
-[Avalon-5 v5.1.5.20180727](#Avalon-v5.1.5.20180727)
+- [Avalon-6 6.4.3.Unreleased](#Avalon.v6.4.3.Unreleased)
+- [Avalon-6 6.4.2.Unreleased](#Avalon.v6.4.2.Unreleased)
+- [Avalon-5 v5.1.5.20180727](#Avalon-v5.1.5.20180727)
+
 
 <a name="Avalon.v6.4.3.Unreleased" />
+
 ## [Avalon-6 6.4.3.Unreleased]
 
 ### Notes
@@ -42,6 +44,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - Docker: fix bogus hardcoded redis database number for full docker-compose config [#367](https://github.com/ualbertalib/avalon/pull/367)
 
 <a name="Avalon.v6.4.2.Unreleased" />
+
 ## [Avalon-6 6.4.2.Unreleased]
 
 ### Notes
@@ -65,6 +68,7 @@ Starting point for Avalon-6 (I think as I piece together the past). Merge pull r
 - Make Solr config (and docker) match what Jupiter is doing. [#283](https://github.com/ualbertalib/avalon/pull/283/commits)
 
 <a name="Avalon-v5.1.5.20180727" />
+
 ## [Avalon-5 v5.1.5.20180727]
 
 ### Fixed
