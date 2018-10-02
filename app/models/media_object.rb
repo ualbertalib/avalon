@@ -65,8 +65,8 @@ class MediaObject < ActiveFedora::Base
   validates :topical_subject, presence: true, if: :resource_description_active?
   validates :genre, presence: true, if: :resource_description_active?
   validate :validate_genre, if: :resource_description_active?
-  validates :terms_of_use, presence: true, if: :resource_description_active?
-  validate :validate_terms_of_use, if: :resource_description_active?
+  #validates :terms_of_use, presence: true, if: :resource_description_active?
+  #validate :validate_terms_of_use, if: :resource_description_active?
   validate :validate_for_staleness
 
   def update_terms_of_use

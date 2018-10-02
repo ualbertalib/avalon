@@ -186,18 +186,18 @@ describe Avalon::Batch::Entry do
         expect(entry_no_genre.errors.messages.keys).to eq([:genre])
         expect(entry_no_genre.errors.messages[:genre]).to eq(["field is required."])
       end
-      it 'should fail when no terms of use' do
-        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
-        entry_no_terms_of_use.valid?
-        expect(entry_no_terms_of_use.errors.messages.keys).to eq([:terms_of_use])
-        expect(entry_no_terms_of_use.errors.messages[:terms_of_use]).to eq(["field is required."])
-      end
-      it 'should pass with_custom_terms_of_use' do
-        allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
-        expect(entry_custom_terms_of_use.media_object.terms_of_use).to eq('My license')
-        entry_custom_terms_of_use.valid?
-        expect(entry_custom_terms_of_use.errors.empty?).to be_truthy
-      end
+      #it 'should fail when no terms of use' do
+        #allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        #entry_no_terms_of_use.valid?
+        #expect(entry_no_terms_of_use.errors.messages.keys).to eq([:terms_of_use])
+        #expect(entry_no_terms_of_use.errors.messages[:terms_of_use]).to eq(["field is required."])
+      #end
+      #it 'should pass with_custom_terms_of_use' do
+        #allow(Avalon::Batch::Entry).to receive(:derivativePaths).and_return([])
+        #expect(entry_custom_terms_of_use.media_object.terms_of_use).to eq('My license')
+        #entry_custom_terms_of_use.valid?
+        #expect(entry_custom_terms_of_use.errors.empty?).to be_truthy
+      #end
     end
 
   end

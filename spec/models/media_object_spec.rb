@@ -115,31 +115,31 @@ describe MediaObject do
       end
     end
 
-    describe "terms of use" do
-      it "likes a valid license URI" do
-        media_object.terms_of_use = 'http://creativecommons.org/publicdomain/mark/1.0/'
-        expect(media_object.valid?).to be_truthy
-        expect(media_object.errors[:terms_of_use]).to be_empty
-      end
-      it "dislikes an invalid license URI" do
-        media_object.terms_of_use = 'http://creativecommons.org/geewhiz/'
-        expect(media_object.valid?).to be_falsey
-        expect(media_object.errors[:terms_of_use]).to_not be_empty
-      end
-      it "likes a non-URI custom terms of Use" do
-        media_object.terms_of_use = 'May be subject to http://creativecommons.org/geewhiz/'
-        expect(media_object.valid?).to be_truthy
-        expect(media_object.errors[:terms_of_use]).to be_empty
-      end
-      it "sets a custom license (i.e., coming from a form)" do
-        # Note: we need to save here because 'before_validation' doesn't work
-        media_object.terms_of_use = 'CUSTOM'
-        media_object.terms_of_use_custom = 'This is my stuff'
-        media_object.save
-        expect(media_object.valid?).to be_truthy
-        expect(media_object.terms_of_use).to eq('This is my stuff')
-      end
-    end
+    #describe "terms of use" do
+    #  it "likes a valid license URI" do
+    #    media_object.terms_of_use = 'http://creativecommons.org/publicdomain/mark/1.0/'
+    #    expect(media_object.valid?).to be_truthy
+    #    expect(media_object.errors[:terms_of_use]).to be_empty
+    #  end
+    #  it "dislikes an invalid license URI" do
+    #    media_object.terms_of_use = 'http://creativecommons.org/geewhiz/'
+    #    expect(media_object.valid?).to be_falsey
+    #    expect(media_object.errors[:terms_of_use]).to_not be_empty
+    #  end
+    #  it "likes a non-URI custom terms of Use" do
+    #    media_object.terms_of_use = 'May be subject to http://creativecommons.org/geewhiz/'
+    #    expect(media_object.valid?).to be_truthy
+    #    expect(media_object.errors[:terms_of_use]).to be_empty
+    #  end
+    #  it "sets a custom license (i.e., coming from a form)" do
+    #    # Note: we need to save here because 'before_validation' doesn't work
+    #    media_object.terms_of_use = 'CUSTOM'
+    #    media_object.terms_of_use_custom = 'This is my stuff'
+    #    media_object.save
+    #    expect(media_object.valid?).to be_truthy
+    #    expect(media_object.terms_of_use).to eq('This is my stuff')
+    #  end
+    #end
 
     describe 'staleness' do
       let(:stale_media_object) {
@@ -312,7 +312,7 @@ describe MediaObject do
     it {is_expected.to validate_presence_of(:language)}
     it {is_expected.to validate_presence_of(:genre)}
     it {is_expected.to validate_presence_of(:topical_subject)}
-    it {is_expected.to validate_presence_of(:terms_of_use)}
+    #it {is_expected.to validate_presence_of(:terms_of_use)}
   end
 
   describe "Languages are handled correctly" do
