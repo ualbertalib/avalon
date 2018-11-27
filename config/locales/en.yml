@@ -247,6 +247,25 @@ en:
         title: "Name"
         comment: "Description"
 
+  ualberta:
+    era_av_full: "University of Alberta ERA Audio and Video"
+    footer_ual_name: 'University of Alberta Libraries'
+    footer_ual_address: 'University of Alberta, Edmonton, AB, Canada T6G 2R3'
+    footer_privacy: 'Web Site Privacy Policy'
+    footer_login: 'Log in' 
+    footer_browse: 'Browse' 
+    footer_era_av_html: 'About ERA A<span class="plus">&plus;</span>V</a>'
+    footer_policies: 'Policies'
+    footer_tech_and_partner: 'Technology and Partnerships'
+    footer_contact_us: 'Contact Us'
+    footer_how_to_deposit: 'How to Deposit'
+    footer_heading_quick_links: 'Quick Links'
+    footer_heading_polices: 'Polices'
+    footer_heading_get_help: 'Get Help'
+
+
+  powered_by_avalon: "Powered by Avalon"
+
   required_field_html:
     <strong><span class="tooltip-label-required">*</span> indicates required field</strong>
 

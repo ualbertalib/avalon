@@ -20,8 +20,13 @@ describe 'checks navigation after logging in' do
     user = FactoryGirl.create(:administrator)
     login_as user, scope: :user
     visit '/'
-    click_link('Browse')
-    expect(page.current_url).to eq('http://www.example.com/catalog?q=&search_field=all_fields&utf8=%E2%9C%93')
+    [".footer"].each do |region|
+      within(region) do
+        click_link('Browse')
+        expect(page.current_url).
+          to eq('http://www.example.com/catalog?q=&search_field=all_fields&utf8=%E2%9C%93')
+      end
+    end
   end
   it 'checks navigation to Manage Content' do
     user = FactoryGirl.create(:administrator)

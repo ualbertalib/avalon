@@ -1,0 +1,38 @@
+$footer-link: #b5fd99;
+$footer-link-hover: #efefef;
+$footer-link-visited: #b5fd99;
+$footer-dark-background: #2d353d;
+$footer-dark-foreground: #fff;
+
+.dark {
+  background-color: $footer-dark-background;
+  color: $footer-dark-foreground;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Playfair Display', serif;
+}
+
+.footer {
+  padding-bottom: 10px;
+}
+
+.footer.dark.custom-footer a {
+  color: $footer-link;
+}
+.footer.dark.custom-footer a:hover {
+  color: $footer-link-hover;
+}
+.footer.dark.custom-footer a:visited {
+  color: $footer-link-visited;
+}
+.footer.dark.custom-footer a:hover:visited {
+  color: $footer-link-hover;
+}
+
+.footer .copyright {
+  padding: 20px 20px 0px 20px;
+}

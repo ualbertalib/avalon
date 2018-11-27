@@ -14,7 +14,6 @@
  * ---  END LICENSE_HEADER BLOCK  ---
 */
 
-
 /*
  * This is the default theme. You can modify many of the settings
  * by editing your local app/assets/stylesheets/blacklight_themes/standard.css
@@ -43,20 +42,21 @@
  *= require_self
 */
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "bootstrap-toggle";
-@import "font-awesome";
-@import "browse_everything";
+@import 'bootstrap-sprockets';
+@import 'bootstrap';
+@import 'bootstrap-toggle';
+@import 'font-awesome';
+@import 'browse_everything';
 
-@import "blacklight_themes/avalon";
+@import 'blacklight_themes/avalon';
 
-@import "about_page";
-@import "admin";
-@import "blacklight";
-@import "branding";
-@import "nestable";
-@import "avalon";
+@import 'about_page';
+@import 'admin';
+@import 'blacklight';
+@import 'branding';
+@import 'nestable';
+@import 'avalon';
 
-@import "era_custom";
+@import 'era_custom';
+@import 'uofa_footer';
 @import "uofa_homepage";
