@@ -22,6 +22,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Added
 
+- UofA Libraries splash page theme [#410](https://github.com/ualbertalib/avalon/pull/410), [#411](https://github.com/ualbertalib/avalon/pull/411) & [#412](https://github.com/ualbertalib/avalon/pull/412)
 - batch ingest post-encoding email [#403](https://github.com/ualbertalib/avalon/pull/403)
 - setup `resque` logging [#378](https://github.com/ualbertalib/avalon/pull/382)
 - Unpublish button for editors of a media object [#354](https://github.com/ualbertalib/avalon/pull/354)

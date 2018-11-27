@@ -1,0 +1,43 @@
+$splash-content-link: #337ab7;
+$white-text-on-black: #efefef;
+
+.info-pane p > a {
+  text-decoration: none;
+  color: $splash-content-link;
+}
+
+// FIXME: We need to override the styles in avalon.scss here
+// should probably fix this and remove the usage of an ID selection
+#featured_content img {
+  padding: 0px;
+  border: unset;
+}
+
+.featured_content .post-content {
+  padding: 0px 0px;
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+}
+
+.featured_content .post-content h5 {
+  background-color: rgba(0, 0, 0, 0.75);
+  color: $white-text-on-black;
+  font-weight: normal;
+  letter-spacing: -0.05px;
+  margin: 0px 0px;
+  padding: 5px 0px;
+}
+
+/* BEGIN STYLES FOR LARGER DEVICES */
+/* Small devices (tablets, 768px and up) */
+@media (min-width: 768px) {
+  .info-pane p {
+    padding: 20px 0px;
+    text-indent: 4%;
+    font-size: 160%;
+    font-size: 2vw;
+    line-height: 1.8;
+    font-family: 'Playfair Display', serif;
+  }
+}

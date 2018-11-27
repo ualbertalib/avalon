@@ -29,13 +29,13 @@ describe "Secure Routes" do
     it "should not provide access to regular users" do
       login_as user, scope: :user
       visit '/about'
-      page.should have_content('Sample Content')
+      page.should have_content('Featured Content')
     end
 
     it "should not provide access to anonymous users" do
       login_as user, scope: :user
       visit '/about'
-      page.should have_content('Sample Content')
+      page.should have_content('Featured Content')
     end
   end
 
@@ -49,13 +49,13 @@ describe "Secure Routes" do
     it "should not provide access to regular users" do
       login_as user, scope: :user
       visit '/about/health'
-      page.should have_content('Sample Content')
+      page.should have_content('Featured Content')
     end
 
     it "should not provide access to anonymous users" do
       login_as user, scope: :user
       visit '/about/health'
-      page.should have_content('Sample Content')
+      page.should have_content('Featured Content')
     end
   end
 end
