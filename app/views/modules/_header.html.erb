@@ -13,26 +13,56 @@ Unless required by applicable law or agreed to in writing, software distributed
   specific language governing permissions and limitations under the License.
 ---  END LICENSE_HEADER BLOCK  ---
 %>
-  <div class="custom-header">
-    <div class="row">
-      <div class="row-fluid whitespace-half">
-      <header>
-        <div class="col-sm-2 logo">
-        <%= link_to root_path do %>
-          <%= image_tag "Home.png", alt: "Avalon Media System - #{t(:release_label)} #{Avalon::VERSION}" %>
-        <% end %>
-        </div>
-        
-        <!-- <div class="col-md-6">
-          <h1>Avalon Media System</h1>
-          <p class="lead"><%=release_text%></p>
-        </div>    -->
 
-        <%# By default shift log in / log out to the header %>
-        <div class="pull-right log-in-out">
-          <%= render 'modules/user_management' %>
-        </div>
-      </header>
+<div class="custom-header" id="masthead">
+
+  <div class="row">
+    <div class="row-fluid whitespace-half">
+    <header>
+
+      <div class="lib-logo col-sm-5 hidden-xs">
+        <%= link_to("", "https://library.ualberta.ca", class: 'logo row block') %>
+        <%= link_to t('ualberta.era_home'), "https://era.library.ualberta.ca", class: "era-link row block btn" %>
       </div>
+
+      <div class="mast-branding col-sm-4">
+        <%= link_to root_path do %>
+          <%= image_tag("/assets/ERA-AV-logo.png",
+                        alt: "#{t('ualberta.era_av_full')} "\
+                        "- #{t(:release_label)} #{Avalon::VERSION}") %>
+        <% end %>
+      </div>
+
+      <%# By default shift log in / log out to the header %>
+      <div class="col-sm-3">
+        <% if user_signed_in? %>
+          <div class="btn-group user_utility_links pull-right">
+            <a class="btn btn-default dropdown-toggle pull-right" data-toggle="dropdown" href="#">
+              <span class="hidden-xs"><%= user_key %></span>
+              <span class="sr-only"><%= t('ualberta.era_av_addition_signin') %></span>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right pull-right" role="menu">
+              <li>
+                <%= link_to  destroy_user_session_path do %>
+                  <span class="glyphicon glyphicon-log-out"></span>
+                  <%= t('ualberta.era_av_sign_out') %>
+                <% end %>
+              </li>
+            </ul>
+          </div><!-- /.btn-group -->
+        <% else %>
+          <div class="btn-group login_button pull-right">
+            <%= link_to(new_user_session_path, class: "btn btn-default btn-group", title: "Login") do %>
+              <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+              <%= t('ualberta.era_av_sign_in') %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+
+    </header>
     </div>
   </div>
+
+</div>

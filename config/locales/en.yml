@@ -249,6 +249,10 @@ en:
 
   ualberta:
     era_av_full: "University of Alberta ERA Audio and Video"
+    era_home: "ERA Home"
+    era_av_sign_in: "Log in"
+    era_av_sign_out: "Log out"
+    era_av_addition_signin: "select for additional menu options"
     footer_ual_name: 'University of Alberta Libraries'
     footer_ual_address: 'University of Alberta, Edmonton, AB, Canada T6G 2R3'
     footer_privacy: 'Web Site Privacy Policy'
@@ -262,7 +266,6 @@ en:
     footer_heading_quick_links: 'Quick Links'
     footer_heading_polices: 'Polices'
     footer_heading_get_help: 'Get Help'
-
 
   powered_by_avalon: "Powered by Avalon"
 

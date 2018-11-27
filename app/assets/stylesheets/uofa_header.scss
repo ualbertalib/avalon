@@ -1,0 +1,82 @@
+$header-background: #ebe8e5;
+$header-btn-background: #fff;
+$era-link-background: #2d353d;
+$era-link-text: #fff;
+$era-link-background-hover: #000;
+$era-link-text-hover: #efefef;
+
+.custom-header {
+  min-height: 0;
+  padding: 0;
+  background-color: $header-background;
+}
+
+// UAL logo change colour on hover by changing the background position
+.custom-header .lib-logo a.logo {
+  background-image: asset_url('lib-logo.png');
+  background-repeat: no-repeat;
+  background-size: 200px;
+  background-position: 0px 0px;
+  height: 30px;
+  width: 200px;
+}
+.custom-header .lib-logo a.logo:hover {
+  background-position: 0px -40px;
+}
+
+.custom-header .lib-logo a.era-link {
+  color: $era-link-text;
+  font-family: 'Playfair Display', serif;
+  margin-top: 5px;
+  background-color: $era-link-background;
+  padding: 5px 10px;
+  width: 100px;
+}
+.custom-header .lib-logo a.era-link:hover {
+  color: $era-link-text-hover;
+  background-color: $era-link-background-hover;
+}
+
+.custom-header .mast-branding {
+  padding: 5px 0px;
+}
+
+.custom-header .mast-branding img {
+  height: 100px;
+}
+
+.custom-header .login_button,
+.custom-header .user_utility_links {
+  font-family: 'Abel', sans-serif;
+  padding: 0px;
+}
+.custom-header .login_button .glyphicon-log-in {
+  padding-right: 5px;
+}
+
+.custom-header .user_utility_links ul.dropdown-menu {
+  position: relative;
+}
+.custom-header .user_utility_links span.caret {
+  margin-left: 5px;
+}
+
+// mobile device CSS via class desktop-hidden
+.navbar-header .mast-branding.desktop-hidden {
+  margin: 1px 0px 0px 1px;
+  text-align: left;
+}
+.navbar-header .mast-branding.desktop-hidden h1 {
+  font-size: 20px;
+  margin: 0px 0px 0px 0px;
+  padding: 0;
+}
+.navbar-header .mast-branding.desktop-hidden h2 {
+  font-size: 12px;
+  margin: 0px 0px 0px 0px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: normal;
+}
+.navbar-header button.navbar-toggle {
+  margin-right: 10px;
+}
