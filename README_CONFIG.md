@@ -24,6 +24,8 @@ Avalon uses two main approaches when setting config parameters:
 
 The following section details the necessary properties with an example following.
 
+A latter section describes possibilities for setting environment variables.
+
 ## Environment variables to set
 
 ### Database
@@ -194,6 +196,22 @@ SETTINGS__STREAMING__HTTP_BASE='http://{host}:1935/avalon6/_definst_'
 SECRET_KEY_BASE
 GOOGLE_ANALYTICS_TOKEN
 ROLLBAR_TOKEN
-
-
 ```
+
+## Possibilities for setting environment variables
+
+Avalon environment variables: adding a few links here for reference. Can set the env vars at the apache or passenger level (and then the rails app inherits this) or you can set it just at the app level
+
+Command-line instantiation of Passenger and -envvars option where a file can be specified (sample: environment_passengerfile.json.sample)
+
+- https://www.phusionpassenger.com/library/config/standalone/reference/#--envvar-envvars
+- https://www.phusionpassenger.com/library/config/standalone/intro.html
+
+Ansible playbook : set Avalon environment : https://docs.ansible.com/ansible/latest/user_guide/playbooks_environment.html - sample `environment_ansible_vars.sample`
+
+SetEnv / PassEnv within the Apache config might be another option:
+
+- https://docstore.mik.ua/orelly/linux/apache/ch04_06.htm
+- https://www.phusionpassenger.com/library/indepth/environment_variables.html#passenger-served-apps
+
+Can an envvars file be specified during Avalon setup via Ansible playbooks using Passenger and Apache: Haven't yet found if it is possible to specify an envvars file in an Apache/Passenger setup.
