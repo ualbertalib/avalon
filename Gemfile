@@ -126,11 +126,11 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rb-readline'
   gem 'rspec-rails'
+  gem 'capybara'
   gem 'solr_wrapper', '>= 0.16'
 end
 
 group :test do
-  gem 'capybara'
   gem 'codeclimate-test-reporter'
   gem 'database_cleaner'
   gem 'email_spec'
