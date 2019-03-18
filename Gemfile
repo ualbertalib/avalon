@@ -124,7 +124,7 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rb-readline'
-  gem 'rspec-rails' , '~> 3.6.0'
+  gem 'rspec-rails'
   gem 'solr_wrapper', '>= 0.16'
 end
 
