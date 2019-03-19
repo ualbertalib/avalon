@@ -19,6 +19,7 @@ before_install:
 
   # Bundler 1.15 has stricter dependency checking -- problematic for Hydra projects
   - rvm use 2.3.3@global
+  - gem uninstall '>= 1.15' -i $(rvm gemdir)@global -ax bundler || true
   - gem install bundler -v 1.14.6
 
 before_script:
