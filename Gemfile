@@ -144,6 +144,10 @@ group :test do
   gem 'webmock'
 end
 
+group :staging do
+  gem 'lograge'
+end
+
 group :production do
   gem 'google-analytics-rails', '1.1.0'
   gem 'lograge'
