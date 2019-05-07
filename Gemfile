@@ -137,6 +137,7 @@ group :test do
   gem 'fakefs', require: 'fakefs/safe'
   gem 'faker'
   gem 'hashdiff'
+  gem 'lograge'
   gem 'poltergeist'
   gem 'rspec-retry'
   gem 'shoulda-matchers'

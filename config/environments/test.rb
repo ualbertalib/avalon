@@ -42,5 +42,9 @@ Rails.application.configure do
 
   # Enable logging to a file (changed 2019-05-07 from both stdout and file 
   config.logger = Logger.new("log/#{Rails.env}.log")
+  config.lograge.enabled = true
+  config.lograge.custom_options = lambda do |event|
+    {:time => event.time}
+  end
 
 end
