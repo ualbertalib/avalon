@@ -137,11 +137,16 @@ group :test do
   gem 'fakefs', require: 'fakefs/safe'
   gem 'faker'
   gem 'hashdiff'
+  gem 'lograge'
   gem 'poltergeist'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webmock'
+end
+
+group :staging do
+  gem 'lograge'
 end
 
 group :production do

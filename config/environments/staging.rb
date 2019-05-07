@@ -44,8 +44,8 @@ Rails.application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # config.force_ssl = true
 
-  # Enable logging to both stdout and file, in more compact format
-  config.logger = Logger.new("| tee -a log/#{Rails.env}.log")
+  # Enable logging to a file with lograge extension (changed 2019-05-07 from both stdout and file
+  config.logger = Logger.new("log/#{Rails.env}.log")
   config.lograge.enabled = true
   config.lograge.custom_options = lambda do |event|
     {:time => event.time}
