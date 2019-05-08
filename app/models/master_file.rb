@@ -723,6 +723,18 @@ class MasterFile < ActiveFedora::Base
     case Settings.master_file_management.strategy
     when 'delete'
       MasterFileManagementJobs::Delete.perform_now self.id
+    when 'move-ui-upload-only'
+      # test Admin::Collection object dropbox_directory_name property within 
+      # reflected with the MasterFile locator property
+      # If not then move
+      dropbox_directory_name = self.media_object.collection.dropbox_directory_name
+      raise '"dropbox_directory_name" missing for master_file_management strategy "move-ui-upload-only"' if dropbox_directory_name.blank?
+      if self.file_location.exclude? dropbox_directory_name
+        move_path = Settings.master_file_management.path
+        raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
+        newpath = File.join(move_path, dropbox_directory_name, MasterFile.post_processing_move_filename(file_location, id: id))
+        MasterFileManagementJobs::Move.perform_later self.id, newpath
+      end
     when 'move'
       move_path = Settings.master_file_management.path
       raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?

@@ -94,8 +94,10 @@ services:
       - EMAIL_SUPPORT
       - FCREPO_URL=http://fcrepo:8080/fcrepo/rest
       - SETTINGS__FFMPEG__PATH=/usr/bin/ffmpeg
-      - MASTER_FILE_PATH
-      - MASTER_FILE_STRATEGY=delete
+      - MASTER_FILE_PATH:/masterfiles/upload
+      - MASTER_FILE_STRATEGY=move-ui-upload-only
+      - SETTINGS__MASTER_FILE_MANAGEMENT__PATH=/masterfiles/upload
+      - SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY=move-ui-upload-only
       - MATTERHORN_URL=http://matterhorn_system_account:CHANGE_ME@matterhorn:8080/
       - MATTERHORN_CLIENT_MEDIA_PATH=/masterfiles
       - MATTERHORN_SERVER_MEDIA_PATH=/masterfiles
