@@ -21,8 +21,8 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - this change log record starts at such time (i.e., 2018-07-26) the upstream tag [v6.4.3](https://github.com/ualbertalib/avalon/pull/347) was merged into the local UAL `avalon-6` branch along with the following additions. This record might be incomplete as the list was compiled after the fact. Also note some PRs have been merged into the upstream master.
 
 ### Security
-- Bups rails from 4.2.9 to 4.2.11.1. This update addresses [Two Vulnerabilities in Action View](https://weblog.rubyonrails.org/2019/3/13/Rails-4-2-5-1-5-1-6-2-have-been-released/). [PR#429](https://github.com/ualbertalib/avalon/pull/429)
-- Bups devise from devise from 3.5.10 to 4.6.1. This update addresses [CVE-2019-5421](https://github.com/rubysec/ruby-advisory-db/blob/master/gems/devise/CVE-2019-5421.yml). [PR#437](https://github.com/ualbertalib/avalon/pull/437)
+- Bumps rails from 4.2.9 to 4.2.11.1. This update addresses [Two Vulnerabilities in Action View](https://weblog.rubyonrails.org/2019/3/13/Rails-4-2-5-1-5-1-6-2-have-been-released/). [PR#429](https://github.com/ualbertalib/avalon/pull/429)
+- Bumps devise from devise from 3.5.10 to 4.6.1. This update addresses [CVE-2019-5421](https://github.com/rubysec/ruby-advisory-db/blob/master/gems/devise/CVE-2019-5421.yml). [PR#437](https://github.com/ualbertalib/avalon/pull/437)
 
 ### Added
 
