@@ -53,7 +53,7 @@ Unless required by applicable law or agreed to in writing, software distributed
           </div><!-- /.btn-group -->
         <% else %>
           <div class="btn-group login_button pull-right">
-            <%= link_to(new_user_session_path, class: "btn btn-default btn-group", title: "Login") do %>
+            <%= link_to(user_shibboleth_omniauth_authorize_path, class: "btn btn-default btn-group", title: "Login") do %>
               <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
               <%= t('ualberta.era_av_sign_in') %>
             <% end %>
