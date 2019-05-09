@@ -334,7 +334,7 @@ GEM
     deep_merge (1.1.1)
     deprecation (1.0.0)
       activesupport
-    devise (4.6.1)
+    devise (4.6.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
       railties (>= 4.1.0, < 6.0)
@@ -532,7 +532,7 @@ GEM
     net-ssh (4.2.0)
     netrc (0.11.0)
     noid (0.9.0)
-    nokogiri (1.10.1)
+    nokogiri (1.10.3)
       mini_portile2 (~> 2.4.0)
     nom-xml (0.6.0)
       activesupport (>= 3.2.18)
