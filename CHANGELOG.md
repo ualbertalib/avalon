@@ -22,6 +22,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Added
 
+- New file management strategy to allow retnetion of UI uploaded files in directory named after the collection (similarly to the drop box ingest workflow) [PR #454](https://github.com/ualbertalib/avalon/pull/454)
 - Environment variable based configuration [#415](https://github.com/ualbertalib/avalon/pull/415) and samples [#416](https://github.com/ualbertalib/avalon/pull/416)
 - UofA Libraries splash page theme [#410](https://github.com/ualbertalib/avalon/pull/410), [#411](https://github.com/ualbertalib/avalon/pull/411) & [#412](https://github.com/ualbertalib/avalon/pull/412)
 - batch ingest post-encoding email [#403](https://github.com/ualbertalib/avalon/pull/403)
