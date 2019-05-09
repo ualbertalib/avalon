@@ -36,6 +36,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Changed
 
+- UI formatting tweaks: splash-page text size & footer margin [PR #452](UI formatting tweaks: splash-page text size & footer margin #452)
 - switch backend from PostgreSQL to MySQL (MariaDB) - Docker & Travis [#405](https://github.com/ualbertalib/avalon/pull/405)
 - resource description form: remove ability to import by bibliographic id [#398](https://github.com/ualbertalib/avalon/pull/398)
 - resource description form: add deposit agreement checkbox [#394](https://github.com/ualbertalib/avalon/pull/394)
