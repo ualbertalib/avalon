@@ -13,6 +13,9 @@ en:
       If you are an instructor, you cannot view these items in student mode.
       Please switch back to instructor mode to view. If you are a student and
       receiving this message, please contact us at <a href="mailto:%s">%s</a>.
+    auth_error_email: |
+      The authentication process failed (e-mail invalid). If you
+      receive this message, please contact us at <a href="mailto:%s">%s</a>.
     messages:
       blank: "field is required."
       taken: "is taken."

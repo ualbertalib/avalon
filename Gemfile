@@ -50,6 +50,7 @@ gem 'ims-lti', '~> 1.1.13'
 gem 'net-ldap'
 gem 'omniauth-identity'
 gem 'omniauth-lti', git: "https://github.com/avalonmediasystem/omniauth-lti.git", tag: 'avalon-r4'
+gem 'omniauth-shibboleth'
 
 # Media Access & Transcoding
 gem 'active_encode', '~> 0.1.1'
@@ -137,11 +138,16 @@ group :test do
   gem 'fakefs', require: 'fakefs/safe'
   gem 'faker'
   gem 'hashdiff'
+  gem 'lograge'
   gem 'poltergeist'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
   gem 'simplecov'
   gem 'webmock'
+end
+
+group :staging do
+  gem 'lograge'
 end
 
 group :production do
