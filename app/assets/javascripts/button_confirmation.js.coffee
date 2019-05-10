@@ -35,9 +35,16 @@ $ ->
         $('#' + $(this).attr('form')).find('[name=\'_method\']').val 'delete'
       '<p>Are you sure?</p> ' + button + ' <a href="#" class="btn btn-xs btn-primary" id="special_button_color">No, Cancel</a>'
   ).click ->
+    # Bootstrap whitelist: add 'data-method as per bootstrap 3.4.1 update with new sanitizer code
+    # https://getbootstrap.com/docs/3.4/javascript/#js-sanitizer
+    dataMethodWhiteList = $.fn.tooltip.Constructor.DEFAULTS.whiteList
+    originalMethodWhiteList = dataMethodWhiteList.a.slice()
+    dataMethodWhiteList.a.push('data-method')
     t = this
     $('.btn-confirmation').filter(->
       this != t
     ).popover 'hide'
     $(this).popover 'show'
+    # return Bootstrap whitelist to original
+    dataMethodWhiteList.a = originalMethodWhiteList
     false
