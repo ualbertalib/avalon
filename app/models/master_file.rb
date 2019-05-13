@@ -724,9 +724,9 @@ class MasterFile < ActiveFedora::Base
     when 'delete'
       MasterFileManagementJobs::Delete.perform_now self.id
     when 'move-ui-upload-only'
-      # test Admin::Collection object dropbox_directory_name property within 
-      # reflected with the MasterFile locator property
-      # If not then move
+      # check if the MasterFile.file_location contains the `dropbox_directory_name`
+      # If video uploaded via the UI file upload then video stored in temporary upload directory
+      # Move to a directory named after the collection
       dropbox_directory_name = self.media_object.collection.dropbox_directory_name
       raise '"dropbox_directory_name" missing for master_file_management strategy "move-ui-upload-only"' if dropbox_directory_name.blank?
       if self.file_location.exclude? dropbox_directory_name
