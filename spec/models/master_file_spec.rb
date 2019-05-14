@@ -356,11 +356,11 @@ describe MasterFile do
         it "should not disappear after the post_processing_file_management executes" do
           new_media_object.collection = collection
           subject.media_object = new_media_object
-          tmp = Settings.master_file_management.strategy
+          @old_strategy = Settings.master_file_management.strategy
           Settings.master_file_management.strategy = 'move-ui-upload-only'
           subject.send(:post_processing_file_management)
           subject.reload
-          Settings.master_file_management.strategy = 'none' 
+          Settings.master_file_management.strategy = @old_strategy
           expect(File.exist?(subject.file_location)).to be_truthy
         end
       end
@@ -469,6 +469,12 @@ describe MasterFile do
     let(:encode) { double("encode", :output => []) }
     before do
       allow(master_file).to receive(:update_ingest_batch).and_return(true)
+      @old_strategy = Settings.master_file_management.strategy
+      Settings.master_file_management.strategy = 'none'
+    end
+
+    after do
+      Settings.master_file_management.strategy = @old_strategy
     end
 
     it 'should set the digitized date' do
@@ -531,11 +537,14 @@ describe MasterFile do
     before do
       ActiveJob::Base.queue_adapter = :test
       @old_path = Rails.application.secrets.matterhorn_client_media_path
+      @old_strategy = Settings.master_file_management.strategy
+      Settings.master_file_management.strategy = 'none'
       Rails.application.secrets.matterhorn_client_media_path= working_dir
     end
 
     after do
       Rails.application.secrets.matterhorn_client_media_path = @old_path
+      Settings.master_file_management.strategy = @old_strategy
     end
     describe 'post_processing_working_directory_file_management' do
       it 'enqueues the working directory cleanup job' do
