@@ -99,4 +99,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     notice_text = I18n.t('errors.lti_auth_error') % [support_email, support_email]
     redirect_to root_path, flash: { error: notice_text.html_safe }
   end
+
+  rescue_from Avalon::MissingUserEmail do |exception|
+    support_email = Settings.email.support
+    notice_text = I18n.t('errors.auth_error_email') % [support_email, support_email]
+    redirect_to root_path, flash: { error: notice_text.html_safe }
+  end
+
 end

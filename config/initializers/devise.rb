@@ -294,4 +294,18 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   OmniAuth.config.logger = Rails.logger
+
+  # ==> OmniAuth
+  # Add a new OmniAuth provider. Check the wiki for more information on setting
+  # up on your models and hooks.
+  # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  config.omniauth :shibboleth, {
+    :uid_field => 'uid',
+    :name_field => 'displayName',
+    :info_fields => {
+      :name => 'givenName',
+      :last_name => 'sn',
+      :email => 'mail'}
+  }
+
 end
