@@ -327,6 +327,7 @@ describe MasterFile do
         subject {
           mf = MasterFile.new()
           mf.setContent(upload)
+          mf.set_workflow()
           mf.save
           mf
         }
@@ -352,14 +353,15 @@ describe MasterFile do
           Rails.application.secrets.matterhorn_client_media_path = media_path
           expect(subject.working_file_path).to eq(File.join(media_path,original))
         end
-        it "should not disappear after the post_processing_file_management" do
+        it "should not disappear after the post_processing_file_management executes" do
           new_media_object.collection = collection
           subject.media_object = new_media_object
           tmp = Settings.master_file_management.strategy
           Settings.master_file_management.strategy = 'move-ui-upload-only'
           subject.send(:post_processing_file_management)
+          subject.reload
           Settings.master_file_management.strategy = 'none' 
-          expect(subject.file_location.exist?).to be_truthy
+          expect(File.exist?(subject.file_location)).to be_truthy
         end
       end
     end
