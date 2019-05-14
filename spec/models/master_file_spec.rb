@@ -316,14 +316,18 @@ describe MasterFile do
 
     describe "single uploaded file" do
       describe "uploaded file" do
+        let(:id)         { '123456789' }
         let(:fixture)    { File.expand_path('../../fixtures/videoshort.mp4',__FILE__) }
         let(:original)   { File.basename(fixture) }
         let(:tempfile)   { Tempfile.new('foo') }
         let(:media_path) { File.expand_path("../../master_files-#{SecureRandom.uuid}",__FILE__)}
         let(:upload)     { ActionDispatch::Http::UploadedFile.new :tempfile => tempfile, :filename => original, :type => 'video/mp4' }
+        let(:new_media_object) { MediaObject.new }
+        let(:collection) { FactoryGirl.create(:collection, name: 'rails env test')}
         subject {
-          mf = MasterFile.new
+          mf = MasterFile.new()
           mf.setContent(upload)
+          mf.save
           mf
         }
 
@@ -347,6 +351,15 @@ describe MasterFile do
         it "should copy an uploaded file to the media path" do
           Rails.application.secrets.matterhorn_client_media_path = media_path
           expect(subject.working_file_path).to eq(File.join(media_path,original))
+        end
+        it "should not disappear after the post_processing_file_management" do
+          new_media_object.collection = collection
+          subject.media_object = new_media_object
+          tmp = Settings.master_file_management.strategy
+          Settings.master_file_management.strategy = 'move-ui-upload-only'
+          subject.send(:post_processing_file_management)
+          Settings.master_file_management.strategy = 'none' 
+          expect(subject.file_location.exist?).to be_truthy
         end
       end
     end
