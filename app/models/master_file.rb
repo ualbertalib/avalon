@@ -724,15 +724,15 @@ class MasterFile < ActiveFedora::Base
     when 'delete'
       MasterFileManagementJobs::Delete.perform_now self.id
     when 'move_ui_upload_only'
-      # check if the MasterFile.file_location contains the `dropbox_directory_name`
+      # check if the MasterFile.file_location contains the collection directory name`
       # If video uploaded via the UI file upload then video stored in temporary upload directory
       # Move to a directory named after the collection
-      dropbox_directory_name = self.media_object.collection.dropbox_directory_name
-      raise '"dropbox_directory_name" missing for master_file_management strategy "move_ui_upload_only"' if dropbox_directory_name.blank?
-      if self.file_location.exclude? dropbox_directory_name
+      collection_directory_name = self.media_object.collection.dropbox_directory_name
+      raise '"path" configuration missing for master_file_management strategy "move_ui_upload_only"' if collection_directory_name.blank?
+      if self.file_location.exclude? collection_directory_name 
         move_path = Settings.master_file_management.path
         raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
-        newpath = File.join(move_path, dropbox_directory_name, MasterFile.post_processing_move_filename(file_location, id: id))
+        newpath = File.join(move_path, collection_directory_name, MasterFile.post_processing_move_filename(file_location, id: id))
         MasterFileManagementJobs::Move.perform_later self.id, newpath
       end
     when 'move'
