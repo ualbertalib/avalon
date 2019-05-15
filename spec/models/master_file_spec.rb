@@ -357,10 +357,13 @@ describe MasterFile do
           new_media_object.collection = collection
           subject.media_object = new_media_object
           @old_strategy = Settings.master_file_management.strategy
+          @old_path = Settings.master_file_management.path
           Settings.master_file_management.strategy = 'move-ui-upload-only'
+          Settings.master_file_management.path = media_path
           subject.send(:post_processing_file_management)
           subject.reload
           Settings.master_file_management.strategy = @old_strategy
+          Settings.master_file_management.path= @old_path
           expect(File.exist?(subject.file_location)).to be_truthy
         end
       end
