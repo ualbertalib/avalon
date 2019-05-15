@@ -26,7 +26,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Added
 
-- New file management strategy to allow retnetion of UI uploaded files in directory named after the collection (similarly to the drop box ingest workflow) [PR #454](https://github.com/ualbertalib/avalon/pull/454)
+- New file management strategy to allow retention of UI uploaded files in directory named after the collection (similarly to the drop box ingest workflow) [PR #454](https://github.com/ualbertalib/avalon/pull/454)
+  - Requires the following config to be added/changed to enable 
+    - `SETTINGS__MASTER_FILE_MANAGEMENT__PATH=/path/to/retention/dir`
+    - `SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY=move-ui-upload-only`
 - Shibboleth authenication (CCID-based) [PR #409](https://github.com/ualbertalib/avalon/pull/409/files)
 - Environment variable based configuration [#415](https://github.com/ualbertalib/avalon/pull/415) and samples [#416](https://github.com/ualbertalib/avalon/pull/416)
 - UofA Libraries splash page theme [#410](https://github.com/ualbertalib/avalon/pull/410), [#411](https://github.com/ualbertalib/avalon/pull/411) & [#412](https://github.com/ualbertalib/avalon/pull/412)
