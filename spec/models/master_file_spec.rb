@@ -358,7 +358,7 @@ describe MasterFile do
           subject.media_object = new_media_object
           @old_strategy = Settings.master_file_management.strategy
           @old_path = Settings.master_file_management.path
-          Settings.master_file_management.strategy = 'move-ui-upload-only'
+          Settings.master_file_management.strategy = 'move_ui_upload_only'
           Settings.master_file_management.path = media_path
           subject.send(:post_processing_file_management)
           subject.reload
