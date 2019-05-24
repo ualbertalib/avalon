@@ -316,14 +316,19 @@ describe MasterFile do
 
     describe "single uploaded file" do
       describe "uploaded file" do
+        let(:id)         { '123456789' }
         let(:fixture)    { File.expand_path('../../fixtures/videoshort.mp4',__FILE__) }
         let(:original)   { File.basename(fixture) }
         let(:tempfile)   { Tempfile.new('foo') }
         let(:media_path) { File.expand_path("../../master_files-#{SecureRandom.uuid}",__FILE__)}
         let(:upload)     { ActionDispatch::Http::UploadedFile.new :tempfile => tempfile, :filename => original, :type => 'video/mp4' }
+        let(:new_media_object) { MediaObject.new }
+        let(:collection) { FactoryGirl.create(:collection, name: 'rails env test')}
         subject {
-          mf = MasterFile.new
+          mf = MasterFile.new()
           mf.setContent(upload)
+          mf.set_workflow()
+          mf.save
           mf
         }
 
@@ -347,6 +352,19 @@ describe MasterFile do
         it "should copy an uploaded file to the media path" do
           Rails.application.secrets.matterhorn_client_media_path = media_path
           expect(subject.working_file_path).to eq(File.join(media_path,original))
+        end
+        it "should not disappear after the post_processing_file_management executes" do
+          new_media_object.collection = collection
+          subject.media_object = new_media_object
+          @old_strategy = Settings.master_file_management.strategy
+          @old_path = Settings.master_file_management.path
+          Settings.master_file_management.strategy = 'move_ui_upload_only'
+          Settings.master_file_management.path = media_path
+          subject.send(:post_processing_file_management)
+          subject.reload
+          Settings.master_file_management.strategy = @old_strategy
+          Settings.master_file_management.path= @old_path
+          expect(File.exist?(subject.file_location)).to be_truthy
         end
       end
     end
@@ -454,6 +472,12 @@ describe MasterFile do
     let(:encode) { double("encode", :output => []) }
     before do
       allow(master_file).to receive(:update_ingest_batch).and_return(true)
+      @old_strategy = Settings.master_file_management.strategy
+      Settings.master_file_management.strategy = 'none'
+    end
+
+    after do
+      Settings.master_file_management.strategy = @old_strategy
     end
 
     it 'should set the digitized date' do
@@ -516,11 +540,14 @@ describe MasterFile do
     before do
       ActiveJob::Base.queue_adapter = :test
       @old_path = Rails.application.secrets.matterhorn_client_media_path
+      @old_strategy = Settings.master_file_management.strategy
+      Settings.master_file_management.strategy = 'none'
       Rails.application.secrets.matterhorn_client_media_path= working_dir
     end
 
     after do
       Rails.application.secrets.matterhorn_client_media_path = @old_path
+      Settings.master_file_management.strategy = @old_strategy
     end
     describe 'post_processing_working_directory_file_management' do
       it 'enqueues the working directory cleanup job' do
