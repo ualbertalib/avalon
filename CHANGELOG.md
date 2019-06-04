@@ -47,6 +47,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Fixed
 
+- Fix lograge warning & iconv deprecation [#456](https://github.com/ualbertalib/avalon/pull/456/files)
 - fixes for the matterhorn path [#396](https://github.com/ualbertalib/avalon/pull/396)
 - Docker: reconfigure allowing streaming to work with full docker stack (for development) [#393](https://github.com/ualbertalib/avalon/pull/393)
 - Docker: avalon (rails) container store the installed gems in a volume [#392](https://github.com/ualbertalib/avalon/pull/392)

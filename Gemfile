@@ -92,6 +92,7 @@ gem 'with_locking'
 
 # Other
 gem 'levenshtein'
+gem 'lograge'
 gem 'rollbar'
 
 group :development do
@@ -138,7 +139,6 @@ group :test do
   gem 'fakefs', require: 'fakefs/safe'
   gem 'faker'
   gem 'hashdiff'
-  gem 'lograge'
   gem 'poltergeist'
   gem 'rspec-retry'
   gem 'shoulda-matchers'
@@ -146,14 +146,10 @@ group :test do
   gem 'webmock'
 end
 
-group :staging do
-  gem 'lograge'
-end
-
 group :production do
   gem 'google-analytics-rails', '1.1.0'
-  gem 'lograge'
 end
+
 
 # Install the bundle --with aws when running on Amazon Elastic Beanstalk
 group :aws, optional: true do
