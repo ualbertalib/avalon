@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core rails
-gem 'rails', '4.2.9'
+gem 'rails', '4.2.11.1'
 gem 'sqlite3'
 gem 'bootsnap', require: false
 gem 'sprockets', '~>3.7.2'
@@ -45,11 +45,12 @@ gem 'speedy-af', '~> 0.1.1'
 gem 'avalon-workflow', git: "https://github.com/avalonmediasystem/avalon-workflow.git", tag: 'avalon-r6.2'
 
 # Authentication & Authorization
-gem 'devise', '~> 4.4'
+gem 'devise', '~> 4.6'
 gem 'ims-lti', '~> 1.1.13'
 gem 'net-ldap'
 gem 'omniauth-identity'
 gem 'omniauth-lti', git: "https://github.com/avalonmediasystem/omniauth-lti.git", tag: 'avalon-r4'
+gem 'omniauth-shibboleth'
 
 # Media Access & Transcoding
 gem 'active_encode', '~> 0.1.1'
@@ -91,6 +92,7 @@ gem 'with_locking'
 
 # Other
 gem 'levenshtein'
+gem 'lograge'
 gem 'rollbar'
 
 group :development do
@@ -146,8 +148,8 @@ end
 
 group :production do
   gem 'google-analytics-rails', '1.1.0'
-  gem 'lograge'
 end
+
 
 # Install the bundle --with aws when running on Amazon Elastic Beanstalk
 group :aws, optional: true do

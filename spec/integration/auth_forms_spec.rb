@@ -17,11 +17,11 @@ require 'rails_helper'
 describe AuthFormsController, type: :feature do
   scenario "User reaches the login screen" do
     visit "/users/auth/identity"
-    expect(page).to have_text('Avalon Media System')
+    expect(page).to have_text('ERA A&plus;V')
   end
   
   scenario "User reaches the registration screen" do
     visit "/users/auth/identity/register"
-    expect(page).to have_text('Avalon Media System')
+    expect(page).to have_text('ERA A&plus;V')
   end
 end

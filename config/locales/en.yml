@@ -13,6 +13,9 @@ en:
       If you are an instructor, you cannot view these items in student mode.
       Please switch back to instructor mode to view. If you are a student and
       receiving this message, please contact us at <a href="mailto:%s">%s</a>.
+    auth_error_email: |
+      The authentication process failed (e-mail invalid). If you
+      receive this message, please contact us at <a href="mailto:%s">%s</a>.
     messages:
       blank: "field is required."
       taken: "is taken."
@@ -246,6 +249,28 @@ en:
       playlist:
         title: "Name"
         comment: "Description"
+
+  ualberta:
+    era_av_full: "University of Alberta ERA Audio and Video"
+    era_home: "ERA Home"
+    era_av_sign_in: "Log in"
+    era_av_sign_out: "Log out"
+    era_av_addition_signin: "select for additional menu options"
+    footer_ual_name: 'University of Alberta Libraries'
+    footer_ual_address: 'University of Alberta, Edmonton, AB, Canada T6G 2R3'
+    footer_privacy: 'Web Site Privacy Policy'
+    footer_login: 'Log in' 
+    footer_browse: 'Browse' 
+    footer_era_av_html: 'About ERA A<span class="plus">&plus;</span>V</a>'
+    footer_policies: 'Policies'
+    footer_tech_and_partner: 'Technology and Partnerships'
+    footer_contact_us: 'Contact Us'
+    footer_how_to_deposit: 'How to Deposit'
+    footer_heading_quick_links: 'Quick Links'
+    footer_heading_polices: 'Polices'
+    footer_heading_get_help: 'Get Help'
+
+  powered_by_avalon: "Powered by Avalon"
 
   required_field_html:
     <strong><span class="tooltip-label-required">*</span> indicates required field</strong>

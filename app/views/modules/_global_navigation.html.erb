@@ -16,14 +16,17 @@ Unless required by applicable law or agreed to in writing, software distributed
 <div class="container-fluid">
 <div id="header-navbar" class="navbar navbar-inverse navbar-static-top" role="navigation">
   <div class="container">
-    <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-    <%= link_to application_name, root_path, class: "navbar-brand desktop-hidden" %>
+    <div class="navbar-header row">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#user-util-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <div class="mast-branding col-xs-8 desktop-hidden">
+        <h1><a href="/">ERA</a></h1>
+        <h2><span class="glyphicon glyphicon-triangle-right" aria-hidden="true"></span>AUDIO <span class="plus-head">&plus;</span> VIDEO</h2>
+      </div>
     </div>
 
     <div class="collapse navbar-collapse" id="user-util-collapse">

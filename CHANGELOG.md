@@ -20,8 +20,19 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 - this change log record starts at such time (i.e., 2018-07-26) the upstream tag [v6.4.3](https://github.com/ualbertalib/avalon/pull/347) was merged into the local UAL `avalon-6` branch along with the following additions. This record might be incomplete as the list was compiled after the fact. Also note some PRs have been merged into the upstream master.
 
+### Security
+- Bups rails from 4.2.9 to 4.2.11.1. This update addresses [Two Vulnerabilities in Action View](https://weblog.rubyonrails.org/2019/3/13/Rails-4-2-5-1-5-1-6-2-have-been-released/). [PR#429](https://github.com/ualbertalib/avalon/pull/429)
+- Bups devise from devise from 3.5.10 to 4.6.1. This update addresses [CVE-2019-5421](https://github.com/rubysec/ruby-advisory-db/blob/master/gems/devise/CVE-2019-5421.yml). [PR#437](https://github.com/ualbertalib/avalon/pull/437)
+
 ### Added
 
+- New file management strategy to allow retention of UI uploaded files in directory named after the collection (similarly to the drop box ingest workflow) [PR #454](https://github.com/ualbertalib/avalon/pull/454)
+  - Requires the following config to be added/changed to enable 
+    - `SETTINGS__MASTER_FILE_MANAGEMENT__PATH=/path/to/retention/dir`
+    - `SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY=move_ui_upload_only`
+- Shibboleth authenication (CCID-based) [PR #409](https://github.com/ualbertalib/avalon/pull/409/files)
+- Environment variable based configuration [#415](https://github.com/ualbertalib/avalon/pull/415) and samples [#416](https://github.com/ualbertalib/avalon/pull/416)
+- UofA Libraries splash page theme [#410](https://github.com/ualbertalib/avalon/pull/410), [#411](https://github.com/ualbertalib/avalon/pull/411) & [#412](https://github.com/ualbertalib/avalon/pull/412)
 - batch ingest post-encoding email [#403](https://github.com/ualbertalib/avalon/pull/403)
 - setup `resque` logging [#378](https://github.com/ualbertalib/avalon/pull/382)
 - Unpublish button for editors of a media object [#354](https://github.com/ualbertalib/avalon/pull/354)
@@ -29,12 +40,14 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Changed
 
+- UI formatting tweaks: splash-page text size & footer margin [PR #452](UI formatting tweaks: splash-page text size & footer margin #452)
 - switch backend from PostgreSQL to MySQL (MariaDB) - Docker & Travis [#405](https://github.com/ualbertalib/avalon/pull/405)
 - resource description form: remove ability to import by bibliographic id [#398](https://github.com/ualbertalib/avalon/pull/398)
 - resource description form: add deposit agreement checkbox [#394](https://github.com/ualbertalib/avalon/pull/394)
 
 ### Fixed
 
+- Fix lograge warning & iconv deprecation [#456](https://github.com/ualbertalib/avalon/pull/456/files)
 - fixes for the matterhorn path [#396](https://github.com/ualbertalib/avalon/pull/396)
 - Docker: reconfigure allowing streaming to work with full docker stack (for development) [#393](https://github.com/ualbertalib/avalon/pull/393)
 - Docker: avalon (rails) container store the installed gems in a volume [#392](https://github.com/ualbertalib/avalon/pull/392)

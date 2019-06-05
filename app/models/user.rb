@@ -84,7 +84,30 @@ class User < ActiveRecord::Base
       Course.create :context_id => class_id, :label => auth_hash.extra.consumer.context_label, :title => class_name unless class_name.nil?
     end
 
-    self.find_or_create_by_username_or_email(auth_hash.uid, auth_hash.info.email)
+    self.find_or_create_by_username_or_email(auth_hash.info.email, auth_hash.info.email)
+  end
+
+  def self.find_for_api(username, email, signed_in_resource=nil)
+    User.find_by_username(username) ||
+    User.find_by_email(email) ||
+    User.create(:username => username, :email => email)
+  end
+
+  def self.find_for_shibboleth(auth_hash, signed_in_resource=nil)
+
+    if auth_hash.uid.blank?
+      raise Avalon::MissingUserId
+    end
+
+    if auth_hash.info.email.blank?
+      raise Avalon::MissingUserEmail
+    end
+
+    result =
+      User.find_by_username(auth_hash.uid) ||
+      User.find_by_email(auth_hash.info.email) ||
+      User.create(:username => auth_hash.info.email, :email => auth_hash.info.email)
+
   end
 
   def self.autocomplete(query)
@@ -119,3 +142,4 @@ class User < ActiveRecord::Base
 end
 
 class Avalon::MissingUserId < StandardError; end
+class Avalon::MissingUserEmail < StandardError; end
