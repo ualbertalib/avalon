@@ -1,6 +1,6 @@
 class PagesController < ApplicationController
 
-  def about_eraav
+  def eraav_about
   end
 
   def policies

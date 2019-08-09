@@ -140,9 +140,7 @@ Unless required by applicable law or agreed to in writing, software distributed
     <label for="agreement_checkbox">
       <input id="agreement_checkbox" type="checkbox" checked="false" name="deposit_agreement" />
       I have read and do agree to the
-      <a target="_blank" href="https://era.library.ualberta.ca/agreement/">
-        University of Alberta ERA Audio + Video Deposit and Distribution Agreement.
-      </a>
+      <%= link_to("University of Alberta ERA Audio + Video Deposit and Distribution Agreement.", policies_path(anchor: 'era-agreement')) %>
     </label>
   </div>
 

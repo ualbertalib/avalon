@@ -183,7 +183,7 @@ Rails.application.routes.draw do
   get '/technology', to: 'pages#technology'
   get '/deposit', to: 'pages#deposit'
   get '/contact', to: 'pages#contact'
-  get '/about_eraav', to: 'pages#about_eraav'
+  get '/eraav_about', to: 'pages#eraav_about'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

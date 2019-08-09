@@ -7,10 +7,32 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ## Table of Contents
 
+- [Avalon-6 Production v6.4.3.20190809.uofa](#Production v6.4.3.20190809.uofa)
+- [Avalon-6 Production v6.4.3.20190709.uofa](#Production v6.4.3.20190709.uofa)
 - [Avalon-6 6.4.3.Unreleased](#Avalon.v6.4.3.Unreleased)
 - [Avalon-6 6.4.2.Unreleased](#Avalon.v6.4.2.Unreleased)
 - [Avalon-5 v5.1.5.20180727](#Avalon-v5.1.5.20180727)
 
+<a name="Production v6.4.3.20190709.uofa" />
+## Avalon-6 Production v6.4.3.20190809.uofa
+
+### Added
+
+- include controlled vocabulary config file to repo [PR#508](https://github.com/ualbertalib/avalon/pull/508/files)
+- add missing Rollbar initializer [PR#508](https://github.com/ualbertalib/avalon/pull/508/files)
+
+### Bugfix
+
+- Fixes misspelled "Policies" heading with page footer [#504](https://github.com/ualbertalib/avalon/issues/504)
+- Fix "About ERA A+V" page content [#505](https://github.com/ualbertalib/avalon/issues/505)
+- Update link URL for ERA deposit agreement [#506](https://github.com/ualbertalib/avalon/issues/506)
+
+<a name="Production v6.4.3.20190709.uofa" />
+## Production v6.4.3.20190709.uofa
+
+### Notes
+
+Tagged production release
 
 <a name="Avalon.v6.4.3.Unreleased" />
 
@@ -21,13 +43,14 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - this change log record starts at such time (i.e., 2018-07-26) the upstream tag [v6.4.3](https://github.com/ualbertalib/avalon/pull/347) was merged into the local UAL `avalon-6` branch along with the following additions. This record might be incomplete as the list was compiled after the fact. Also note some PRs have been merged into the upstream master.
 
 ### Security
+
 - Bups rails from 4.2.9 to 4.2.11.1. This update addresses [Two Vulnerabilities in Action View](https://weblog.rubyonrails.org/2019/3/13/Rails-4-2-5-1-5-1-6-2-have-been-released/). [PR#429](https://github.com/ualbertalib/avalon/pull/429)
 - Bups devise from devise from 3.5.10 to 4.6.1. This update addresses [CVE-2019-5421](https://github.com/rubysec/ruby-advisory-db/blob/master/gems/devise/CVE-2019-5421.yml). [PR#437](https://github.com/ualbertalib/avalon/pull/437)
 
 ### Added
 
 - New file management strategy to allow retention of UI uploaded files in directory named after the collection (similarly to the drop box ingest workflow) [PR #454](https://github.com/ualbertalib/avalon/pull/454)
-  - Requires the following config to be added/changed to enable 
+  - Requires the following config to be added/changed to enable
     - `SETTINGS__MASTER_FILE_MANAGEMENT__PATH=/path/to/retention/dir`
     - `SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY=move_ui_upload_only`
 - Shibboleth authenication (CCID-based) [PR #409](https://github.com/ualbertalib/avalon/pull/409/files)

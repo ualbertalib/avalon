@@ -78,7 +78,7 @@ describe 'checks navigation to external links' do
     visit '/'
     # U of A custom page
     click_link('About ERA A&plus;V')
-    expect(page.current_url).to eq('http://www.example.com/about_eraav')
+    expect(page.current_url).to eq('http://www.example.com/eraav_about')
     page.should have_content('Key features include')
   end
   it 'checks navigation to Policies page' do
