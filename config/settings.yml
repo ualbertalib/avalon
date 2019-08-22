@@ -70,11 +70,13 @@ encode_throttling:
   update_jobs_spacing: 10
 auth:
   configuration:
-    - :name: Avalon Test Auth
-      :provider: :identity
-      :params:
-        :fields:
-        - :email
+<% if Rails.env.development? || Rails.env.test? %>
+  - :name: Avalon Test Auth
+    :provider: :identity
+    :params:
+      :fields:
+      - :email
+<% end %>
 <% if Rails.application.secrets.lti_auth_key.present? %>
     - :name: Avalon LTI OAuth
       :provider: :lti
@@ -83,3 +85,8 @@ auth:
         :oauth_credentials:
           <%= Rails.application.secrets.lti_auth_key %>: <%= Rails.application.secrets.lti_auth_secret %>
 <% end %>
+<% if Rails.env.staging? || Rails.env.production? %>
+    - :name: Avalon Shibboleth OAuth
+      :provider: :shibboleth
+<% end %>
+
