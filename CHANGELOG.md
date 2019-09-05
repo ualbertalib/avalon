@@ -7,12 +7,19 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ## Table of Contents
 
+- [Unreleased](#Unreleased)
 - [Avalon-6 Production v6.4.3.20190821.uofa](#Production v6.4.3.20190821.uofa)
 - [Avalon-6 Production v6.4.3.20190809.uofa](#Production v6.4.3.20190809.uofa)
 - [Avalon-6 Production v6.4.3.20190709.uofa](#Production v6.4.3.20190709.uofa)
 - [Avalon-6 6.4.3.Unreleased](#Avalon.v6.4.3.Unreleased)
 - [Avalon-6 6.4.2.Unreleased](#Avalon.v6.4.2.Unreleased)
 - [Avalon-5 v5.1.5.20180727](#Avalon-v5.1.5.20180727)
+
+<a name="Unreleased" />
+## Unreleased
+
+### Changed
+- use a direct link to the Feature Item rather than a search avoids needing to be logged-in [#529](https://github.com/ualbertalib/avalon/issues/529)
 
 <a name="Production v6.4.3.20190821.uofa" />
 ## Avalon-6 Production v6.4.3.20190821.uofa
