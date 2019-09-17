@@ -39,7 +39,7 @@ class BatchRegistriesMailer < ApplicationMailer
       to: email,
       cc: Settings.email.errors,
       from: Settings.email.notification,
-      subject: "#{prefix} Batch Registry #{@batch_registry.file_name} for #{collection_text} has completed"
+      subject: "#{prefix} Batch Registry #{@batch_registry.dir + "/" + @batch_registry.file_name} for #{collection_text} has completed"
     )
   end
 
@@ -73,7 +73,7 @@ class BatchRegistriesMailer < ApplicationMailer
       to: @email,
       cc: Settings.email.errors,
       from: Settings.email.notification,
-      subject: "#{@status}: Batch encoding #{@batch_registry.file_name} for #{@collection_text}"
+      subject: "#{@status}: Batch encoding #{@batch_registry.dir + "/" + @batch_registry.file_name} for #{@collection_text}"
     )
   end
 
