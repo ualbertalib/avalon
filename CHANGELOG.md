@@ -18,8 +18,12 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 <a name="Unreleased" />
 ## Unreleased
 
+
 ### Changed
 - use a direct link to the Feature Item rather than a search avoids needing to be logged-in [#529](https://github.com/ualbertalib/avalon/issues/529)
+### Fixed
+- Fixed audio quality selector being cut off on mobile by opening selector downwards [#531](https://github.com/ualbertalib/avalon/issues/531)
+
 
 <a name="Production v6.4.3.20190821.uofa" />
 ## Avalon-6 Production v6.4.3.20190821.uofa
