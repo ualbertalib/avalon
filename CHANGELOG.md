@@ -19,10 +19,13 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Unreleased
 
 ### Changed
+- use a direct link to the Feature Item rather than a search avoids needing to be logged-in [#529](https://github.com/ualbertalib/avalon/issues/529)
 - use a public collection for the Featured Video Collection rather than a protected one [#536](https://github.com/ualbertalib/avalon/issues/536)
 
 ### Fixed
 - Fixed audio quality selector being cut off on mobile by opening selector downwards [#531](https://github.com/ualbertalib/avalon/issues/531)
+- update the links on the edit page to the EDTF standard [#419](https://github.com/ualbertalib/avalon/issues/419)
+
 
 <a name="Production v6.4.3.20190821.uofa" />
 ## Avalon-6 Production v6.4.3.20190821.uofa
