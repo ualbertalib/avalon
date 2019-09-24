@@ -17,9 +17,11 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - [Avalon-5 v5.1.5.20180727](#Avalon-v5.1.5.20180727)
 
 <a name="Unreleased" />
+
 ### Unreleased
 
 <a name="Production.v6.4.3.20190924.uofa" />
+
 ### Avalon-6 Production v6.4.3.20190924.uofa
 
 #### Changed
@@ -34,6 +36,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - [Security] Bump nokogiri from 1.10.3 to 1.10.4 [PR#549](https://github.com/ualbertalib/avalon/pull/549)
 
 <a name="Production.v6.4.3.20190821.uofa" />
+
 ### Avalon-6 Production v6.4.3.20190821.uofa
 
 #### Bugfix
@@ -54,6 +57,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - Update link URL for ERA deposit agreement [#506](https://github.com/ualbertalib/avalon/issues/506)
 
 <a name="Production.v6.4.3.20190709.uofa" />
+
 ### Production v6.4.3.20190709.uofa
 
 #### Notes
