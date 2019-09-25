@@ -16,6 +16,9 @@ Unless required by applicable law or agreed to in writing, software distributed
 <p>Your batch is now queued.</p>
 <% if @package.manifest.file.present? %>
   <p>
-    <%= "Manifest file: #{@package.manifest.file}" %>
+    <%= "Manifest file: #{@package.title}" %>
+  </p>
+  <p>
+    <%= "Manifest file with path: #{@package.manifest.file}" %>
   </p>
 <% end %>
