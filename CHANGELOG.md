@@ -20,6 +20,9 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Changed
+- Batch ingest emails now display full path of manifest file [#533](https://github.com/ualbertalib/avalon/issues/533)
+
 <a name="Production.v6.4.3.20190924.uofa" />
 
 ### Avalon-6 Production v6.4.3.20190924.uofa
