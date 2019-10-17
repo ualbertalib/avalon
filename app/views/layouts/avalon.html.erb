@@ -20,6 +20,7 @@ Unless required by applicable law or agreed to in writing, software distributed
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <%= tag :meta, name: "generator", content: "#{t(:release_label)} #{Avalon::VERSION}" %>
     <title><%= render_page_title %></title>
+    <%= opensearch_description_tag application_name, opensearch_catalog_url(format: 'xml') %>
     <link rel="stylesheet" media="screen" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700%7CPlayfair+Display:400,700%7CAbel" />
 
    <%= csrf_meta_tags %>
