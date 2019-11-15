@@ -40,6 +40,9 @@ $ ->
     dataMethodWhiteList = $.fn.tooltip.Constructor.DEFAULTS.whiteList
     originalMethodWhiteList = dataMethodWhiteList.a.slice()
     dataMethodWhiteList.a.push('data-method')
+    dataMethodWhiteList.input = []
+    dataMethodWhiteList.input.push('form')
+    dataMethodWhiteList.input.push('type')  
     t = this
     $('.btn-confirmation').filter(->
       this != t
