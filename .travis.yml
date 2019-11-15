@@ -14,8 +14,8 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install mediainfo
   - sudo ln -s /usr/bin/lsof /usr/sbin/lsof
-  - gem install bundler -v '< 2'
   - bundle config without development:production:staging:uat
+  - bundle --version
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
