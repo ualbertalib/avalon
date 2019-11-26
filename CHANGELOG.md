@@ -28,6 +28,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - include opensearch description in the layout [#519](https://github.com/ualbertalib/avalon/issues/519)
 
 #### Security
+- [Security] Bump loofah from 2.2.3 to 2.3.1 [#565](https://github.com/ualbertalib/avalon/pull/565)
 - [Security] Bump nokogiri from 1.10.4 to 1.10.5 [#579](https://github.com/ualbertalib/avalon/pull/579)
 - [Security] Bump rubyzip from 1.2.2 to 1.3.0 [PR#565](https://github.com/ualbertalib/avalon/pull/565)
 
