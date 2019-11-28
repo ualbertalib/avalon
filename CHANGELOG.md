@@ -23,6 +23,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 #### Changed
 - Batch ingest emails now display full path of manifest file [#533](https://github.com/ualbertalib/avalon/issues/533)
 - default Application name [#541](https://github.com/ualbertalib/avalon/issues/541)
+- Documentation: add LTI config env variables [#582](https://github.com/ualbertalib/avalon/issues/582)
 
 #### Added
 - include opensearch description in the layout [#519](https://github.com/ualbertalib/avalon/issues/519)

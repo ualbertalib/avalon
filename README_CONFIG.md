@@ -119,6 +119,11 @@ The following is a list of properties managed via the Config Gem thru the `setti
   - `SETTINGS__STREAMING__RTMP_BASE=`: E.G., 'rtmp://{fqdn}/avalon6'
   - `SETTINGS__STREAMING__HTTP_BASE`: E.G., 'http://{fqdn}:1935/avalon6/_definst_'
 
+- Learning management system integration: LTI
+  - `LTI_SERVERS`: learning management.system.server.ca
+  - `LTI_AUTH_KEY`: name of the key (add to learning management system)
+  - `LTI_AUTH_SECRET`: value of the secret (add to learning management system)
+
 ## Example
 
 ```
@@ -192,10 +197,14 @@ SETTINGS__STREAMING__RTMP_BASE='rtmp://{host}/avalon6'
 SETTINGS__STREAMING__HTTP_BASE='http://{host}:1935/avalon6/_definst_'
 
 #Other
-
 SECRET_KEY_BASE
 GOOGLE_ANALYTICS_TOKEN
 ROLLBAR_TOKEN
+
+#LTI
+LTI_SERVERS learning.management.system.server.ca
+LTI_AUTH_KEY key
+LTI_AUTH_SECRET xxxxxxxxxx
 ```
 
 ## Possibilities for setting environment variables
