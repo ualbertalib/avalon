@@ -426,6 +426,18 @@ describe MediaObject do
    end
   end
 
+  describe "Correctly handle genre" do
+    it "should reflect datastream changes on media object" do
+      media_object.genre=['Aviation','interview'] #lowercase should not be included
+      media_object.save
+      media_object.reload
+      expect(media_object.genre).to include('Aviation')
+      expect(media_object.genre).not_to include('interview')
+      aviationURI = 'http://pbcore.org/vocabularies/pbcoreGenre%23aviation'
+      expect(media_object.descMetadata.find_by_terms(:genre).select { |r| r['valueURI'] == aviationURI }).not_to eq([])
+    end
+  end
+
   describe "Update datastream directly" do
     it "should reflect datastream changes on media object" do
       media_object.descMetadata.add_bibliographic_id('ABC123','local')

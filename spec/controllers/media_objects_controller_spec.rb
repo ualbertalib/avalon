@@ -276,6 +276,7 @@ describe MediaObjectsController, type: :controller do
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
           expect(new_media_object.bibliographic_id).to eq({source: "local", id: bib_id})
           expect(new_media_object.title).to eq('245 A : B F G K N P S')
+          expect(new_media_object.genre).to include('Aviation')
         end
         it "should create a new media_object with supplied fields when bib import fails" do
           Settings.bib_retriever = { 'protocol' => 'sru', 'url' => 'http://zgate.example.edu:9000/db' }

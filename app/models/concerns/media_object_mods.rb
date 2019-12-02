@@ -236,7 +236,7 @@ module MediaObjectMods
 
   def genre=(value)
     delete_all_values(:genre)
-    descMetadata.genre = value if value.present?
+    Array(value).each { |val| descMetadata.add_genre(val) if val.present? }
   end
 
   # TODO: Review this with jlhardes
