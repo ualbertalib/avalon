@@ -14,7 +14,7 @@
   "SETTINGS__BIB_RETRIEVER__PORT":"2200",
   "SETTINGS__BIB_RETRIEVER__DATABASE":"Unicorn",
   "SETTINGS__BIB_RETRIEVER__ATTRIBUTE":"12",
-  "SETTINGS__CONTROLLED_VOCABULARY":"config/controlled_vocabulary.yml",
+  "SETTINGS__CONTROLLED_VOCABULARY__PATH":"config/controlled_vocabulary.yml",
   "SETTINGS__DROPBOX__PATH":"/srv/avalon6/dropbox/",
   "SETTINGS__DROPBOX__UPLOAD_URI":"sftp://{host}/dropbox",
   "SETTINGS__EMAIL__COMMENTS":"deploy@localhost",

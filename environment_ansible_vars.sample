@@ -37,7 +37,7 @@ SETTINGS__BIB_RETRIEVER__DATABASE: 'Unicorn'
 SETTINGS__BIB_RETRIEVER__ATTRIBUTE: '12'
  
 #
-SETTINGS__CONTROLLED_VOCABULARY: 'config/controlled_vocabulary.yml'
+SETTINGS__CONTROLLED_VOCABULARY__PATH: 'config/controlled_vocabulary.yml'
  
 # Avalon drop box for files (not DropBox the company
 SETTINGS__DROPBOX__PATH: '/srv/avalon6/dropbox/'

@@ -87,7 +87,7 @@ The following is a list of properties managed via the Config Gem thru the `setti
 - `SETTINGS__BIB_RETRIEVER__DATABASE`:
 - `SETTINGS__BIB_RETRIEVER__ATTRIBUTE`:
 
-- `SETTINGS__CONTROLLED_VOCABULARY`: E.G., config/controlled_vocabulary.yml'
+- `SETTINGS__CONTROLLED_VOCABULARY__PATH`: E.G., config/controlled_vocabulary.yml'
 
 - Avalon drop box for files (not DropBox the company)
 
