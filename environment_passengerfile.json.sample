@@ -1,6 +1,7 @@
 {
   "DATABASE_URL":"mysql2://{username}:{password}@localhost:3306/rails?pool=5&timeout=5000",
   "FEDORA_URL":"http://{username}:{password}@localhost:8984/fedora/rest/prod",
+  "FEDORA_BASE_PATH":"/prod"                                         
   "MATTERHORN_URL":"http://matterhorn_system_account:{password}@{host}:4080/",
   "MATTERHORN_CLIENT_MEDIA_PATH":"/masterfiles",
   "MATTERHORN_SERVER_MEDIA_PATH":"/masterfiles",
@@ -24,7 +25,8 @@
   "SETTINGS__EMAIL__MAILER__SMTP__PORT":"25",
   "SETTINGS__EMAIL__MAILER__SMTP__ENABLE_STARTTLS_AUTO":"true",
   "SETTINGS__FFMPEG__PATH":"/usr/bin/ffmpeg",
-  "SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY":"none",
+  "SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY":"move_ui_upload_only",
+  "SETTINGS__MASTER_FILE_MANAGEMENT__PATH":"/srv/avalon6/dropbox",
   "SETTINGS__MEDIAINFO__PATH":"/usr/bin/mediainfo",
   "SETTINGS__STREAMING__SERVER":"wowza",
   "SETTINGS__STREAMING__CONTENT_PATH":"/avalon6",

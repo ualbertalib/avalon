@@ -6,7 +6,8 @@ DATABASE_URL: 'mysql2://{username}:{password}@localhost:3306/rails?pool=5&timeou
  
 # Fedora Gem: see for details
 # should 'dev/prod' be added to the path? avdev01 uses '' (empty path) with first configured Nov. 2018
-FEDORA_URL: 'http://{username}:{password}@localhost:8984/fedora/rest/prod'
+FEDORA_URL: 'http://{username}:{password}@localhost:8984/fedora/rest'
+FEDORA_BASE_PATH: '/prod'
  
 # Matterhorn: details in Gem Rubyhorn
 MATTERHORN_URL: 'http://matterhorn_system_account:{password}@{host}:4080/'
@@ -55,7 +56,8 @@ SETTINGS__EMAIL__MAILER__SMTP__ENABLE_STARTTLS_AUTO: 'true'
 SETTINGS__FFMPEG__PATH: '/usr/bin/ffmpeg'
  
 #
-SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY: 'none'
+SETTINGS__MASTER_FILE_MANAGEMENT__STRATEGY: 'move_ui_upload_only'
+SETTINGS__MASTER_FILE_MANAGEMENT__PATH: '/srv/avalon6/dropbox'
  
 #
 SETTINGS__MEDIAINFO__PATH: '/usr/bin/mediainfo'
