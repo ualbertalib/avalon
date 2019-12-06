@@ -46,6 +46,18 @@ describe MediaObject do
         expect(media_object.errors[:language]).not_to be_empty
       end
     end
+    describe 'genre' do
+      it "should validate valid genre" do
+        media_object.genre='Aviation'
+        expect(media_object.valid?).to be_truthy
+        expect(media_object.errors[:genre]).to be_empty 
+      end
+      it "should not validate invalid genre" do
+        media_object.genre='interview'
+        expect(media_object.valid?).to be_falsey 
+        expect(media_object.errors[:genre]).not_to be_empty 
+      end
+    end
     describe 'dates' do
       let! (:valid_dates) {{
           '-9999' => ['-9999'],
@@ -428,11 +440,10 @@ describe MediaObject do
 
   describe "Correctly handle genre" do
     it "should reflect datastream changes on media object" do
-      media_object.genre=['Aviation','interview'] #lowercase should not be included
+      media_object.genre='Aviation'
       media_object.save
       media_object.reload
       expect(media_object.genre).to include('Aviation')
-      expect(media_object.genre).not_to include('interview')
       aviationURI = 'http://pbcore.org/vocabularies/pbcoreGenre%23aviation'
       expect(media_object.descMetadata.find_by_terms(:genre).select { |r| r['valueURI'] == aviationURI }).not_to eq([])
     end

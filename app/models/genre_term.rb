@@ -55,7 +55,7 @@ class GenreTerm < Struct.new(:id, :text, :uri)
     end
 
     def normalize_text(text)
-      text.downcase.gsub(/[^a-zA-Z0-9_]+/, '_')
+      text.gsub(/[^a-zA-Z0-9_]+/, '_')
     end
 
     def load!
