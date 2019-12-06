@@ -34,7 +34,7 @@
         suggestion.display
     source: mySource
     limit: 10
-  ).on("typeahead:selected typeahead:autocompleted", (event, suggestion, dataset) ->
+  ).on("typeahead:selected", (event, suggestion, dataset) ->
     target = $("##{$t.data('target')}")
     target.val suggestion["id"]
     $t.data('matched_val',suggestion["display"])
@@ -50,7 +50,7 @@
       target.val ""
     else if $t.data('matched_val') != typed
       mySource.remote.get typed, (matches) ->
-        if matches.length > 0
+        if matches.length == 1
           target.val matches[0].id
         else if !$validate
           target.val typed

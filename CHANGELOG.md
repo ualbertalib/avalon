@@ -21,6 +21,9 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Changed
+- typeahead autocompletion of language [#545](https://github.com/ualbertalib/avalon/issues/545)
+
 <a name="Production.v6.4.3.20191204.uofa" />
 ### Avalon-6 Production v6.4.3.20191204.uofa
 
