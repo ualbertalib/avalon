@@ -24,7 +24,11 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 #### Changed
 - typeahead autocompletion of language [#545](https://github.com/ualbertalib/avalon/issues/545)
 
+#### Security
+- [Security] Bump rack from 1.6.11 to 1.6.12 [#593](https://github.com/ualbertalib/avalon/issues/593)
+
 <a name="Production.v6.4.3.20191204.uofa" />
+
 ### Avalon-6 Production v6.4.3.20191204.uofa
 
 #### Changed
