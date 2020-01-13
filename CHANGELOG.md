@@ -34,6 +34,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - Documentation: fixes missing `FEDORA_BASE_PATH` [#465](https://github.com/ualbertalib/avalon/pull/465)
 - Documentation: add LTI config env variables [#582](https://github.com/ualbertalib/avalon/issues/582)
 - Don't permit Genre with alternate capitalization [#545](https://github.com/ualbertalib/avalon/issues/545)
+- Fixes conversion of genre field to lowercase upon submission [#559](https://github.com/ualbertalib/avalon/issues/559) [PR #573](https://github.com/ualbertalib/avalon/pull/573)
 
 #### Added
 - include opensearch description in the layout [#519](https://github.com/ualbertalib/avalon/issues/519)
