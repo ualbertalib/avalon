@@ -548,7 +548,7 @@ class MasterFile < ActiveFedora::Base
   end
 
   def self.calculate_working_file_path(old_path)
-    config_path = Settings.matterhorn.media_path
+    config_path = Rails.application.secrets.matterhorn_client_media_path
     if config_path.present? && File.directory?(config_path)
       File.join(config_path, SecureRandom.uuid, File.basename(old_path))
     else
