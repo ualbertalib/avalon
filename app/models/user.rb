@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -49,6 +49,10 @@ class User < ActiveRecord::Base
 
   def playlist_tags
     Playlist.where(user_id:id).collect(&:tags).flatten.reject(&:blank?).uniq.sort
+  end
+
+  def timeline_tags
+    Timeline.where(user_id:id).collect(&:tags).flatten.reject(&:blank?).uniq.sort
   end
 
   def self.find_or_create_by_username_or_email(username, email)

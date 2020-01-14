@@ -7,7 +7,8 @@ env:
 services:
   - redis-server
 addons:
-  - mariadb: '10.3'
+  mariadb: '10.3'
+  chrome: stable
 before_install:
   - sudo rm -vf /etc/apt/sources.list.d/*riak*
   - sudo rm -vf /etc/apt/sources.list.d/*hhvm*
@@ -19,13 +20,16 @@ before_install:
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
+  - yarn install
 script:
   - bundle exec rake
 language: ruby
 jdk:
   - oraclejdk8
+global_env:
+  - BUNDLER_VERSION=1.17.3
 rvm:
-  - 2.4
   - 2.5
+  - 2.6
 dist: trusty
 sudo: required

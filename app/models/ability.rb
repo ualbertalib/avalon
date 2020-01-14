@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -18,6 +18,7 @@ class Ability
   include Hydra::MultiplePolicyAwareAbility
 
   self.ability_logic += [ :playlist_permissions, :playlist_item_permissions, :marker_permissions ]
+  self.ability_logic += [ :timeline_permissions ] if Settings['timeliner'].present?
 
   def user_groups
     return @user_groups if @user_groups
@@ -201,6 +202,20 @@ class Ability
     can :read, AvalonMarker do |marker|
       (can? :read, marker.playlist_item.playlist) &&
       (can? :read, marker.playlist_item.master_file)
+    end
+  end
+
+  def timeline_permissions
+    if @user.id.present?
+      can :manage, Timeline, user: @user
+      can :duplicate, Timeline, visibility: Timeline::PUBLIC
+      can :duplicate, Timeline do |timeline|
+        timeline.valid_token?(@options[:timeline_token])
+      end
+    end
+    can :read, Timeline, visibility: Timeline::PUBLIC
+    can :read, Timeline do |timeline|
+      timeline.valid_token?(@options[:timeline_token])
     end
   end
 

@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -16,7 +16,7 @@ require 'rails_helper'
 
 describe CleanupWorkingFileJob do
   let(:working_file) { '/temp/working_file.mp4' }
-  let(:master_file) { FactoryGirl.build(:master_file, working_file_path: [working_file]) }
+  let(:master_file) { FactoryBot.build(:master_file, working_file_path: [working_file]) }
 
   before do
     allow(MasterFile).to receive(:find).and_return(master_file)

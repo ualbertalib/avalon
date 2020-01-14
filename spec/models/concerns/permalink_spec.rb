@@ -1,11 +1,11 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
-# 
+#
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software distributed
 #   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 #   CONDITIONS OF ANY KIND, either express or implied. See the License for the
@@ -18,7 +18,7 @@ describe Permalink do
 
   describe '#permalink' do
 
-    let(:master_file){ FactoryGirl.build(:master_file) }
+    let(:master_file){ FactoryBot.build(:master_file) }
 
     context 'permalink does not exist' do
       it 'returns nil' do
@@ -50,11 +50,11 @@ describe Permalink do
 
     context 'creating permalink' do
       let(:media_object) do
-        mo = FactoryGirl.build(:media_object)
+        mo = FactoryBot.build(:media_object)
         mo.save
         mo.reload
       end
-      let(:master_file) { FactoryGirl.create(:master_file, media_object: media_object) }
+      let(:master_file) { FactoryBot.create(:master_file, media_object: media_object) }
 
       it 'should get the absolute path to the object' do
         expect(Permalink.url_for(media_object)).to eq("http://test.host/media_objects/#{CGI::escape(media_object.id)}")

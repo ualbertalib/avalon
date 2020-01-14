@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -48,7 +48,7 @@ class Admin::Collection < ActiveFedora::Base
     index.as :symbol
   end
   property :default_hidden, predicate: Avalon::RDFVocab::Collection.default_hidden, multiple: false do |index|
-    index.as Solrizer::Descriptor.new(:boolean, :stored, :indexed)
+    index.as ActiveFedora::Indexing::Descriptor.new(:boolean, :stored, :indexed)
   end
   property :identifier, predicate: ::RDF::Vocab::Identifiers.local, multiple: true do |index|
     index.as :symbol

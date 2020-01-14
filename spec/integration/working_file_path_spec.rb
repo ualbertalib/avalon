@@ -1,3 +1,17 @@
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
+#   University.  Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+#   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+#   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+#   specific language governing permissions and limitations under the License.
+# ---  END LICENSE_HEADER BLOCK  ---
+
 require 'rails_helper'
 
 # MasterFile#working_file_path has been a source of problems since it was introduced in 6.4.3
@@ -20,8 +34,8 @@ require 'rails_helper'
 # spec/lib/avalon/batch/entry_spec.rb:80
 #
 describe "MasterFile#working_file_path" do
-  let(:master_file) { FactoryGirl.build(:master_file) }
-  let(:media_object) { FactoryGirl.create(:media_object) }
+  let(:master_file) { FactoryBot.build(:master_file) }
+  let(:media_object) { FactoryBot.create(:media_object) }
   let(:workflow) { 'avalon' }
 
   context "with Settings.matterhorn.media_path set" do
@@ -115,7 +129,7 @@ describe "MasterFile#working_file_path" do
 
     context "using batch ingest" do
       let(:file) { fixture_file_upload('spec/fixtures/videoshort.mp4', 'video/mp4') }
-      let(:collection) { FactoryGirl.build(:collection) }
+      let(:collection) { FactoryBot.build(:collection) }
       let(:entry_fields) { { title: Faker::Lorem.sentence, date_issued: "#{DateTime.now.strftime('%F')}" } }
       let(:entry_files) { [{ file: File.absolute_path(file), skip_transcoding: false }] }
       let(:entry_opts) { {user_key: 'archivist1@example.org', collection: collection} }
@@ -237,7 +251,7 @@ describe "MasterFile#working_file_path" do
 
     context "using batch ingest" do
       let(:file) { fixture_file_upload('spec/fixtures/videoshort.mp4', 'video/mp4') }
-      let(:collection) { FactoryGirl.build(:collection) }
+      let(:collection) { FactoryBot.build(:collection) }
       let(:entry_fields) { { title: Faker::Lorem.sentence, date_issued: "#{DateTime.now.strftime('%F')}" } }
       let(:entry_files) { [{ file: File.absolute_path(file), skip_transcoding: false }] }
       let(:entry_opts) { {user_key: 'archivist1@example.org', collection: collection} }
