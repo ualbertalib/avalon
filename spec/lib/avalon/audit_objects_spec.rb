@@ -2,7 +2,7 @@ require 'rails_helper'
 require 'avalon/audit_objects'
 
 describe Avalon::AuditObjects do
-  let(:media_object) { FactoryGirl.create(:media_object) }
+  let(:media_object) { FactoryBot.create(:media_object) }
 
   before(:each) do
     allow(AuditObjectsMailer).to receive(:error_report) {
@@ -10,8 +10,8 @@ describe Avalon::AuditObjects do
     }
   end
 
-  let(:media_object) { FactoryGirl.create(:media_object) }
-  let(:master_file) { FactoryGirl.create(:master_file) }
+  let(:media_object) { FactoryBot.create(:media_object) }
+  let(:master_file) { FactoryBot.create(:master_file) }
 
   describe '#run' do
     it 'sends no report when everything is valid' do

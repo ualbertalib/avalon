@@ -259,8 +259,6 @@ describe MediaObjectsController, type: :controller do
           # master_file_obj = FactoryBot.create(:master_file, master_file.slice(:files))
           media_object = FactoryBot.create(:media_object)#, master_files: [master_file_obj])
           fields = media_object.export_descriptive_metadata_attributes
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          # fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
           post 'create', params: { format: 'json', fields: fields, files: [master_file], collection_id: collection.id }
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -283,8 +281,6 @@ describe MediaObjectsController, type: :controller do
         it "should create a new published media_object" do
           media_object = FactoryBot.create(:published_media_object)
           fields = media_object.export_descriptive_metadata_attributes
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          # fields = media_object.attributes.select {|k,v| descMetadata_fields.include? k.to_sym }
           post 'create', params: { format: 'json', fields: fields, files: [master_file], collection_id: collection.id, publish: true }
           expect(response.status).to eq(200)
           new_media_object = MediaObject.find(JSON.parse(response.body)['id'])
@@ -307,7 +303,6 @@ describe MediaObjectsController, type: :controller do
           stub_request(:get, sru_url).to_return(body: nil)
           ex_media_object = FactoryBot.create(:media_object)
           fields = ex_media_object.export_descriptive_metadata_attributes
-          descMetadata_fields.each {|f| fields[f] = ex_media_object.send(f) }
           fields[:bibliographic_id] = bib_id
           post 'create', params: { format: 'json', import_bib_record: true, fields: fields, files: [master_file], collection_id: collection.id }
           expect(response.status).to eq(200)
@@ -320,8 +315,6 @@ describe MediaObjectsController, type: :controller do
         it "should create a new media_object, removing invalid data for non-required fields" do
           media_object = FactoryBot.create(:media_object)
           fields = media_object.export_descriptive_metadata_attributes
-          descMetadata_fields.each {|f| fields[f] = media_object.send(f) }
-          fields[:language] = ['???']
           fields[:related_item_url] = ['???']
           fields[:related_item_label] = ['???']
           fields[:note] = ['note']
