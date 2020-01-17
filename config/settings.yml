@@ -71,11 +71,11 @@ encode_throttling:
 auth:
   configuration:
 <% if Rails.env.development? || Rails.env.test? %>
-  - :name: Avalon Test Auth
-    :provider: :identity
-    :params:
-      :fields:
-      - :email
+    - :name: Avalon Test Auth
+      :provider: :identity
+      :params:
+        :fields:
+        - :email
 <% end %>
 <% if Rails.application.secrets.lti_auth_key.present? %>
     - :name: Avalon LTI OAuth
@@ -89,4 +89,3 @@ auth:
     - :name: Avalon Shibboleth OAuth
       :provider: :shibboleth
 <% end %>
-
