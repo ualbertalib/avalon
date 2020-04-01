@@ -29,12 +29,12 @@ describe "MasterFile#working_file_path" do
 
     around(:example) do |example|
       begin
-        old_media_path = Settings.matterhorn.media_path
-        Settings.matterhorn.media_path = media_path
+        old_media_path = Rails.application.secrets.matterhorn_client_media_path
+        Rails.application.secrets.matterhorn_client_media_path = media_path
 
         example.run
 
-        Settings.matterhorn.media_path = old_media_path
+        Rails.application.secrets.matterhorn_client_media_path = old_media_path
       ensure
         FileUtils.remove_entry media_path
       end

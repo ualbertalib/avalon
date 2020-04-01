@@ -347,7 +347,7 @@ describe MasterFile do
         end
 
         it "should copy an uploaded file to the media path" do
-          Settings.matterhorn.media_path = media_path
+          Rails.application.secrets.matterhorn_client_media_path = media_path
           expect(File.fnmatch("#{media_path}/*/#{original}", subject.working_file_path.first)).to be true
         end
         it "should not disappear after the post_processing_file_management executes" do
@@ -539,8 +539,7 @@ describe MasterFile do
       @old_path = Rails.application.secrets.matterhorn_client_media_path
       @old_strategy = Settings.master_file_management.strategy
       Settings.master_file_management.strategy = 'none'
-      Rails.application.secrets.matterhorn_client_media_path= working_dir
-      Settings.matterhorn.media_path = working_dir
+      Rails.application.secrets.matterhorn_client_media_path = working_dir
     end
 
     after do
@@ -561,7 +560,7 @@ describe MasterFile do
       it 'returns a path when the working directory is valid' do
         file = File.new(Rails.root.join('spec', 'fixtures', 'videoshort.mp4'))
         master_file.setContent(file)
-        expect(master_file.working_file_path.first).to include(Settings.matterhorn.media_path)
+        expect(master_file.working_file_path.first).to include(Rails.application.secrets.matterhorn_client_media_path)
       end
     end
   end
