@@ -8,6 +8,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Table of Contents
 
 - [Unreleased](#Unreleased)
+- [Avalon-6 Production v6.4.3.20200402.uofa](#Production.v6.4.3.20200402.uofa)
 - [Avalon-6 Production v6.4.3.20200303.uofa](#Production.v6.4.3.20200303.uofa)
 - [Avalon-6 Production v6.4.3.20200120.uofa](#Production.v6.4.3.20200120.uofa)
 - [Avalon-6 Production v6.4.3.20191204.uofa](#Production.v6.4.3.20191204.uofa)
@@ -23,6 +24,14 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+<a name="Production.v6.4.3.20200402.uofa" />
+
+### Avalon-6 Production v6.4.3.20200402.uofa
+
+#### Security
+
+- [Security] Bump json from 2.1.0 to 2.3.0 [4fa048c](https://github.com/ualbertalib/avalon/commit/4fa048c5a5c614718309e937d3a89cc56c99f99b)
+
 <a name="Production.v6.4.3.20200303.uofa" />
 
 ### Avalon-6 Production v6.4.3.20200303.uofa
@@ -32,15 +41,16 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - [Security] Bump nokogiri from 1.10.5 to 1.10.9 [#616](https://github.com/ualbertalib/avalon/pull/616)
 - [Security] Bump omniauth from 1.7.1 to 1.9.1 [#617](https://github.com/ualbertalib/avalon/pull/617)
 
-
 <a name="Production.v6.4.3.2020200120.uofa" />
 
 ### Avalon-6 Production v6.4.3.20200120.uofa
 
 #### Changed
+
 - typeahead autocompletion of language [#545](https://github.com/ualbertalib/avalon/issues/545)
 
 #### Security
+
 - [Security] Bump rack from 1.6.11 to 1.6.12 [#593](https://github.com/ualbertalib/avalon/issues/593)
 
 <a name="Production.v6.4.3.20191204.uofa" />
@@ -48,6 +58,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ### Avalon-6 Production v6.4.3.20191204.uofa
 
 #### Changed
+
 - Batch ingest emails now display full path of manifest file [#533](https://github.com/ualbertalib/avalon/issues/533)
 - default Application name [#541](https://github.com/ualbertalib/avalon/issues/541)
 - Documentation: fix name of controlled vocabulary environment variable [#418](https://github.com/ualbertalib/avalon/pull/418)
@@ -56,9 +67,11 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 - Don't permit Genre with alternate capitalization [#545](https://github.com/ualbertalib/avalon/issues/545)
 
 #### Added
+
 - include opensearch description in the layout [#519](https://github.com/ualbertalib/avalon/issues/519)
 
 #### Security
+
 - [Security] Bump loofah from 2.2.3 to 2.3.1 [#565](https://github.com/ualbertalib/avalon/pull/565)
 - [Security] Bump nokogiri from 1.10.4 to 1.10.5 [#579](https://github.com/ualbertalib/avalon/pull/579)
 - [Security] Bump rubyzip from 1.2.2 to 1.3.0 [PR #565](https://github.com/ualbertalib/avalon/pull/565)
@@ -69,14 +82,17 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ### Avalon-6 Production v6.4.3.20190924.uofa
 
 #### Changed
+
 - use a direct link to the Feature Item rather than a search avoids needing to be logged-in [#529](https://github.com/ualbertalib/avalon/issues/529)
 - use a public collection for the Featured Video Collection rather than a protected one [#536](https://github.com/ualbertalib/avalon/issues/536)
 
 #### Fixed
+
 - Fixed audio quality selector being cut off on mobile by opening selector downwards [#531](https://github.com/ualbertalib/avalon/issues/531)
 - update the links on the edit page to the EDTF standard [#419](https://github.com/ualbertalib/avalon/issues/419)
 
 #### Security
+
 - [Security] Bump nokogiri from 1.10.3 to 1.10.4 [PR#549](https://github.com/ualbertalib/avalon/pull/549)
 
 <a name="Production.v6.4.3.20190821.uofa" />
@@ -84,6 +100,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ### Avalon-6 Production v6.4.3.20190821.uofa
 
 #### Bugfix
+
 - Fixes authentication configuration in staging/production environment to have shibboleth as the default [PR#520](https://github.com/ualbertalib/avalon/pull/520)
 
 <a name="Production.v6.4.3.20190809.uofa" />
