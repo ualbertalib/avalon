@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -12,10 +12,12 @@
 #   specific language governing permissions and limitations under the License.
 # ---  END LICENSE_HEADER BLOCK  ---
 
+require 'htmlentities'
+
 module MasterFileBehavior
   QUALITY_ORDER = { "auto" => 1, "high" => 2, "medium" => 3, "low" => 4 }.freeze
   EMBED_SIZE = { medium: 600 }.freeze
-  AUDIO_HEIGHT = 50
+  AUDIO_HEIGHT = 40
 
   def status?(value)
     status_code == value
@@ -46,7 +48,7 @@ module MasterFileBehavior
       hls << { quality: 'auto',
                mimetype: hls.first[:mimetype],
                format: hls.first[:format],
-               url: adaptive_master_file_url(id: id, format: :m3u8) }
+               url: hls_manifest_master_file_url(id: id, quality: 'auto') }
     end
 
     # Sorts the streams in order of quality, note: Hash order only works in Ruby 1.9 or later
@@ -68,11 +70,34 @@ module MasterFileBehavior
       embed_code: embed_code(EMBED_SIZE[:medium], {urlappend: '/embed'}),
       stream_flash: flash,
       stream_hls: hls,
+      cookie_auth: cookie_auth?,
       captions_path: captions_path,
       captions_format: captions_format,
       duration: (duration.to_f / 1000),
       embed_title: embed_title
     })
+  end
+
+  # Copied and extracted from stream_details for use in the waveformjob
+  # This isn't used in stream_details because it would be less efficient
+  def hls_streams
+    hls = []
+    derivatives.each do |d|
+      common = { quality: d.quality,
+                 bitrate: d.bitrate,
+                 mimetype: d.mime_type,
+                 format: d.format }
+      hls << common.merge(url: d.streaming_url(true))
+    end
+    if hls.length > 1
+      hls << { quality: 'auto',
+               mimetype: hls.first[:mimetype],
+               format: hls.first[:format],
+               url: hls_manifest_master_file_url(id: id, quality: 'auto') }
+    end
+
+    # Sorts the streams in order of quality
+    sort_streams hls
   end
 
   def display_title
@@ -94,7 +119,7 @@ module MasterFileBehavior
         embed_master_file_url(self.id, only_path: false, protocol: 'https://')
       end
       height = is_video? ? (width/display_aspect_ratio.to_f).floor : AUDIO_HEIGHT
-      "<iframe title=\"#{ embed_title }\" src=\"#{url}\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
+      "<iframe title=\"#{HTMLEntities.new.encode(embed_title)}\" src=\"#{url}\" width=\"#{width}\" height=\"#{height}\" frameborder=\"0\" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>"
     rescue
       ""
     end
@@ -102,6 +127,10 @@ module MasterFileBehavior
 
   def is_video?
     self.file_format != "Sound"
+  end
+
+  def cookie_auth?
+    Settings.streaming.server == "aws"
   end
 
   def sort_streams array

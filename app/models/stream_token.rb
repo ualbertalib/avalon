@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -55,6 +55,12 @@ class StreamToken < ActiveRecord::Base
     else
       raise Unauthorized, 'Unauthorized'
     end
+  end
+
+  def self.valid_token?(value, master_file_id)
+    return false if value.nil?
+    token = find_by_token(value)
+    token.present? && token.expires > Time.now.utc && token.target == master_file_id
   end
 
   def renew!

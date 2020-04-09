@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 describe FedoraMigrate::MediaObject::ObjectMover do
-  let(:media_object) { FactoryGirl.create(:media_object, :with_master_file, :with_completed_workflow) }
+  let(:media_object) { FactoryBot.create(:media_object, :with_master_file, :with_completed_workflow) }
   describe 'empty?' do
     it 'returns true when the media object has been wiped' do
       described_class.wipeout!(media_object)

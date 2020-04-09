@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 volumes:
   streaming:
@@ -14,6 +14,8 @@ volumes:
   redis:
     driver: local
   gems:
+    driver: local
+  npms:
     driver: local
 
 services:
@@ -36,7 +38,7 @@ services:
       - "8984:8080"
 
   solr:
-    image: solr:6.6
+    image: solr:6.6.4-alpine
     ports:
       - "8983:8983"
     volumes:
@@ -73,7 +75,10 @@ services:
 
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
-    command: "bin/docker-start"
+    build:
+      context: ./docker
+    command: "bin/docker-start" # Todo: this start?
+    # command: "/rails_init-dev.sh"
     depends_on:
       - db
       - fcrepo
@@ -83,7 +88,6 @@ services:
       - APP_NAME=avalon
       - ASSET_HOST=http://localhost:3000
       - AVALON_BRANCH=develop
-      - AVALON_DB_PASSWORD=avalondb
       - SETTINGS__DOMAIN=http://localhost:3000
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
       - DATABASE_URL=mysql2://root:mysecretpassword@db:3306/
@@ -126,9 +130,10 @@ services:
       - Z3950_HOST
       - Z3950_PORT
     volumes:
+      - .:/home/app/avalon
       - ./masterfiles:/masterfiles
       - gems:/home/app/gems
-      - .:/home/app/avalon
+      - npms:/home/app/node_modules
     ports:
       - "3000:3000"
     stdin_open: true

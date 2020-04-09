@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -23,9 +23,9 @@ module Avalon
         if whitelist.include? params[:file]
           file = @obj.send(params[:file])
           if file.nil? or file.new_record?
-            render :text => 'Not Found', :status => :not_found
+            render plain: 'Not Found', status: :not_found
           else
-            render :text => file.content, :content_type => file.mime_type
+            render plain: file.content, content_type: file.mime_type
           end
         else
           head :method_not_allowed

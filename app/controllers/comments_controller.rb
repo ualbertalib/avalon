@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -13,7 +13,7 @@
 # ---  END LICENSE_HEADER BLOCK  ---
 
 class CommentsController < ApplicationController
-  before_filter :set_subjects
+  before_action :set_subjects
 
   # Index replaces new in this context
   def index
@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     @comment.subject = params[:comment][:subject]
     @comment.comment = params[:comment][:comment]
 
-    if @comment.valid? and (Settings.recaptcha.blank? or verify_recaptcha(model: @comment))
+    if @comment.valid? && (Settings.recaptcha.blank? || verify_recaptcha(model: @comment))
       begin
         CommentsMailer.contact_email(@comment.to_h).deliver_later
       rescue Errno::ECONNRESET => e

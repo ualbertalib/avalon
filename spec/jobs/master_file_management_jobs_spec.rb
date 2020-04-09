@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -21,7 +21,7 @@ describe MasterFileManagementJobs do
   context "fakefs" do
 
     let(:location) { "/path/to/old/file.mp4" }
-    let!(:master_file) { FactoryGirl.create(:master_file, file_location: location) }
+    let!(:master_file) { FactoryBot.create(:master_file, file_location: location) }
 
     before :each do
       FakeFS.activate!

@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,7 +15,7 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # The default OmniAuth forms don't provide CSRF tokens, so we can't verify
   # them. Trying to verify results in a cleared session.
-  skip_before_filter :verify_authenticity_token
+  skip_before_action :verify_authenticity_token
 
   def passthru
     begin
@@ -66,13 +66,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if params['login_popup'].present? || (request.env["omniauth.params"].present? && request.env["omniauth.params"]["login_popup"].present?)
       flash[:success] = nil
       render inline: '<html><head><script>window.close();</script></head><body></body><html>'.html_safe
-    elsif request['target_id']
+    elsif params['target_id']
       # Whitelist params that are allowed to be passed through via LTI
       params_whitelist = %w{t position token}
       if params[:custom_embed_section]
-        redirect_to embed_master_file_path(request['target_id'], params.slice(*params_whitelist))
+        redirect_to embed_master_file_path(params['target_id'], params.permit(*params_whitelist).to_h)
       else
-        redirect_to objects_path(request['target_id'], params.slice(*params_whitelist))
+        redirect_to objects_path(params['target_id'], params.permit(*params_whitelist).to_h)
       end
     elsif params[:url]
       # Limit redirects to current host only

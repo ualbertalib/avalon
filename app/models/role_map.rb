@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -13,7 +13,7 @@
 # ---  END LICENSE_HEADER BLOCK  ---
 
 class RoleMap < ActiveRecord::Base
-  belongs_to :role, class_name: "RoleMap", foreign_key: "parent_id"
+  # belongs_to :role, class_name: "RoleMap", foreign_key: "parent_id"
   has_many :entries, class_name: "RoleMap", foreign_key: "parent_id"
   #attr_accessible :entry, :role, :parent_id
 

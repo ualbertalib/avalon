@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -17,7 +17,7 @@ require 'rails_helper'
 describe Avalon::Batch::Entry do
   let(:testdir) { Rails.root.join('spec', 'fixtures') }
   let(:filename) {'videoshort.mp4'}
-  let(:collection) {FactoryGirl.build(:collection)}
+  let(:collection) {FactoryBot.build(:collection)}
   let(:entry_fields) do
     { title: Faker::Lorem.sentence,
       topical_subject: 'This and that',
@@ -265,7 +265,7 @@ describe Avalon::Batch::Entry do
   end
 
   describe '#attach_datastreams_to_master_file' do
-    let(:master_file) { FactoryGirl.build(:master_file) }
+    let(:master_file) { FactoryBot.build(:master_file) }
     let(:filename) { File.join(Rails.root, 'spec/fixtures/dropbox/example_batch_ingest/assets/sheephead_mountain.mov') }
     before do
       Avalon::Batch::Entry.attach_datastreams_to_master_file(master_file, filename)
@@ -307,7 +307,7 @@ describe Avalon::Batch::Entry do
   end
 
   describe '#from_json' do
-    let(:collection) {FactoryGirl.create(:collection)}
+    let(:collection) {FactoryBot.create(:collection)}
     subject { Avalon::Batch::Entry.from_json(entry.to_json) }
     it "initializes a Avalon::Batch::Entry object from a json hash" do
       expect(subject).to be_an Avalon::Batch::Entry

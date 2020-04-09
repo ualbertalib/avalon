@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,8 +15,8 @@
 require 'rails_helper'
 
 describe Avalon::Batch::Ingest do
-  let(:manager) { FactoryGirl.create(:manager, username: 'frances.dickens@reichel.com', email: 'frances.dickens@reichel.com') }
-  let(:collection) { FactoryGirl.build(:collection, managers: [manager.user_key]) }
+  let(:manager) { FactoryBot.create(:manager, username: 'frances.dickens@reichel.com', email: 'frances.dickens@reichel.com') }
+  let(:collection) { FactoryBot.build(:collection, managers: [manager.user_key]) }
   let(:manifest_file) { File.new('spec/fixtures/dropbox/example_batch_ingest/batch_manifest.xlsx') }
   let(:package) { Avalon::Batch::Package.new(manifest_file, collection) }
   let(:entry) { package.manifest.entries.first }

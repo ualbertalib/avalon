@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -13,9 +13,11 @@
 # ---  END LICENSE_HEADER BLOCK  ---
 
 class Admin::CollectionsController < ApplicationController
-  before_filter :authenticate_user!
+  include Rails::Pagination
+
+  before_action :authenticate_user!
   load_and_authorize_resource except: [:index, :remove]
-  before_filter :load_and_authorize_collections, only: [:index]
+  before_action :load_and_authorize_collections, only: [:index]
   respond_to :html
 
   def load_and_authorize_collections
@@ -66,12 +68,12 @@ class Admin::CollectionsController < ApplicationController
   # GET /collections/1/items
   def items
     mos = paginate @collection.media_objects
-    render json: mos.collect{|mo| [mo.id, mo.to_json] }.to_h
+    render json: mos.to_a.collect{|mo| [mo.id, mo.to_json] }.to_h
   end
 
   # POST /collections
   def create
-    @collection = Admin::Collection.create(collection_params)
+    @collection = Admin::Collection.create(collection_params.merge(managers: [current_user.user_key]))
     if @collection.persisted?
       User.where(Devise.authentication_keys.first => [Avalon::RoleControls.users('administrator')].flatten).each do |admin_user|
         NotificationsMailer.new_collection(

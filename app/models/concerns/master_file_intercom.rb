@@ -1,4 +1,4 @@
-# Copyright 2011-2017, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -31,10 +31,10 @@ module MasterFileIntercom
       date_digitized: date_digitized,
       file_checksum: file_checksum,
       file_format: file_format,
-      other_identifier: identifier,
+      other_identifier: identifier.to_a,
       captions: captions.content,
       captions_type: caption_type,
-      comment: comment,
+      comment: comment.to_a,
       display_aspect_ratio: display_aspect_ratio,
       original_frame_size: original_frame_size,
       width: width,

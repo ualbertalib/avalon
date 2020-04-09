@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -86,14 +86,14 @@ class Lease < ActiveFedora::Base
   # @param [Date, Time, String] a date or time object or a string that DateTime can parts_with_order
   # @return [String] supplied date and time with the passed date and time portion set to 00:00:00 UTC time in the iso8601 format
   def start_of_day(time)
-    DateTime.parse(time.to_s).utc.beginning_of_day
+    DateTime.parse(time.to_s).utc.to_datetime.beginning_of_day
   end
 
   # Take a supplied date and format it in iso8601 with the time portion set to 11:59:59 UTC
   # @param [Date, Time, String] a date or time object or a string that DateTime can parts_with_order
   # @return [String] supplied date and time with the passed date and time portion set to 11:59:59 UTC time in the iso8601 format
   def end_of_day(time)
-    DateTime.parse(time.to_s).utc.end_of_day
+    DateTime.parse(time.to_s).utc.to_datetime.end_of_day
   end
 
   def inherited_edit_users

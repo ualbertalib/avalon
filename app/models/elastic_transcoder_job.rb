@@ -1,3 +1,17 @@
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
+#   University.  Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#
+# You may obtain a copy of the License at
+#
+# http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software distributed
+#   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+#   CONDITIONS OF ANY KIND, either express or implied. See the License for the
+#   specific language governing permissions and limitations under the License.
+# ---  END LICENSE_HEADER BLOCK  ---
+
 class ElasticTranscoderJob < ActiveEncode::Base
   before_create :set_up_options
   before_create :copy_to_input_bucket
@@ -182,7 +196,7 @@ class ElasticTranscoderJob < ActiveEncode::Base
         preset = read_preset(output.preset_id)
         extension = preset.container == 'ts' ? '.m3u8' : ''
         convert_tech_metadata(output,preset).merge({
-          managed: false,
+          managed: Settings.streaming.server.to_sym != :aws,
           id: output.id,
           label: output.key.split("/", 2).first,
           url: "s3://#{pipeline.output_bucket}/#{job.output_key_prefix}#{output.key}#{extension}"
