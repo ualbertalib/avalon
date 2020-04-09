@@ -160,11 +160,11 @@ describe MediaObject do
 
     describe 'staleness' do
       let(:stale_media_object) {
-        FactoryGirl.build(:media_object).tap {
+        FactoryBot.build(:media_object).tap {
           |mo| mo.create_date = 1.week.ago - 1.day}
       }
       let(:almost_stale_media_object) {
-        FactoryGirl.build(:media_object).tap {
+        FactoryBot.build(:media_object).tap {
           |mo| mo.create_date = 1.week.ago + 1.day}
       }
 

@@ -313,6 +313,7 @@ en:
         management systems'
       tab: 'eClass'
     section: Section
+    empty_lti_share_url: "LTI not configured."
 
   audit:
     class_total_header_html: 'Bad <b>%{class}</b> objects'
@@ -331,5 +332,3 @@ en:
       logoutLabel: "Log out"
     manifest:
       homepageLabel: "View in Repository"
-  share:
-    empty_lti_share_url: "LTI not configured."

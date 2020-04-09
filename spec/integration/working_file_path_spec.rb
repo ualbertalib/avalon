@@ -198,7 +198,25 @@ describe "MasterFile#working_file_path" do
   end
 
   context "without Settings.matterhorn.media_path set" do
+
+    let(:media_path) { Dir.mktmpdir }
+
+    around(:example) do |example|
+      begin
+        # explicitly unset path; don't assume unset in config
+        old_media_path = Rails.application.secrets.matterhorn_client_media_path
+        Rails.application.secrets.matterhorn_client_media_path = ''
+
+        example.run
+
+        Rails.application.secrets.matterhorn_client_media_path = old_media_path
+      ensure
+        FileUtils.remove_entry media_path
+      end
+    end
+
     it 'returns blank' do
+      expect(Rails.application.secrets.matterhorn_client_media_path).to be_blank
       expect(master_file.working_file_path).to be_blank
     end
 
@@ -209,6 +227,7 @@ describe "MasterFile#working_file_path" do
       it 'sends the file_location to matterhorn' do
         MasterFileBuilder.build(media_object, params)
         master_file = media_object.reload.master_files.first
+        expect(File.exists? master_file.file_location).to be true
         input = FileLocator.new(master_file.file_location).uri.to_s
         expect(ActiveEncodeJob::Create).to have_been_enqueued.with(master_file.id, input, {preset: workflow})
       end

@@ -15,8 +15,11 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install mediainfo
   - sudo ln -s /usr/bin/lsof /usr/sbin/lsof
+  - gem update --system
+  - gem install bundler
   - bundle config without development:production:staging:uat
   - bundle --version
+  - nvm install 10
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
@@ -25,11 +28,10 @@ script:
   - bundle exec rake
 language: ruby
 jdk:
-  - oraclejdk8
+  - openjdk8
 global_env:
-  - BUNDLER_VERSION=1.17.3
 rvm:
   - 2.5
   - 2.6
-dist: trusty
+dist: xenial 
 sudo: required
