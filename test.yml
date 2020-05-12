@@ -16,6 +16,7 @@ services:
     environment:
       - PGDATA=/data
       - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=avalondb
       - POSTGRES_DB=avalon
   fedora:
     image: avalonmediasystem/fedora:4.7.5
@@ -33,13 +34,13 @@ services:
     entrypoint:
       - docker-entrypoint.sh
       - solr-precreate
-      - avalon
+      - test
       - /opt/solr/avalon_conf
   # redis:
   #   image: redis:alpine
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
-    command: "/rails_init-test.sh"
+    command: "bin/docker-start"
     depends_on:
       - db
       - fedora
@@ -52,7 +53,7 @@ services:
       - AVALON_DB_PASSWORD=avalondb
       - BASE_URL=http://test.host
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
-      - DATABASE_URL=postgres://postgres@db/avalon
+      - DATABASE_URL=postgres://postgres:avalondb@db/avalon
       - SETTINGS__DROPBOX__PATH=/masterfiles/dropbox
       - SETTINGS__DROPBOX__UPLOAD_URI=./masterfiles/dropbox
       - FEDORA_NAMESPACE=avalon
@@ -68,6 +69,7 @@ services:
       - SETTINGS__REDIS__PORT=6379
       - SECRET_KEY_BASE=abcd
       - SOLR_URL=http://solr:8983/solr/avalon
+      - SOLR_TEST_URL=http://solr:8983/solr/test
       - SETTINGS__STREAMING__CONTENT_PATH=/streamfiles
       - SETTINGS__STREAMING__STREAM_DEFAULT_QUALITY=medium
       - SETTINGS__STREAMING__HTTP_BASE=http://localhost:8880/avalon
