@@ -34,6 +34,7 @@
   "SETTINGS__STREAMING__STREAM_TOKEN_TTL":"20",
   "SETTINGS__STREAMING__RTMP_BASE":"rtmp://{host}/avalon6",
   "SETTINGS__STREAMING__HTTP_BASE":"http://{host}:1935/avalon6/_definst_",
+  "SETTINGS__TIMELINER__TIMELINER_URL":"http://localhost:3000/timeliner"
   "SECRET_KEY_BASE":"",
   "GOOGLE_ANALYTICS_TOKEN":"",
   "ROLLBAR_TOKEN":""
