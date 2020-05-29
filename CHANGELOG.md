@@ -8,7 +8,8 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Table of Contents
 
 - [Unreleased](#Unreleased)
-- [Avalon-6 Production v6.5.0.20200513.uofa](#Production.v6.5.0.20200513.uofa)
+- [Avalon-6 Production v6.5.0.20200528.uofa](#Production.v6.5.0.20200528.uofa)
+- [Avalon-6 Production v6.5.0.20200514.uofa](#Production.v6.5.0.20200514.uofa)
 - [Avalon-6 Production v6.4.3.20200303.uofa](#Production.v6.4.3.20200303.uofa)
 - [Avalon-6 Production v6.4.3.20200120.uofa](#Production.v6.4.3.20200120.uofa)
 - [Avalon-6 Production v6.4.3.20191204.uofa](#Production.v6.4.3.20191204.uofa)
@@ -23,6 +24,14 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 <a name="Unreleased" />
 
 ### Unreleased
+
+<a name="Production.v6.5.0.20200528.uofa" />
+
+### Avalon-6 Production v6.5.0.20200528.uofa
+
+#### Security
+
+- [Security] Bump kaminari from 1.1.1 to 1.2.1 [#643](https://github.com/ualbertalib/avalon/pull/643)
 
 <a name="Production.v6.5.0.20200514.uofa" />
 
