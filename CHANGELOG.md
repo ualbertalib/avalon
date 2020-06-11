@@ -8,6 +8,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Table of Contents
 
 - [Unreleased](#Unreleased)
+- [Avalon-6 Production v6.5.0.20200612.uofa](#Production.v6.5.0.20200612.uofa)
 - [Avalon-6 Production v6.5.0.20200528.uofa](#Production.v6.5.0.20200528.uofa)
 - [Avalon-6 Production v6.5.0.20200514.uofa](#Production.v6.5.0.20200514.uofa)
 - [Avalon-6 Production v6.4.3.20200303.uofa](#Production.v6.4.3.20200303.uofa)
@@ -25,6 +26,19 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+<a name="Production.v6.5.0.20200612.uofa" />
+
+### Avalon-6 Production v6.5.0.20200612.uofa
+
+#### Security
+
+- [Security] Bump websocket-extensions Javascript from 0.1.3 to 0.1.4 [646](https://github.com/ualbertalib/avalon/pull/646)
+- [Security] Bump websocket-extensions Gem from 0.1.3 to 0.1.5 [645](https://github.com/ualbertalib/avalon/pull/645)
+
+#### Bugfix
+
+- Add staging environment to webpacker.yml [647](https://github.com/ualbertalib/avalon/issues/647)
+
 <a name="Production.v6.5.0.20200528.uofa" />
 
 ### Avalon-6 Production v6.5.0.20200528.uofa
@@ -38,12 +52,12 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ### Avalon-6 Production v6.5.0.20200514.uofa
 
 Updates to upstream [Avalon tagged version v6.5.0](https://github.com/avalonmediasystem/avalon/tree/v6.5.0). For a detailed view of the features added, see [upstream release notes](https://github.com/avalonmediasystem/avalon/releases/tag/v6.5.0). Highlights:
+
 - Structural Metadata Editor
 - IIIF Timeliner
 - IIIF Presentation 3.0 Manifest Generation
 - Enhancements to the API [details](https://wiki.dlib.indiana.edu/display/VarVideo/Avalon+Ingest+API#AvalonIngestAPI-mediaobjects)
 - Rails 5.2 support, Webpacker JavaScript packages via Yarn
-
 
 To apply update to an Avalon v6.4 instance make certain to:
 
@@ -54,7 +68,7 @@ To apply update to an Avalon v6.4 instance make certain to:
     - Re. (2), environment variables: instead of altering `settings.yml` as per the indiana.edu instructions, add to the UAL setup for Apache and sysconf the following env var: `SETTINGS__TIMELINER__TIMELINER_URL=https://${hostname}/timeliner`
     - Re. (2), db migration details: adds timeline table and the Rails 4 automatically generated primary key and foreign keys to bigint (the default in Rails 5.2) as per [commit dc5b567](https://github.com/ualbertalib/avalon/commit/dc5b56754b4c01b7be67d8caac57a2661471381e)
       - backup db beforehand
-    - Re. (3), Node.js version (tried v12 but it failed) indiana.edu indicate "tested with v10" 
+    - Re. (3), Node.js version (tried v12 but it failed) indiana.edu indicate "tested with v10"
       - v10 maintenance support ends April 2021 (reference: <https://github.com/nodejs/Release>)
         - Tested v12 on 2020-03-02: result fails.
       - Note: also I modified .travis `nvm install 10` for tests (the default nvm version is incompatible - tested 2020-03-02)
@@ -62,8 +76,8 @@ To apply update to an Avalon v6.4 instance make certain to:
     - Ruby version considerations: UAT tested with Ruby 2.5, Travis tests Ruby 2.5 and 2.6. Upstream instructions indication Ruby 2.4 or above.
 
 #### Security
-- various security updates to Gems and Javascript packages.
 
+- various security updates to Gems and Javascript packages.
 
 <a name="Production.v6.4.3.20200303.uofa" />
 
@@ -74,15 +88,16 @@ To apply update to an Avalon v6.4 instance make certain to:
 - [Security] Bump nokogiri from 1.10.5 to 1.10.9 [#616](https://github.com/ualbertalib/avalon/pull/616)
 - [Security] Bump omniauth from 1.7.1 to 1.9.1 [#617](https://github.com/ualbertalib/avalon/pull/617)
 
-
 <a name="Production.v6.4.3.2020200120.uofa" />
 
 ### Avalon-6 Production v6.4.3.20200120.uofa
 
 #### Changed
+
 - typeahead autocompletion of language [#545](https://github.com/ualbertalib/avalon/issues/545)
 
 #### Security
+
 - [Security] Bump rack from 1.6.11 to 1.6.12 [#593](https://github.com/ualbertalib/avalon/issues/593)
 
 <a name="Production.v6.4.3.20191204.uofa" />
@@ -90,6 +105,7 @@ To apply update to an Avalon v6.4 instance make certain to:
 ### Avalon-6 Production v6.4.3.20191204.uofa
 
 #### Changed
+
 - Batch ingest emails now display full path of manifest file [#533](https://github.com/ualbertalib/avalon/issues/533)
 - default Application name [#541](https://github.com/ualbertalib/avalon/issues/541)
 - Documentation: fix name of controlled vocabulary environment variable [#418](https://github.com/ualbertalib/avalon/pull/418)
@@ -99,9 +115,11 @@ To apply update to an Avalon v6.4 instance make certain to:
 - Fixes conversion of genre field to lowercase upon submission [#559](https://github.com/ualbertalib/avalon/issues/559) [PR #573](https://github.com/ualbertalib/avalon/pull/573)
 
 #### Added
+
 - include opensearch description in the layout [#519](https://github.com/ualbertalib/avalon/issues/519)
 
 #### Security
+
 - [Security] Bump loofah from 2.2.3 to 2.3.1 [#565](https://github.com/ualbertalib/avalon/pull/565)
 - [Security] Bump nokogiri from 1.10.4 to 1.10.5 [#579](https://github.com/ualbertalib/avalon/pull/579)
 - [Security] Bump rubyzip from 1.2.2 to 1.3.0 [PR #565](https://github.com/ualbertalib/avalon/pull/565)
@@ -112,14 +130,17 @@ To apply update to an Avalon v6.4 instance make certain to:
 ### Avalon-6 Production v6.4.3.20190924.uofa
 
 #### Changed
+
 - use a direct link to the Feature Item rather than a search avoids needing to be logged-in [#529](https://github.com/ualbertalib/avalon/issues/529)
 - use a public collection for the Featured Video Collection rather than a protected one [#536](https://github.com/ualbertalib/avalon/issues/536)
 
 #### Fixed
+
 - Fixed audio quality selector being cut off on mobile by opening selector downwards [#531](https://github.com/ualbertalib/avalon/issues/531)
 - update the links on the edit page to the EDTF standard [#419](https://github.com/ualbertalib/avalon/issues/419)
 
 #### Security
+
 - [Security] Bump nokogiri from 1.10.3 to 1.10.4 [PR#549](https://github.com/ualbertalib/avalon/pull/549)
 
 <a name="Production.v6.4.3.20190821.uofa" />
@@ -127,6 +148,7 @@ To apply update to an Avalon v6.4 instance make certain to:
 ### Avalon-6 Production v6.4.3.20190821.uofa
 
 #### Bugfix
+
 - Fixes authentication configuration in staging/production environment to have shibboleth as the default [PR#520](https://github.com/ualbertalib/avalon/pull/520)
 
 <a name="Production.v6.4.3.20190809.uofa" />
