@@ -90,6 +90,7 @@ services:
       - APP_NAME=avalon
       - ASSET_HOST=http://localhost:3000
       - AVALON_BRANCH=develop
+      - AVALON_NET_HTTP_READ_TIMEOUT=600
       - SETTINGS__DOMAIN=http://localhost:3000
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
       - DATABASE_URL=mysql2://root:mysecretpassword@db:3306/
