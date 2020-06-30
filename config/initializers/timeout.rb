@@ -1,14 +1,12 @@
-require 'net/http'
-
-# Lengthen timeout in Net::HTTP
+# Lengthen timeout when executing REST API calls via rubyhorn (to Matterhorn) overriding
+# https://github.com/avalonmediasystem/rubyhorn/blob/avalon-r6/lib/rubyhorn/rest_client/common.rb#L8
 # Todo: not needed in Avalon v7.1
-module Net
-    class HTTP
-    alias old_initialize initialize
+module Rubyhorn::RestClient
+  module Common
 
-        def initialize(*args)
-            old_initialize(*args)
-            @read_timeout = ENV['AVALON_NET_HTTP_READ_TIMEOUT'].to_i if ENV['AVALON_NET_HTTP_READ_TIMEOUT']
-        end
+    def connect
+      super.connect
+      @client.open_timeout =  ENV['AVALON_MATTERHORN_TIMEOUT'].to_i if ENV['AVALON_MATTERHORN_TIMEOUT']
     end
+  end
 end

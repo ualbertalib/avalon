@@ -1,4 +1,5 @@
 {
+  "AVALON_MATTERHORN_TIMEOUT":"120",
   "DATABASE_URL":"mysql2://{username}:{password}@localhost:3306/rails?pool=5&timeout=5000",
   "FEDORA_URL":"http://{username}:{password}@localhost:8984/fedora/rest/prod",
   "FEDORA_BASE_PATH":"/prod"                                         
