@@ -25,6 +25,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Fixed
+
+- Add ability to change timeout of transcoding (Matterhorn) for master files 13GB or greater. Addresses [#650](https://github.com/ualbertalib/avalon/issues/650). Note: not needed in Avalon v7.1 due to code refactoring around transcoding (i.e., replacement of Matterhorn).
+
 <a name="Production.v6.5.0.20200528.uofa" />
 
 ### Avalon-6 Production v6.5.0.20200528.uofa

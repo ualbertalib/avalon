@@ -1,6 +1,7 @@
 require 'net/http'
 
 # Lengthen timeout in Net::HTTP
+# Todo: not needed in Avalon v7.1
 module Net
     class HTTP
     alias old_initialize initialize
