@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,7 +15,7 @@
 module BulkActionJobs
   class AccessControl < ActiveJob::Base
     queue_as :bulk_access_control
-    def perform documents, params
+    def perform(documents, params)
       errors = []
       successes = []
       documents.each do |id|
@@ -101,7 +101,7 @@ module BulkActionJobs
   end
 
   class UpdateStatus < ActiveJob::Base
-    def perform documents, user_key, params
+    def perform(documents, user_key, params)
       errors = []
       successes = []
       status = params['action']
@@ -129,7 +129,7 @@ module BulkActionJobs
   end
 
   class Delete < ActiveJob::Base
-    def perform documents, params
+    def perform(documents, _params)
       errors = []
       successes = []
       documents.each do |id|
@@ -145,7 +145,7 @@ module BulkActionJobs
   end
 
   class Move < ActiveJob::Base
-    def perform documents, params
+    def perform(documents, params)
       collection = Admin::Collection.find( params[:target_collection_id] )
       errors = []
       successes = []
@@ -162,8 +162,10 @@ module BulkActionJobs
     end
   end
 
+  require 'avalon/intercom'
+
   class IntercomPush < ActiveJob::Base
-    def perform documents, user_key, params
+    def perform(documents, user_key, params)
       errors = []
       successes = []
       intercom = Avalon::Intercom.new(user_key)

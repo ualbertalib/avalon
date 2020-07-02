@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,7 +15,7 @@
 require 'rails_helper'
 
 describe FedoraMigrate::Derivative::ObjectMover do
-  let(:derivative) { FactoryGirl.create(:derivative) }
+  let(:derivative) { FactoryBot.create(:derivative) }
   describe 'empty?' do
     it 'returns true when the derivative has been wiped' do
       described_class.wipeout!(derivative)

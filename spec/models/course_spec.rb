@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,8 +15,8 @@
 require 'rails_helper'
 
 describe Course do
-  let(:first_media_object) { FactoryGirl.create(:media_object) }
-  let(:second_media_object) { FactoryGirl.create(:media_object) }
+  let(:first_media_object) { FactoryBot.create(:media_object) }
+  let(:second_media_object) { FactoryBot.create(:media_object) }
 
   before :each do
     first_media_object.read_groups += ['english_101', 'sociology_101', 'underwater_basketweaving_302']

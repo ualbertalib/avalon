@@ -1,11 +1,11 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
-# 
+#
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software distributed
 #   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 #   CONDITIONS OF ANY KIND, either express or implied. See the License for the
@@ -33,14 +33,14 @@ describe 'Batch Ingest Email' do
   end
 
   it 'shows the title of one media object' do
-    media_object = FactoryGirl.create(:media_object)
+    media_object = FactoryBot.create(:media_object)
     ingest_batch = IngestBatch.create(media_object_ids: [media_object.id])
     @email = IngestBatchMailer.status_email(ingest_batch.id)
     expect(@email).to have_body_text(media_object.title)
   end
 
   it 'has the status of the master file in a first row' do
-    master_file = FactoryGirl.create(:master_file, :with_media_object, status_code: 'COMPLETED', percent_complete: '100')
+    master_file = FactoryBot.create(:master_file, :with_media_object, status_code: 'COMPLETED', percent_complete: '100')
     media_object = master_file.media_object.reload
 
     ingest_batch = IngestBatch.create( media_object_ids: [media_object.id])

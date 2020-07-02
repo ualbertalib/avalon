@@ -1,11 +1,11 @@
-version: '3'
+version: '3.2'
 
 volumes:
   streaming:
     driver: local
   database:
     driver: local
-  fcrepo:
+  fedora:
     driver: local
   work:
     driver: local
@@ -14,6 +14,8 @@ volumes:
   redis:
     driver: local
   gems:
+    driver: local
+  npms:
     driver: local
 
 services:
@@ -28,15 +30,17 @@ services:
     ports:
       - "3306:3306"
 
-  fcrepo:
-    image: ualbertalib/docker-fcrepo4
+  fedora:
+    image: avalonmediasystem/fedora:4.7.5
     volumes:
-      - fcrepo:/fcrepo4-data
+      - fedora:/data
+    environment:
+      - JAVA_OPTIONS=-Dfcrepo.modeshape.configuration=classpath:/config/file-simple/repository.json -Dfcrepo.home=/data
     ports:
       - "8984:8080"
 
   solr:
-    image: solr:6.6
+    image: solr:6.6.4-alpine
     ports:
       - "8983:8983"
     volumes:
@@ -73,17 +77,19 @@ services:
 
   avalon:
     image: avalonmediasystem/avalon:6.x-dev
-    command: "bin/docker-start"
+    build:
+      context: ./docker
+    command: "bin/docker-start" # Todo: this start?
+    # command: "/rails_init-dev.sh"
     depends_on:
       - db
-      - fcrepo
+      - fedora
       - solr
       - redis
     environment:
       - APP_NAME=avalon
       - ASSET_HOST=http://localhost:3000
       - AVALON_BRANCH=develop
-      - AVALON_DB_PASSWORD=avalondb
       - SETTINGS__DOMAIN=http://localhost:3000
       - CONTROLLED_VOCABULARY=config/controlled_vocabulary.yml
       - DATABASE_URL=mysql2://root:mysecretpassword@db:3306/
@@ -92,7 +98,9 @@ services:
       - EMAIL_COMMENTS
       - EMAIL_NOTIFICATION
       - EMAIL_SUPPORT
-      - FCREPO_URL=http://fcrepo:8080/fcrepo/rest
+      - FEDORA_BASE_PATH
+      - FEDORA_NAMESPACE=avalon
+      - FEDORA_URL=http://fedoraAdmin:fedoraAdmin@fedora:8080/fedora/rest
       - SETTINGS__FFMPEG__PATH=/usr/bin/ffmpeg
       - MASTER_FILE_PATH:/masterfiles/upload
       - MASTER_FILE_STRATEGY=move_ui_upload_only
@@ -120,15 +128,17 @@ services:
       - SETTINGS__STREAMING__HTTP_BASE=http://localhost:8880/avalon
       - SETTINGS__STREAMING__SERVER=nginx
       - SETTINGS__STREAMING__STREAM_TOKEN_TTL=20
+      - SETTINGS__TIMELINER__TIMELINER_URL=http://localhost:3000/timeliner
       - SYSTEM_GROUPS=administrator,group_manager,manager
       - Z3950_ATTRIBUTE
       - Z3950_DATABASE
       - Z3950_HOST
       - Z3950_PORT
     volumes:
+      - .:/home/app/avalon
       - ./masterfiles:/masterfiles
       - gems:/home/app/gems
-      - .:/home/app/avalon
+      - npms:/home/app/node_modules
     ports:
       - "3000:3000"
     stdin_open: true

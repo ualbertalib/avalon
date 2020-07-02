@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,7 +15,12 @@
 class CleanupWorkingFileJob < ActiveJob::Base
   def perform(masterfile_id)
     masterfile = MasterFile.find(masterfile_id)
-    path = masterfile.working_file_path
-    File.delete(path) if path.present? && File.exist?(path)
+    masterfile.working_file_path.map do |path|
+      parent_directory = File.dirname(path)
+      File.delete(path) if File.exist?(path)
+      Dir.delete(parent_directory) if Dir.exist?(parent_directory)
+    end
+    masterfile.working_file_path = nil
+    masterfile.save!
   end
 end

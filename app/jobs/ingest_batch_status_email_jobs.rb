@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -24,7 +24,7 @@ module IngestBatchStatusEmailJobs
         # Get the entries for the batch and see if they all complete
         complete = true
         errors = false
-        BatchEntries.where(batch_registries_id: br.id).each do |entry|
+        br.batch_entries.each do |entry|
           complete = false unless entry.complete || entry.error
           errors = true if entry.error
         end

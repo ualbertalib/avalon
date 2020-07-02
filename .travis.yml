@@ -5,27 +5,32 @@ bundler_args: --with mysql aws --without development debug
 env:
   - FCREPO_URL=http://127.0.0.1:8986/rest SOLR_TEST_URL=http://127.0.0.1:8985/solr/hydra-test RAILS_ENV=test DATABASE_URL=mysql2://root:@127.0.0.1:3306/
 services:
-  - redis-server
+  - redis
 addons:
-  - mariadb: '10.3'
+  mariadb: '10.3'
+  chrome: stable
 before_install:
   - sudo rm -vf /etc/apt/sources.list.d/*riak*
   - sudo rm -vf /etc/apt/sources.list.d/*hhvm*
   - sudo apt-get update
   - sudo apt-get install mediainfo
   - sudo ln -s /usr/bin/lsof /usr/sbin/lsof
+  - gem update --system
+  - gem install bundler
   - bundle config without development:production:staging:uat
   - bundle --version
+  - nvm install 10
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
+  - yarn install
 script:
   - bundle exec rake
 language: ruby
 jdk:
-  - oraclejdk8
+  - openjdk8
+global_env:
 rvm:
-  - 2.4
   - 2.5
-dist: trusty
-sudo: required
+  - 2.6
+dist: xenial

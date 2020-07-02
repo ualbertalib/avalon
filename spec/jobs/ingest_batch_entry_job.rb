@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -15,8 +15,8 @@
 require 'rails_helper'
 
 describe IngestBatchEntryJob do
-  let(:batch_entry) { FactoryGirl.create(:batch_entries) }
-  let!(:collection) { FactoryGirl.create(:collection, id: 'zc77sq08x') }
+  let(:batch_entry) { FactoryBot.create(:batch_entries) }
+  let!(:collection) { FactoryBot.create(:collection, id: 'zc77sq08x') }
 
   describe "perform" do
     it 'runs' do

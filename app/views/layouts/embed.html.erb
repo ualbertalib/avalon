@@ -1,5 +1,5 @@
 <%#
-Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+Copyright 2011-2019, The Trustees of Indiana University and Northwestern
   University.  Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
 
@@ -30,6 +30,7 @@ Unless required by applicable law or agreed to in writing, software distributed
     <%= stylesheet_link_tag "application", media: "all" %>
     <%= yield :page_styles %>
     <%= yield :additional_head_content %>
+    <%= render "modules/google_analytics" %>
   </head>
 
   <body data-mountpoint="<%= root_path %>">

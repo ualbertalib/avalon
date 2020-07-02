@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -296,9 +296,9 @@ EOC
       Dir[Rails.root.join("spec/factories/**/*.rb")].each {|f| require f}
 
       mf_count = [ENV['master_files'].to_i,1].max
-      mo = FactoryGirl.create(:media_object)
+      mo = FactoryBot.create(:media_object)
       mf_count.times do |i|
-        FactoryGirl.create(:master_file_with_derivative, mediaobject: mo)
+        FactoryBot.create(:master_file_with_derivative, mediaobject: mo)
       end
       puts mo.id
     end

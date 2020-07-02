@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -49,6 +49,10 @@ class MasterFile < ActiveFedora::Base
 
   # Don't pass the block here since we save the original_name when the user uploads the captions file
   has_subresource 'captions', class_name: 'IndexedFile'
+
+  has_subresource 'waveform', class_name: 'IndexedFile' do |f|
+    f.original_name = 'waveform.json'
+  end
 
   property :title, predicate: ::RDF::Vocab::EBUCore.title, multiple: false do |index|
     index.as :stored_searchable
@@ -121,6 +125,9 @@ class MasterFile < ActiveFedora::Base
     index.as :stored_sortable
   end
 
+  # For working file copy when Settings.matterhorn.media_path is set
+  property :working_file_path, predicate: Avalon::RDFVocab::MasterFile.workingFilePath, multiple: true
+
   validates :workflow_name, presence: true, inclusion: { in: proc { WORKFLOWS } }
   validates_each :date_digitized do |record, attr, value|
     unless value.nil?
@@ -161,7 +168,7 @@ class MasterFile < ActiveFedora::Base
   # be set up in a configuration file somewhere
   #
   # 250 MB is the file limit for now
-  MAXIMUM_UPLOAD_SIZE = (2**20) * 250
+  MAXIMUM_UPLOAD_SIZE = Settings.max_upload_size || 2.gigabytes
 
   WORKFLOWS = ['fullaudio', 'avalon', 'avalon-skip-transcoding', 'avalon-skip-transcoding-audio']
   AUDIO_TYPES = ["audio/vnd.wave", "audio/mpeg", "audio/mp3", "audio/mp4", "audio/wav", "audio/x-wav"]
@@ -178,8 +185,7 @@ class MasterFile < ActiveFedora::Base
   def setContent(file)
     case file
     when Hash #Multiple files for pre-transcoded derivatives
-      saveOriginal( (file.has_key?('quality-high') && File.file?( file['quality-high'] )) ? file['quality-high'] : (file.has_key?('quality-medium') && File.file?( file['quality-medium'] )) ? file['quality-medium'] : file.values[0] )
-      file.each_value {|f| f.close unless f.closed? }
+      saveDerivativesHash(file)
     when ActionDispatch::Http::UploadedFile #Web upload
       saveOriginal(file, file.original_filename)
     when URI, Addressable::URI
@@ -191,7 +197,7 @@ class MasterFile < ActiveFedora::Base
         self.file_size = FileLocator::S3File.new(file).object.size
       end
     else #Batch
-      saveOriginal(file)
+      saveOriginal(file, File.basename(file.path))
     end
     reloadTechnicalMetadata!
   end
@@ -260,16 +266,25 @@ class MasterFile < ActiveFedora::Base
 
     #Build hash for single file skip transcoding
     if !file.is_a?(Hash) && (self.workflow_name == 'avalon-skip-transcoding' || self.workflow_name == 'avalon-skip-transcoding-audio')
-      file = {'quality-high' => FileLocator.new(file_location).attachment}
+      if working_file_path.present?
+        file = {'quality-high' => FileLocator.new(working_file_path.first).attachment}
+      else
+        file = {'quality-high' => FileLocator.new(file_location).attachment}
+      end
     end
 
     input = if file.is_a? Hash
       file_dup = file.dup
       file_dup.each_pair {|quality, f| file_dup[quality] = FileLocator.new(f.to_path).uri.to_s }
     else
-      matterhorn_path
+      if working_file_path.present?
+        FileLocator.new(working_file_path.first).uri.to_s
+      else
+        FileLocator.new(file_location).uri.to_s
+      end
     end
 
+    # WaveformJob is performed in a before_perform callback on ActiveEncodeJob::Create
     ActiveEncodeJob::Create.perform_later(self.id, input, {preset: self.workflow_name})
   end
 
@@ -511,14 +526,23 @@ class MasterFile < ActiveFedora::Base
     has_captions? ? captions.mime_type : nil
   end
 
+  def has_waveform?
+    !waveform.empty?
+  end
+
+  def waveform_type
+    has_waveform? ? waveform.mime_type : nil
+  end
+
   def has_structuralMetadata?
-    !structuralMetadata.empty?
+    structuralMetadata.present? && Nokogiri::XML(structuralMetadata.content).xpath('//Item').present?
   end
 
   def to_solr *args
     super.tap do |solr_doc|
       solr_doc['file_size_ltsi'] = file_size
       solr_doc['has_captions?_bs'] = has_captions?
+      solr_doc['has_waveform?_bs'] = has_waveform?
       solr_doc['has_poster?_bs'] = has_poster?
       solr_doc['has_thumbnail?_bs'] = has_thumbnail?
       solr_doc['has_structuralMetadata?_bs'] = has_structuralMetadata?
@@ -527,11 +551,23 @@ class MasterFile < ActiveFedora::Base
     end
   end
 
-  def working_file_path
-    path = nil
+  def create_working_file!(full_path)
+    working_path = MasterFile.calculate_working_file_path(full_path)
+    return unless working_path.present?
+
+    self.working_file_path = [working_path]
+    FileUtils.mkdir(File.dirname(working_path))
+    FileUtils.cp(full_path, working_path)
+    working_path
+  end
+
+  def self.calculate_working_file_path(old_path)
     config_path = Rails.application.secrets.matterhorn_client_media_path
-    path = File.join(config_path, File.basename(self.file_location)) if config_path.present? && File.directory?(config_path)
-    path
+    if config_path.present? && File.directory?(config_path)
+      File.join(config_path, SecureRandom.uuid, File.basename(old_path))
+    else
+      nil
+    end
   end
 
   protected
@@ -675,14 +711,26 @@ class MasterFile < ActiveFedora::Base
         realpath = path
       end
 
-      self.file_location = realpath
-      newpath = working_file_path
-      FileUtils.cp(realpath, newpath) unless newpath.blank?
+      create_working_file!(realpath)
     end
     self.file_location = realpath
     self.file_size = file.size.to_s
   ensure
     file.close
+  end
+
+  def saveDerivativesHash(derivative_hash)
+    usable_files = derivative_hash.select { |quality, file| File.file?(file) }
+    self.working_file_path = usable_files.values.collect { |file| create_working_file!(File.realpath(file)) }.compact
+
+    %w(quality-high quality-medium quality-low).each do |quality|
+      next unless usable_files.has_key?(quality)
+      self.file_location = File.realpath(usable_files[quality])
+      self.file_size = usable_files[quality].size.to_s
+      break
+    end
+  ensure
+    derivative_hash.values.map { |file| file.close }
   end
 
   def reloadTechnicalMetadata!
@@ -720,29 +768,11 @@ class MasterFile < ActiveFedora::Base
   def post_processing_file_management
     logger.debug "Finished processing"
 
-    case Settings.master_file_management.strategy
-    when 'delete'
-      MasterFileManagementJobs::Delete.perform_now self.id
-    when 'move_ui_upload_only'
-      # check if the MasterFile.file_location contains the collection directory name`
-      # If video uploaded via the UI file upload then video stored in temporary upload directory
-      # Move to a directory named after the collection
-      collection_directory_name = self.media_object.collection.dropbox_directory_name
-      raise '"path" configuration missing for master_file_management strategy "move_ui_upload_only"' if collection_directory_name.blank?
-      if self.file_location.exclude? collection_directory_name 
-        move_path = Settings.master_file_management.path
-        raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
-        newpath = File.join(move_path, collection_directory_name, MasterFile.post_processing_move_filename(file_location, id: id))
-        MasterFileManagementJobs::Move.perform_later self.id, newpath
-      end
-    when 'move'
-      move_path = Settings.master_file_management.path
-      raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
-      newpath = File.join(move_path, MasterFile.post_processing_move_filename(file_location, id: id))
-      MasterFileManagementJobs::Move.perform_later self.id, newpath
-    else
-      # Do nothing
-    end
+    # Generate the waveform after proessing is complete but before master file management
+    generate_waveform
+    # Run master file management strategy
+    manage_master_file
+    # Clean up working file if it exists
     CleanupWorkingFileJob.perform_later(self.id) unless Rails.application.secrets.matterhorn_client_media_path.blank?
   end
 
@@ -772,6 +802,43 @@ class MasterFile < ActiveFedora::Base
     media_object.ordered_master_files.delete(self)
     media_object.set_media_types!
     media_object.set_duration!
-    media_object.save
+    if !media_object.save
+      logger.error "Failed when updating media object #{media_object.id} while destroying master file #{self.id}"
+    end
+  end
+
+  private
+
+  def generate_waveform
+    WaveformJob.perform_now(id)
+  rescue StandardError => e
+    logger.warn("WaveformJob failed: #{e.message}")
+    logger.warn(e.backtrace.to_s)
+  end
+
+  def manage_master_file
+    case Settings.master_file_management.strategy
+    when 'delete'
+      MasterFileManagementJobs::Delete.perform_now self.id
+    when 'move_ui_upload_only'
+      # check if the MasterFile.file_location contains the collection directory name`
+      # If video uploaded via the UI file upload then video stored in temporary upload directory
+      # Move to a directory named after the collection
+      collection_directory_name = self.media_object.collection.dropbox_directory_name
+      raise '"path" configuration missing for master_file_management strategy "move_ui_upload_only"' if collection_directory_name.blank?
+      if self.file_location.exclude? collection_directory_name 
+        move_path = Settings.master_file_management.path
+        raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
+        newpath = File.join(move_path, collection_directory_name, MasterFile.post_processing_move_filename(file_location, id: id))
+        MasterFileManagementJobs::Move.perform_later self.id, newpath
+      end
+    when 'move'
+      move_path = Settings.master_file_management.path
+      raise '"path" configuration missing for master_file_management strategy "move"' if move_path.blank?
+      newpath = File.join(move_path, MasterFile.post_processing_move_filename(file_location, id: id))
+      MasterFileManagementJobs::Move.perform_later self.id, newpath
+    else
+      # Do nothing
+    end
   end
 end

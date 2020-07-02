@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -12,12 +12,12 @@
 #   specific language governing permissions and limitations under the License.
 # ---  END LICENSE_HEADER BLOCK  ---
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :group, class: Admin::Group do
     name {Faker::Lorem.word}
     after(:create) do |g|
       group = Admin::Group.find(g.name)
-      group.users = [FactoryGirl.build(:user).user_key]
+      group.users = [FactoryBot.build(:user).user_key]
       group.save
     end
   end

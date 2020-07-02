@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -33,20 +33,20 @@ describe 'homepage' do
   end
   it 'validates absence of features when not logged in' do
     visit '/'
-    page.should have_no_link('Manage Content')
-    page.should have_no_link('Manage Groups')
-    page.should have_no_link('Manage Selected Items')
-    page.should have_no_link('Playlists')
-    page.should have_no_link('Sign out>>')
+    expect(page).to have_no_link('Manage Content')
+    expect(page).to have_no_link('Manage Groups')
+    expect(page).to have_no_link('Manage Selected Items')
+    expect(page).to have_no_link('Playlists')
+    expect(page).to have_no_link('Sign out>>')
   end
   # This test will work only when there are videos already present in avalon
   xit 'checks vertical navigation options on homepage' do
     visit ''
-    page.should have_link('Main contributor')
-    page.should have_link('Date')
-    page.should have_link('Collection')
-    page.should have_link('Unit')
-    page.should have_link('Language')
+    expect(page).to have_link('Main contributor')
+    expect(page).to have_link('Date')
+    expect(page).to have_link('Collection')
+    expect(page).to have_link('Unit')
+    expect(page).to have_link('Language')
   end
 end
 describe 'checks navigation to external links' do
@@ -96,34 +96,34 @@ describe 'checks navigation to external links' do
     page.should have_content('Technology and Partnerships')
   end
   it 'verifies presence of features after login' do
-    user = FactoryGirl.create(:administrator)
+    user = FactoryBot.create(:administrator)
     login_as user, scope: :user
     visit'/'
-    page.should have_link('Manage Content')
-    page.should have_link('Manage Groups')
-    page.should have_link('Manage Selected Items')
-    page.should have_link('Playlists')
-    page.should have_link('Sign out')
-    page.should have_content(user.user_key)
+    expect(page).to have_link('Manage Content')
+    expect(page).to have_link('Manage Groups')
+    expect(page).to have_link('Manage Selected Items')
+    expect(page).to have_link('Playlists')
+    expect(page).to have_link('Sign out')
+    expect(page).to have_content(user.user_key)
   end
 end
 
 describe 'Sign in page' do
   it 'validates presence of items on login page' do
     visit 'http://localhost:3000/users/auth/identity'
-    #page.should have_content('Identity Verification')
-    page.should have_content('Login:')
-    page.should have_content('Password:')
-    page.should have_link('Create an Identity')
-    page.should have_button('Connect')
+    #expect(page).to have_content('Identity Verification')
+    expect(page).to have_content('Login:')
+    expect(page).to have_content('Password:')
+    expect(page).to have_link('Create an Identity')
+    expect(page).to have_button('Connect')
     click_button 'Connect'
-    # page.should have_content('Successfully logged into the system')
+    # expect(page).to have_content('Successfully logged into the system')
   end
   it 'validates presence of items on register page' do
     visit 'http://localhost:3000/users/auth/identity/register'
-    page.should have_content('Email:')
-    page.should have_content('Password:')
-    page.should have_content('Confirm Password:')
+    expect(page).to have_content('Email:')
+    expect(page).to have_content('Password:')
+    expect(page).to have_content('Confirm Password:')
   end
   it 'is able to create new account' do
     hide_const('Avalon::GROUP_LDAP')

@@ -119,6 +119,10 @@ The following is a list of properties managed via the Config Gem thru the `setti
   - `SETTINGS__STREAMING__RTMP_BASE=`: E.G., 'rtmp://{fqdn}/avalon6'
   - `SETTINGS__STREAMING__HTTP_BASE`: E.G., 'http://{fqdn}:1935/avalon6/_definst_'
 
+- Timeline tool
+
+  - `SETTINGS__TIMELINER__TIMELINER_URL=http://localhost:3000/timeliner`
+
 - Learning management system integration: LTI
   - `LTI_SERVERS`: learning management.system.server.ca
   - `LTI_AUTH_KEY`: name of the key (add to learning management system)
@@ -195,6 +199,9 @@ SETTINGS__STREAMING__STREAM_DEFAULT_QUALITY='medium'
 SETTINGS__STREAMING__STREAM_TOKEN_TTL='20'
 SETTINGS__STREAMING__RTMP_BASE='rtmp://{host}/avalon6'
 SETTINGS__STREAMING__HTTP_BASE='http://{host}:1935/avalon6/_definst_'
+
+# Timeline tool
+SETTINGS__TIMELINER__TIMELINER_URL='http://localhost:3000/timeliner'
 
 #Other
 SECRET_KEY_BASE

@@ -1,4 +1,4 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
 #
@@ -265,9 +265,9 @@ class MediaObject < ActiveFedora::Base
 
   def to_solr
     super.tap do |solr_doc|
-      solr_doc[Solrizer.default_field_mapper.solr_name("workflow_published", :facetable, type: :string)] = published? ? 'Published' : 'Unpublished'
-      solr_doc[Solrizer.default_field_mapper.solr_name("collection", :symbol, type: :string)] = collection.name if collection.present?
-      solr_doc[Solrizer.default_field_mapper.solr_name("unit", :symbol, type: :string)] = collection.unit if collection.present?
+      solr_doc[ActiveFedora.index_field_mapper.solr_name("workflow_published", :facetable, type: :string)] = published? ? 'Published' : 'Unpublished'
+      solr_doc[ActiveFedora.index_field_mapper.solr_name("collection", :symbol, type: :string)] = collection.name if collection.present?
+      solr_doc[ActiveFedora.index_field_mapper.solr_name("unit", :symbol, type: :string)] = collection.unit if collection.present?
       solr_doc['read_access_virtual_group_ssim'] = virtual_read_groups + leases('external').map(&:inherited_read_groups).flatten
       solr_doc['read_access_ip_group_ssim'] = collect_ips_for_index(ip_read_groups + leases('ip').map(&:inherited_read_groups).flatten)
       solr_doc[Hydra.config.permissions.read.group] ||= []
@@ -314,12 +314,15 @@ class MediaObject < ActiveFedora::Base
       id: id,
       title: title,
       collection: collection.name,
+      unit: collection.unit,
       main_contributors: creator,
       publication_date: date_created,
       published_by: avalon_publisher,
       published: published?,
-      summary: abstract
-    }
+      summary: abstract,
+      visibility: visibility,
+      read_groups: read_groups
+    }.merge(to_ingest_api_hash(false))
   end
 
   # Other validation to consider adding into future iterations is the ability to

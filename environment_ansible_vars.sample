@@ -70,7 +70,10 @@ SETTINGS__STREAMING__STREAM_DEFAULT_QUALITY: 'medium'
 SETTINGS__STREAMING__STREAM_TOKEN_TTL: '20'
 SETTINGS__STREAMING__RTMP_BASE: 'rtmp://{host}/avalon6'
 SETTINGS__STREAMING__HTTP_BASE: 'http://{host}:1935/avalon6/_definst_'
- 
+
+# Timeline tool
+SETTINGS__TIMELINER__TIMELINER_URL: 'http://localhost:3000/timeliner'
+
 #Other
  
 SECRET_KEY_BASE

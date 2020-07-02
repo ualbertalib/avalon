@@ -1,11 +1,11 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
-# 
+#
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software distributed
 #   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 #   CONDITIONS OF ANY KIND, either express or implied. See the License for the
@@ -17,39 +17,39 @@ require 'rails_helper'
 describe ObjectsController do
   describe "#show" do
     it "should redirect you to root if no object is found" do
-      get :show, id: 'avalon:bad-pid'
+      get :show, params: { id: 'avalon:bad-pid' }
       expect(response).to redirect_to root_path
     end
 
     it "should redirect you to the object show page" do
-      obj = FactoryGirl.create(:media_object)
-      get :show, id: obj.id
+      obj = FactoryBot.create(:media_object)
+      get :show, params: { id: obj.id }
       expect(response).to redirect_to(media_object_path(obj))
     end
 
     it "should pass along request params" do
-      obj = FactoryGirl.create(:media_object)
-      get :show, id: obj.id, foo: 'bar'
+      obj = FactoryBot.create(:media_object)
+      get :show, params: { id: obj.id, foo: 'bar' }
       expect(response).to redirect_to(media_object_path(obj, {foo: 'bar'}))
     end
 
     it "should redirect to appended url" do
-      obj = FactoryGirl.create(:media_object)
-      get :show, id: obj.id, urlappend: 'test'
+      obj = FactoryBot.create(:media_object)
+      get :show, params: { id: obj.id, urlappend: 'test' }
       expect(response).to redirect_to(media_object_path(obj)+"/test")
     end
 
     it "works for global ids" do
-      obj = FactoryGirl.create(:playlist)
-      get :show, id: obj.to_gid_param
+      obj = FactoryBot.create(:playlist)
+      get :show, params: { id: obj.to_gid_param }
       expect(response).to redirect_to(playlist_path(obj))
     end
   end
 
   describe "#autocomplete" do
     it "should call autocomplete on the specified model" do
-      user = FactoryGirl.create(:user, email: "test@example.com")
-      get :autocomplete, t: 'user', q: 'test'
+      user = FactoryBot.create(:user, email: "test@example.com")
+      get :autocomplete, params: { t: 'user', q: 'test' }
       expect(response.body).to include user.user_key
     end
   end

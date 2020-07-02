@@ -1,11 +1,11 @@
-# Copyright 2011-2018, The Trustees of Indiana University and Northwestern
+# Copyright 2011-2019, The Trustees of Indiana University and Northwestern
 #   University.  Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
-# 
+#
 # You may obtain a copy of the License at
-# 
+#
 # http://www.apache.org/licenses/LICENSE-2.0
-# 
+#
 # Unless required by applicable law or agreed to in writing, software distributed
 #   under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 #   CONDITIONS OF ANY KIND, either express or implied. See the License for the
@@ -22,11 +22,11 @@ describe 'NotificationsMailer' do
   include EmailSpec::Matchers
 
   describe '#update_collection' do
-    let(:collection){ FactoryGirl.create(:collection) }
+    let(:collection){ FactoryBot.create(:collection) }
     before(:each) do
-      @updater    = FactoryGirl.create(:user)
-      @admin_user = FactoryGirl.create(:user)
-      @collection = FactoryGirl.create(:collection)
+      @updater    = FactoryBot.create(:user)
+      @admin_user = FactoryBot.create(:user)
+      @collection = FactoryBot.create(:collection)
       @old_name = "Previous name"
 
       @email = NotificationsMailer.update_collection(
@@ -79,11 +79,11 @@ describe 'NotificationsMailer' do
     end
    end
    describe '#new_collection' do
-    let(:collection){ FactoryGirl.create(:collection) }
+    let(:collection){ FactoryBot.create(:collection) }
     before(:each) do
-      @creator    = FactoryGirl.create(:user)
-      @admin_user = FactoryGirl.create(:user)
-      @collection = FactoryGirl.create(:collection)
+      @creator    = FactoryBot.create(:user)
+      @admin_user = FactoryBot.create(:user)
+      @collection = FactoryBot.create(:collection)
 
       @email = NotificationsMailer.new_collection(
         creator_id: @creator.id,
