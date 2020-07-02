@@ -26,6 +26,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Bugfix
+
+- Fix formatting in settings.yaml [#654](https://github.com/ualbertalib/avalon/pull/654)
+
 <a name="Production.v6.5.0.20200612.uofa" />
 
 ### Avalon-6 Production v6.5.0.20200612.uofa
