@@ -26,6 +26,11 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Bugfix
+
+- Fix problem opening structural metadata editor; update javascript packages [#652](https://github.com/ualbertalib/avalon/issues/652)
+
+
 <a name="Production.v6.5.0.20200612.uofa" />
 
 ### Avalon-6 Production v6.5.0.20200612.uofa
