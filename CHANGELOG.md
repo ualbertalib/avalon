@@ -30,6 +30,14 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 - Add ability to change timeout of transcoding (Matterhorn) for master files 13GB or greater via environment variable: `AVALON_MATTERHORN_TIMEOUT`. Addresses [#650](https://github.com/ualbertalib/avalon/issues/650). Note: not needed in Avalon v7.1 due to code refactoring around transcoding (i.e., replacement of Matterhorn).
 
+#### Bugfix
+
+- Fix formatting in settings.yaml [#654](https://github.com/ualbertalib/avalon/pull/654)
+
+#### Security
+
+- [Security] Bump rack from 2.0.9 to 2.2.3 [#649](https://github.com/ualbertalib/avalon/pull/649)
+
 
 <a name="Production.v6.5.0.20200612.uofa" />
 
