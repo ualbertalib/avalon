@@ -26,6 +26,11 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+
+#### Bugfix
+
+- Fix formatting in settings.yaml [#654](https://github.com/ualbertalib/avalon/pull/654)
+
 #### Security
 
 - [Security] Bump rack from 2.0.9 to 2.2.3 [#649](https://github.com/ualbertalib/avalon/pull/649)
