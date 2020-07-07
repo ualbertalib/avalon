@@ -14,7 +14,8 @@ MATTERHORN_URL: 'http://matterhorn_system_account:{password}@{host}:4080/'
 # UofA Lib pr allowing client and server contexts to have different paths
 MATTERHORN_CLIENT_MEDIA_PATH: '/masterfiles'
 MATTERHORN_SERVER_MEDIA_PATH: '/masterfiles'
- 
+AVALON_MATTERHORN_TIMEOUT: '120'
+
 # Redis Gem: see for details
 REDIS_URL: 'redis://localhost:6379'
  

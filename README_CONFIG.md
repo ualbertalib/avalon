@@ -52,6 +52,10 @@ Other parameters:
   - `MATTERHORN_CLIENT_MEDIA_PATH` E.G., MATTERHORN_CLIENT_MEDIA_PATH=/masterfiles
   - `MATTERHORN_SERVER_MEDIA_PATH` E.G., MATTERHORN_SERVER_MEDIA_PATH=./masterfiles
 
+- UofA Lib [PR #651](https://github.com/ualbertalib/avalon/pull/651/files) allowing an increase in the timeout when Avalon communicates with Matterhorn (default is HTTP::NET 30sec); required for large master files ~13GB or larger
+  - `AVALON_MATTERHORN_TIMEOUT` E.G., AVALON_MATTERHORN_TIMEOUT=120
+
+
 ### Redis
 
 [Redis](https://github.com/redis/redis-rb): set environment valiable `REDIS_URL`. E.G., REDIS_URL=redis://localhost:6379'
