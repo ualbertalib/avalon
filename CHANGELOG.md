@@ -27,6 +27,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Feature
+
+- Restore unit metadata; update controlled vocabulary [PR #634](https://github.com/ualbertalib/avalon/pull/634)
+
 
 <a name="Production.v6.5.0.20200707.uofa" />
 
@@ -100,6 +104,7 @@ To apply update to an Avalon v6.4 instance make certain to:
 #### Security
 
 - various security updates to Gems and Javascript packages.
+
 
 <a name="Production.v6.4.3.20200303.uofa" />
 
