@@ -30,6 +30,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 #### Feature
 
 - Adds rake task to update visibility for a set of MediaObjects [#596](https://github.com/ualbertalib/avalon/issues/596)
+- Adds rake task to update terms of use for a set of MediaObjects [#538](https://github.com/ualbertalib/avalon/issues/538)
 - Restore unit metadata; update controlled vocabulary [PR #634](https://github.com/ualbertalib/avalon/pull/634)
 
 
