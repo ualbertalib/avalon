@@ -47,7 +47,7 @@ module Avalon
             end
             # Sometimes we want to override the bib import data for some of the
             # required fields (particularly if import data doesn't pass validations)
-            mo.assign_attributes(fields.slice(:language, :topical_subject, :genre))
+            mo.assign_attributes(fields.slice(:language, :topical_subject, :genre, :terms_of_use))
           else
             begin
               mo.assign_attributes(media_object_fields)
