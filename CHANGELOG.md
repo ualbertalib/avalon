@@ -27,6 +27,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Security
+
+- [Security] Bump rails from 5.2.3 to 5.2.4.4 [CVE-2020-15169](https://groups.google.com/g/rubyonrails-security/c/b-C9kSGXYrc/m/rNlE_9EGAwAJ)
+
 #### Feature
 
 - Adds rake task to update visibility for a set of MediaObjects [#596](https://github.com/ualbertalib/avalon/issues/596)
