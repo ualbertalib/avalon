@@ -35,6 +35,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 - Adds rake task to update visibility for a set of MediaObjects [#596](https://github.com/ualbertalib/avalon/issues/596)
 - Restore unit metadata; update controlled vocabulary [PR #634](https://github.com/ualbertalib/avalon/pull/634)
+- Update url of CC BY 4.0 license; fixes validation issue [#583](https://github.com/ualbertalib/avalon/issues/583)
 
 
 <a name="Production.v6.5.0.20200707.uofa" />
