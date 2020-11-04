@@ -27,6 +27,18 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Fixed
+
+- Revise policies text [issue #670](https://github.com/ualbertalib/avalon/issues/670)
+
+#### Security
+
+- [Security] Bump lodash from 4.17.15 to 4.17.20 [PR #678](https://github.com/ualbertalib/avalon/pull/678)
+
+<a name="Production.v6.5.0.20200929.uofa" />
+
+### Avalon-6 Production v6.5.0.20200929.uofa
+
 #### Security
 
 - [Security] Bump rails from 5.2.3 to 5.2.4.4 [CVE-2020-15169](https://groups.google.com/g/rubyonrails-security/c/b-C9kSGXYrc/m/rNlE_9EGAwAJ)
