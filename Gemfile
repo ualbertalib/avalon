@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Core rails
-gem 'rails', '=5.2.3'
+gem 'rails', '=5.2.4.4'
 
 gem 'bootsnap', require: false
 gem 'listen'

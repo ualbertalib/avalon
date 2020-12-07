@@ -27,6 +27,28 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Fixed
+
+- Revise policies text [issue #670](https://github.com/ualbertalib/avalon/issues/670)
+
+#### Security
+
+- [Security] Bump lodash from 4.17.15 to 4.17.20 [PR #678](https://github.com/ualbertalib/avalon/pull/678)
+
+<a name="Production.v6.5.0.20200929.uofa" />
+
+### Avalon-6 Production v6.5.0.20200929.uofa
+
+#### Security
+
+- [Security] Bump rails from 5.2.3 to 5.2.4.4 [CVE-2020-15169](https://groups.google.com/g/rubyonrails-security/c/b-C9kSGXYrc/m/rNlE_9EGAwAJ)
+
+#### Feature
+
+- Adds rake task to update visibility for a set of MediaObjects [#596](https://github.com/ualbertalib/avalon/issues/596)
+- Restore unit metadata; update controlled vocabulary [PR #634](https://github.com/ualbertalib/avalon/pull/634)
+- Update url of CC BY 4.0 license; fixes validation issue [#583](https://github.com/ualbertalib/avalon/issues/583)
+
 
 <a name="Production.v6.5.0.20200707.uofa" />
 
@@ -100,6 +122,7 @@ To apply update to an Avalon v6.4 instance make certain to:
 #### Security
 
 - various security updates to Gems and Javascript packages.
+
 
 <a name="Production.v6.4.3.20200303.uofa" />
 
