@@ -1,16 +1,30 @@
-# Lengthen timeout when executing ingest REST API calls via rubyhorn gem (to the Matterhorn service) overriding Rubyhorn::RestClient::Common `connect`
-# https://github.com/avalonmediasystem/rubyhorn/blob/avalon-r6/lib/rubyhorn/rest_client/common.rb#L8
-# Note: using `super.connect` to leave the origin `connect` as is. The reasoning:
-# a) `login` timeout shouldn't be extended as it opens a denial of service opportunity,
-# b) if `login` fails the active job is retried (https://github.com/avalonmediasystem/avalon/blob/v6.5.0/app/jobs/active_encode_job.rb#L40), and
-# c) the timeouts occur in `addMediaPackage and addMediaPackageUrl` (https://github.com/avalonmediasystem/rubyhorn/blob/master/lib/rubyhorn/rest_client/ingest.rb#L22-L40) and not the `login` method
+# Lengthen timeout when executing ingest REST API calls via rubyhorn gem (to the Matterhorn service) overriding:
+# * Rubyhorn::RestClient::Common `connect`
+#   * https://github.com/avalonmediasystem/rubyhorn/blob/avalon-r6/lib/rubyhorn/rest_client/common.rb#L8
+# * Rubyhorn::MatterhornClient `initialize` 
+#   * https://github.com/avalonmediasystem/rubyhorn/blob/avalon-r6/lib/rubyhorn/matterhorn_client.rb#24T
+# To test if timeout changed: from rails console - Rubyhorn.init; Rubyhorn.client;
+# Timeouts affected mostly the `ingest/addTrack` and `ingest\addMediaPackage` 
+#   *https://github.com/avalonmediasystem/rubyhorn/blob/avalon-r6/lib/rubyhorn/rest_client/ingest.rb
 # Todo: not needed in Avalon v7.1
+
+# Override initialize otherwise the local `connect` is not called; the `connect` in the rubyhorn gem is called
+module Rubyhorn
+  class MatterhornClient
+    def initialize options = {}
+      @config = options
+      connect
+    end
+  end
+end
+
+# Extend timeout via the env variable, both open_timeout and read_timeout
 module Rubyhorn::RestClient
   module Common
-
     def connect
-      super.connect
-      @client.open_timeout =  ENV['AVALON_MATTERHORN_TIMEOUT'].to_i if ENV['AVALON_MATTERHORN_TIMEOUT']
+      timeout = ENV['AVALON_MATTERHORN_TIMEOUT'] || "60"
+      @client = RestClient::Resource.new(config[:url], headers: {'X-REQUESTED-AUTH'=>'Digest'}, timeout: timeout.to_i)
+      login
     end
   end
 end
