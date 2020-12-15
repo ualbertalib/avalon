@@ -8,6 +8,8 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Table of Contents
 
 - [Unreleased](#Unreleased)
+- [Avalon-6 Production v6.5.0.20201215.uofa](#Production.v6.5.0.20201215.uofa)
+- [Avalon-6 Production v6.5.0.20201004.uofa](#Production.v6.5.0.20201004.uofa)
 - [Avalon-6 Production v6.5.0.20200707.uofa](#Production.v6.5.0.20200707.uofa)
 - [Avalon-6 Production v6.5.0.20200612.uofa](#Production.v6.5.0.20200612.uofa)
 - [Avalon-6 Production v6.5.0.20200528.uofa](#Production.v6.5.0.20200528.uofa)
@@ -26,6 +28,22 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 <a name="Unreleased" />
 
 ### Unreleased
+
+<a name="Production.v6.5.0.20201215.uofa" />
+
+### Avalon-6 Production v6.5.0.20201215.uofa
+
+#### Security
+
+- [Security] Bump ini from 1.3.5 to 1.3.8 [PR #687](https://github.com/ualbertalib/avalon/pull/687)
+
+#### Fixed
+
+- Adds property to adjust transcoding client timeout for 8GB - 22 GB master file ingest [#650](https://github.com/ualbertalib/avalon/issues/650); [PR #660](https://github.com/ualbertalib/avalon/pull/660) enhances [PR #651](https://github.com/ualbertalib/avalon/pull/651)
+
+<a name="Production.v6.5.0.20201004.uofa" />
+
+### Avalon-6 Production v6.5.0.20201004.uofa
 
 #### Fixed
 
