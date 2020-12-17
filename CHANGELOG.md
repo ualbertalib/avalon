@@ -29,6 +29,10 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+#### Fixed
+
+- Add directory creation to locking_runner [#690](https://github.com/ualbertalib/avalon/issues/690)
+
 <a name="Production.v6.5.0.20201215.uofa" />
 
 ### Avalon-6 Production v6.5.0.20201215.uofa

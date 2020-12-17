@@ -6,6 +6,8 @@
 SEMAPHORE=$1
 LOCKFILE=tmp/pids/$SEMAPHORE
 
+mkdir -p "$(dirname "$LOCKFILE")"
+
 if ( [ -e $LOCKFILE ] && ! ps -p $(< $LOCKFILE) ) > /dev/null 2>&1;
 then
   echo "$0: Deleting stale lock file: $LOCKFILE"
