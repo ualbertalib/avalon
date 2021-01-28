@@ -7,8 +7,8 @@ RUN         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
          && echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list \
          && wget https://mediaarea.net/repo/deb/repo-mediaarea_1.0-14_all.deb && dpkg -i repo-mediaarea_1.0-14_all.deb
 
-RUN         apt-get update && apt-get upgrade -y --allow-unauthenticated build-essential nodejs \
-         && apt-get install -y --allow-unauthenticated \
+RUN         apt-get update && apt-get upgrade -y build-essential nodejs \
+         && apt-get install -y \
             mediainfo \
             x264 \
             cmake \
