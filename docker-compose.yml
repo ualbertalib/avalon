@@ -76,7 +76,7 @@ services:
       - "6379:6379"
 
   avalon:
-    image: avalonmediasystem/avalon:6.x-dev
+    # image: avalonmediasystem/avalon:6.x-dev
     build:
       context: ./docker
     command: "bin/docker-start" # Todo: this start?

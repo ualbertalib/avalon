@@ -3,7 +3,7 @@ MAINTAINER  Phuong Dinh <pdinh@indiana.edu>
 
 RUN         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
          && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-         && curl -sL http://deb.nodesource.com/setup_8.x | bash - \
+         && curl -sL http://deb.nodesource.com/setup_10.x | bash - \
          && echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list \
          && wget https://mediaarea.net/repo/deb/repo-mediaarea_1.0-6_all.deb && dpkg -i repo-mediaarea_1.0-6_all.deb
 
@@ -19,7 +19,7 @@ RUN         apt-get update && apt-get upgrade -y build-essential nodejs \
             zip \
          && gem install bundler \
          && curl https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -o /chrome.deb \
-         && dpkg -i /chrome.deb || apt-get install -yf && rm /chrome.deb \
+         && dpkg -i /chrome.deb || apt-get install -yf && rm -f /chrome.deb \
          && curl https://chromedriver.storage.googleapis.com/2.46/chromedriver_linux64.zip -o /usr/local/bin/chromedriver \
          && chmod +x /usr/local/bin/chromedriver \
          && curl -L https://github.com/jwilder/dockerize/releases/download/v0.6.1/dockerize-linux-amd64-v0.6.1.tar.gz | tar xvz -C /usr/bin/ \
