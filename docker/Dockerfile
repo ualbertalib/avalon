@@ -3,7 +3,7 @@ MAINTAINER  Phuong Dinh <pdinh@indiana.edu>
 
 RUN         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
          && echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-         && curl -sL http://deb.nodesource.com/setup_10.x | bash - \
+         && curl -sL http://deb.nodesource.com/setup_12.x | bash - \
          && echo "deb http://deb.debian.org/debian stretch-backports main" >> /etc/apt/sources.list \
          && wget https://mediaarea.net/repo/deb/repo-mediaarea_1.0-14_all.deb && dpkg -i repo-mediaarea_1.0-14_all.deb
 
