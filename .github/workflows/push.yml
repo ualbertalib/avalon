@@ -19,6 +19,7 @@ jobs:
     strategy:
       matrix:
         ruby: [ '2.5', '2.6' ] 
+        node: [ '12', '14' ] 
 
     # use service instead of docker-compose as the `bundle exec rake` command installs Solr & Fedora
     #env:
@@ -52,7 +53,7 @@ jobs:
     - name: Set up Node JS 
       uses: actions/setup-node@v2
       with: 
-        node-version: '12'
+        node-version: ${{ matrix.node }}
 
     # use service instead of docker-compose as the `bundle exec rake` command installs Solr & Fedora
     #- name: Initiate the Avalon service containers 
