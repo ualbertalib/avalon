@@ -1,4 +1,4 @@
-FROM        ruby:2.5.5-stretch
+FROM        ruby:2.6.6-stretch
 MAINTAINER  Phuong Dinh <pdinh@indiana.edu>
 
 RUN         curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
