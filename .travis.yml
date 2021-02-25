@@ -19,7 +19,7 @@ before_install:
   - gem install bundler
   - bundle config without development:production:staging:uat
   - bundle --version
-  - nvm install 12
+  - nvm install 14
 before_script:
   - bundle exec rake db:create
   - bundle exec rake db:migrate
@@ -31,6 +31,6 @@ jdk:
   - openjdk8
 global_env:
 rvm:
-  - 2.5
   - 2.6
+  - 2.7
 dist: xenial

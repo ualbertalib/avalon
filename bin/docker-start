@@ -18,8 +18,13 @@ export HOME=/home/app
 yarn config set -- --modules-folder "/home/app/node_modules"
 yarn install
 
+# Workaround for Zookeeper 1.4.11 GCC 8 build issue
+# https://github.com/zk-ruby/zookeeper/issues/85
+apt-get update &&
+  apt-get install -y build-essential 
+  apt-get install -y gcc-7
 bundle config build.nokogiri --use-system-libraries && \
-bundle install --path=/home/app/gems --with mysql aws test
+CC=/usr/bin/gcc-7 bundle install --path=/home/app/gems --with mysql aws test
 
 bundle exec rake db:create
 

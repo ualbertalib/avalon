@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 # Core rails
 gem 'rails', '=5.2.4.4'
 
-gem 'bootsnap', require: false
+gem 'bootsnap', '~> 1.4.6 ', require: false
 gem 'listen'
 gem 'sprockets', '~>3.7.2'
 gem 'sqlite3'
@@ -92,7 +92,7 @@ gem 'resque', '~> 2.0'
 gem 'resque-scheduler', '~> 4.4'
 
 # Coding Patterns
-gem 'config'
+gem 'config', '~> 2.0'
 gem 'hooks'
 gem 'jbuilder', '~> 2.0'
 gem 'parallel'
