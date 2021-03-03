@@ -8,6 +8,7 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 ## Table of Contents
 
 - [Unreleased](#Unreleased)
+- [Avalon-6 Production v6.5.0.20210303.uofa](#Production.v6.5.0.20210303.uofa)
 - [Avalon-6 Production v6.5.0.20201217.uofa](#Production.v6.5.0.20201217.uofa)
 - [Avalon-6 Production v6.5.0.20201215.uofa](#Production.v6.5.0.20201215.uofa)
 - [Avalon-6 Production v6.5.0.20201004.uofa](#Production.v6.5.0.20201004.uofa)
@@ -30,6 +31,9 @@ and releases in Jupiter project adheres to [Semantic Versioning](http://semver.o
 
 ### Unreleased
 
+<a name="Production.v6.5.0.20210303.uofa" />
+
+### Avalon-6 Production v6.5.0.2021-03-03.uofa
 #### Fixed
 
 - Update React Structural Metadata Editor JS package and associated Avalon upstream code; bump version of serialize-javascrip to 3.1.0 and node-forge to 0.10.0 [#680](https://github.com/ualbertalib/avalon/issues/680) 
